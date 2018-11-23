@@ -29,7 +29,8 @@
       
         
         
-          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+          &lt;h2&gt;方法解释&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
         
       
     
