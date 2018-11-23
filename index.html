@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,10 +18,20 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
 
@@ -38,10 +57,32 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
 
 
 
@@ -50,25 +91,19 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
 
 
 
@@ -78,8 +113,35 @@
 
 
 
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
 
-<meta name="description" content="前端生涯记录总结">
+
+  
+
+
+
+
+  <meta name="description" content="前端生涯记录总结">
 <meta name="keywords" content="html,css,javascript,webpack,vue,react,nodejs">
 <meta property="og:type" content="website">
 <meta property="og:title" content="老高">
@@ -93,29 +155,8 @@
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+  <link rel="alternate" href="/atom.xml" title="老高" type="application/atom+xml">
+
 
 
 
@@ -123,7 +164,11 @@
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>老高</title>
   
@@ -134,6 +179,36 @@
 
 
 
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -160,13 +235,15 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">~路漫漫其修远兮~</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -174,55 +251,89 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
+          
+          <li class="menu-item menu-item-home menu-item-active">
+
+    
+    
+    
       
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
       
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
 
       
+      
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -230,12 +341,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -248,17 +367,19 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/22/learn-reduce/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -272,11 +393,20 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/19/vps-with-vultr/" itemprop="url">如何使用vultr搭建自己的vps实现科学上网</a></h1>
+                
+                <a href="/2018/11/22/learn-reduce/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Learn Array.reduce</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -284,13 +414,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">
-                2018-11-19
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 14:00:36" itemprop="dateCreated datePublished" datetime="2018-11-22T14:00:36+08:00">2018-11-22</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-23 14:18:05" itemprop="dateModified" datetime="2018-11-23T14:18:05+08:00">2018-11-23</time>
+              
             
           </span>
 
@@ -301,6 +448,186 @@
           
 
           
+          
+             <span id="/2018/11/22/learn-reduce/" class="leancloud_visitors" data-flag-title="Learn Array.reduce">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
+<h2 id="示例（累加操作）"><a href="#示例（累加操作）" class="headerlink" title="示例（累加操作）"></a>示例（累加操作）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 定义一个callback函数，它接收4个参数</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 对比查看提供与不提供初始值initialValue时的执行情况</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback); <span class="comment">// 不提供initialValue</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr.reduce(callback, <span class="number">5</span>); <span class="comment">// 提供initialValue为5</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：20</span></span><br></pre></td></tr></table></figure>
+<h2 id="callback-函数接收的-4-个参数说明"><a href="#callback-函数接收的-4-个参数说明" class="headerlink" title="callback 函数接收的 4 个参数说明"></a>callback 函数接收的 4 个参数说明</h2><ul>
+<li>累加值（acc）（理解：上一次<code>callback</code>的返回值，当做下一次<code>callback</code>的第一个参数。）</li>
+<li>当前值（cur）</li>
+<li>当前索引（currentIndex）</li>
+<li>原数组（sourceArr）</li>
+</ul>
+<h2 id="理解reduce"><a href="#理解reduce" class="headerlink" title="理解reduce()"></a>理解<code>reduce()</code></h2><ul>
+<li>如果没有提供初始值（<code>initialValue</code>），<code>reduce()</code>将从数组索引 1（也就是第 2 个元素）开始执行<code>callback</code>（跳过数组的第 1 个元素），此时，<code>acc</code>等于数组的第一个元素值（即<code>arr[0]</code>），<code>cur</code>等于数组的第 2 个元素值（即<code>arr[1]</code>）</li>
+<li>如果提供了初始值（<code>initialValue</code>）,<code>reduce()</code>将从数组索引 0（也就是第 1 个元素）开始执行<code>callback</code>，此时，<code>acc</code>等于<code>initialValue</code>的值，<code>cur</code>等于数组的第 1 个元素值（即<code>arr[0]</code>）</li>
+</ul>
+<h2 id="边缘情况"><a href="#边缘情况" class="headerlink" title="边缘情况"></a>边缘情况</h2><ul>
+<li>如果数组<code>arr</code>为空且没有提供初始值<code>initialValue</code>，代码将报<code>TypeError</code>错误</li>
+<li>如果数组只有一个值（<code>arr.length === 1</code>）且没有提供初始值<code>initialValue</code> 或 提供了初始值<code>initialValue</code>但数组<code>arr</code>为空，则直接返回那个唯一的值且回调方法<code>callback</code>不会被调用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [];</span><br><span class="line"><span class="keyword">const</span> callback2 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr2[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr2.reduce(callback2, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr3 = [];</span><br><span class="line"><span class="keyword">const</span> callback3 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line">arr3.reduce(callback3); <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老高">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/19/vps-with-vultr/" class="post-title-link" itemprop="https://cleam.github.io/index.html">如何使用vultr搭建自己的vps实现科学上网</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:49:24 / 修改时间：15:15:32" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/19/vps-with-vultr/" class="leancloud_visitors" data-flag-title="如何使用vultr搭建自己的vps实现科学上网">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -334,12 +661,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+       
+    
     
 
     
@@ -372,6 +705,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -381,8 +716,8 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -396,11 +731,20 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/13/hello-world/" itemprop="url">Hello World</a></h1>
+                
+                <a href="/2018/11/13/hello-world/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Hello World</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -408,13 +752,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T10:30:15+08:00">
-                2018-11-13
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-13 10:30:15" itemprop="dateCreated datePublished" datetime="2018-11-13T10:30:15+08:00">2018-11-13</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-23 14:25:22" itemprop="dateModified" datetime="2018-11-23T14:25:22+08:00">2018-11-23</time>
+              
             
           </span>
 
@@ -425,6 +786,17 @@
           
 
           
+          
+             <span id="/2018/11/13/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -449,30 +821,31 @@
         
           
             <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2>Quick Start</h2>
-<h3>Create a new post</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3>Run server</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3>Generate static files</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3>Deploy to remote sites</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
           
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+       
+    
     
 
     
@@ -505,9 +878,6 @@
           </div>
           
 
-
-          
-
         </div>
         
           
@@ -532,70 +902,104 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Cleam Lee">
+            
               <p class="site-author-name" itemprop="name">Cleam Lee</p>
               <p class="site-description motion-element" itemprop="description">前端生涯记录总结</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives/">
                 
-              </div>
-            
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
           
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/cleam" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/Cleam_Lee" target="_blank" title="twitter">
-                      
-                        <i class="fa fa-fw fa-globe"></i>twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/lzg2049" target="_blank" title="weibo">
-                      
-                        <i class="fa fa-fw fa-globe"></i>weibo</a>
-                  </span>
-                
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
             </div>
           
 
           
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/cleam" title="GitHub &rarr; https://github.com/cleam" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/Cleam_Lee" title="Twitter &rarr; https://twitter.com/Cleam_Lee" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/lzg2049" title="微博 &rarr; https://weibo.com/lzg2049" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            </div>
+          
+
           
 
           
           
 
+          
+            
+          
           
 
         </div>
@@ -616,16 +1020,18 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Cleam Lee</span>
 
   
+
+  
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
 
 
@@ -633,12 +1039,13 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.5.0</div>
 
 
 
 
         
+
 
 
 
@@ -658,7 +1065,10 @@
     
 
     
+	
+    
 
+    
   </div>
 
   
@@ -677,7 +1087,11 @@
 
 
 
-  
+
+
+
+
+
 
 
 
@@ -697,16 +1111,6 @@
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
@@ -715,18 +1119,13 @@
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
 
 
 
@@ -738,21 +1137,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
 
 
 
@@ -760,11 +1145,7 @@
 
 
 
-
-
   
-
-
 
 
 
@@ -784,10 +1165,89 @@
   
 
   
+  <script>
+    
+    function showTime(Counter) {
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+        .done(function ({ results }) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "jT3MBQRXjzV9gybsCCIINF8o-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "jT3MBQRXjzV9gybsCCIINF8o-gzGzoHsz",
+                'X-LC-Key': "nHUhrb6tI0vMujd5TNFq3OUr",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          if ($('.post-title-link').length >= 1) {
+            showTime(Counter);
+          }
+          
+        })
+    });
+  </script>
+
+
 
   
 
   
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
   
 
   

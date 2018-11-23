@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>老高</title>
+  
+  <subtitle>~路漫漫其修远兮~</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://cleam.github.io/"/>
+  <updated>2018-11-23T06:18:05.756Z</updated>
+  <id>https://cleam.github.io/</id>
+  
+  <author>
+    <name>Cleam Lee</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Learn Array.reduce</title>
+    <link href="https://cleam.github.io/2018/11/22/learn-reduce/"/>
+    <id>https://cleam.github.io/2018/11/22/learn-reduce/</id>
+    <published>2018-11-22T06:00:36.000Z</published>
+    <updated>2018-11-23T06:18:05.756Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://cleam.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何使用vultr搭建自己的vps实现科学上网</title>
+    <link href="https://cleam.github.io/2018/11/19/vps-with-vultr/"/>
+    <id>https://cleam.github.io/2018/11/19/vps-with-vultr/</id>
+    <published>2018-11-19T06:49:24.000Z</published>
+    <updated>2018-11-19T07:15:32.548Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.vultr.com/?ref=7246043&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.vultr.com/?ref=7246043&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科学上网" scheme="https://cleam.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://cleam.github.io/2018/11/13/hello-world/"/>
+    <id>https://cleam.github.io/2018/11/13/hello-world/</id>
+    <published>2018-11-13T02:30:15.974Z</published>
+    <updated>2018-11-23T06:25:22.780Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="其他" scheme="https://cleam.github.io/tags/%E5%85%B6%E4%BB%96/"/>
+    
+  </entry>
+  
+</feed>
