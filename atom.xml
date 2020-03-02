@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2018-11-23T06:18:05.756Z</updated>
+  <updated>2020-03-02T03:36:30.445Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Javascript内建对象Math学习</title>
+    <link href="https://cleam.github.io/2020/03/02/Javascript%E5%86%85%E5%BB%BA%E5%AF%B9%E8%B1%A1Math%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/</id>
+    <published>2020-03-02T03:07:23.000Z</published>
+    <updated>2020-03-02T03:36:30.445Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
+&lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
+&lt;p&gt;数字 Π：&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Learn Array.reduce</title>
