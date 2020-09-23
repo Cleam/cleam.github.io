@@ -1,0 +1,37 @@
+@import 'common/common';
+
+$fontColor: #4c4c4c;
+$titleFS: 18px;
+
+.weui_tab_bd {
+    background-color: #fff;
+}
+
+.header {
+    position: relative;
+    font-size: $titleFS;
+    color: $fontColor;
+    background-color: #c7e5fa;
+    border-bottom: 1px solid #60abe7;
+    padding: 3px 0;
+    text-align: center; 
+}
+
+.aq-title {
+    @extend .bottom-line;
+    padding: 14px 15px 10px;
+    font-size: 18px;
+    color: $fontColor;
+}
+
+.aq-content {
+    padding: 20px 15px 10px;
+    color: #999;
+    font-size: 16px;
+}
+
+.aq-price {
+    padding: 14px 15px 10px;
+    color: #999;
+    font-size: 14px;
+}

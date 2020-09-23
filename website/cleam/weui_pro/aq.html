@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>业有专 - 直通IT专家</title>
+    <!-- <script>!function(n,e){var t=n.documentElement,i="orientationchange"in window?"orientationchange":"resize",o=function(){var n=t.clientWidth,e=750;n&&(n>=e?t.style.fontSize="100px":t.style.fontSize=100*(n/e)+"px")};o(),n.addEventListener&&(e.addEventListener(i,o,!1),n.addEventListener("DOMContentLoaded",o,!1))}(document,window);</script> -->
+    <!-- head 中 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="css/page_aq.css">
+</head>
+
+<body>
+    <div class="weui_tab">
+        <div class="weui_tab_bd">
+            <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
+                <h2 class="header">找人咨询问题<a class="more" href="aqlist.html"><i class="iconfont">&#xe60b;</i><span class="num">3</span></a></h2>
+                <!-- 表单 -->
+                <div class="weui_cells_form my-form">
+                    <!-- 问题标题 -->
+                    <div class="weui_cells_title">问题标题</div>
+                    <div class="weui_cells">
+                        <div class="weui_cell">
+                            <div class="aq-title">
+                                <input class="weui_input" type="text" placeholder="如哪个领域的问题？">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 问题描述 -->
+                    <div class="weui_cells_title">问题描述</div>
+                    <div class="weui_cells">
+                        <div class="weui_cell">
+                            <div class="aq-title">
+                                <textarea class="weui_textarea" placeholder="若问题较复杂，业有专会通过微信与您进一步沟通。" rows="5" oninput="this.style.height = this.scrollHeight+'px';"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui_cells wechat-price-wrap">
+                        <!-- 微信号 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd"><label class="weui_label">微信号：</label></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <input class="weui_input" type="text" placeholder="请填写您的微信号，方便沟通">
+                            </div>
+                        </div>
+                        <!-- 出价 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd"><label class="weui_label">出价：</label></div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <input class="weui_input" type="number" pattern="[0-9]*" placeholder="5~500元">
+                                <!-- <select class="weui_select" style="padding-left:0" name="price">
+                                    <option selected="" value="5">5元</option>
+                                    <option value="10">10元</option>
+                                    <option value="50">50元</option>
+                                    <option value="100">100元</option>
+                                    <option value="500">500元</option>
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="weui_btn_area">
+                        <a class="weui_btn weui_btn_primary" href="javascript:" id="J_save_all">保存</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="weui_tabbar">
+            <a href="aq.html" class="weui_tabbar_item weui_bar_item_on">
+                <p class="weui_tabbar_label">找人咨询</p>
+            </a>
+            <a href="atlas.html" class="weui_tabbar_item">
+                <p class="weui_tabbar_label">牛人图谱</p>
+            </a>
+            <a href="index.html" class="weui_tabbar_item">
+                <p class="weui_tabbar_label">我的</p>
+            </a>
+        </div>
+    </div>
+    <!-- body 最后 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/jquery-weui.min.js"></script>
+    <script src="js/lib/fastclick.min.js"></script>
+    <!-- 如果使用了某些拓展插件还需要额外的JS -->
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/swiper.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/city-picker.min.js"></script>
+    <script src="js/page_aq.js"></script>
+</body>
+
+</html>

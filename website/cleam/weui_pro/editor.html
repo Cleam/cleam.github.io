@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>业有专 - 直通IT专家</title>
+    <!-- <script>!function(n,e){var t=n.documentElement,i="orientationchange"in window?"orientationchange":"resize",o=function(){var n=t.clientWidth,e=750;n&&(n>=e?t.style.fontSize="100px":t.style.fontSize=100*(n/e)+"px")};o(),n.addEventListener&&(e.addEventListener(i,o,!1),n.addEventListener("DOMContentLoaded",o,!1))}(document,window);</script> -->
+    <!-- head 中 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="css/page_editor.css">
+</head>
+
+<body>
+    <div class="weui_tab">
+        <div class="weui_tab_bd">
+            <!-- <div id="tab1" class="weui_tab_bd_item">
+                <h1 class="doc-head">找人咨询</h1>
+            </div>
+            <div id="tab2" class="weui_tab_bd_item">
+                <h1 class="doc-head">牛人图谱</h1>
+            </div> -->
+            <div id="tab3" class="weui_tab_bd_item weui_tab_bd_item_active">
+                <h2 class="personal-info">个人信息编辑</h2>
+                <!-- 表单 -->
+                <div class="weui_cells weui_cells_form">
+                    <div class="card1">
+                        <!-- 头像 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">头像</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <div class="weui_uploader">
+                                    <div class="weui_uploader_bd">
+                                        <div class="weui_uploader_input_wrp">
+                                            <img class="avatar" src="img/tx.png" alt="">
+                                            <input class="weui_uploader_input" type="file" accept="image/*" multiple="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 昵称 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">昵称</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <input class="weui_input" type="text" placeholder="请输入昵称" value="张晓强">
+                            </div>
+                        </div>
+                        <!-- 微信号 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">微信号</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <input class="weui_input" type="text" placeholder="请输入微信号" value="bandhkj28">
+                            </div>
+                        </div>
+                        <!-- 城市 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">城市</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <a class="select-city" href="javascript:;">
+                                    <input class="weui_input" id="city_picker" type="text" readonly="" value="上海 上海市"><i class="iconfont">&#xe605;</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card2">
+                        <!-- 工作年限 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">工作年限</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <a class="select-year" href="javascript:;">
+                                    <input class="weui_input" id="work_time_picker" type="text" readonly="" value="6年"><i class="iconfont">&#xe605;</i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 目前职能 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">目前职能</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <a class="select-tech" href="javascript:;">
+                                    <input class="weui_input" id="tech_picker" type="text" readonly="" value="技术"><i class="iconfont">&#xe605;</i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 头衔 -->
+                        <div class="weui_cell">
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">头衔</label>
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <a class="select-job" href="javascript:;">
+                                    <input class="weui_input" id="job_picker" type="text" readonly="" value="高级前端工程师"><i class="iconfont">&#xe605;</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 最擅长的技能 -->
+                    <div class="card3">
+                        <div class="weui_cells_title">最擅长的技能、技术、知识：</div>
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <textarea class="weui_textarea" placeholder="请输入您最擅长的技能、技术、知识..." rows="3" oninput="this.style.height = this.scrollHeight+'px';"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 个人亮点 -->
+                    <div class="card4">
+                        <div class="weui_cells_title">个人亮点［专长、经验、成果］：</div>
+                        <div class="weui_cells weui_cells_access">
+                            <div class="weui_cell">
+                                <div class="title">
+                                    <input class="weui_input" type="text" placeholder="标题：关于什么方面？">
+                                </div>
+                            </div>
+                            <div class="weui_cell">
+                                <div class="content">
+                                    <textarea class="weui_textarea" placeholder="亮点内容" rows="3" oninput="this.style.height = this.scrollHeight+'px';"></textarea>
+                                </div>
+                            </div>
+                            <div class="weui_cell">
+                                <div class="weui_cell_hd">
+                                    <label class="weui_label">从事多久</label>
+                                </div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <a class="select" href="javascript:;">
+                                        <input class="weui_input J-howlong-picker" type="text" readonly="" value="3年"><i class="iconfont">&#xe605;</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="weui_cell">
+                                <div class="weui_cell_hd">
+                                    <label class="weui_label">结束时间</label>
+                                </div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <a class="select" href="javascript:;">
+                                        <input class="weui_input J-date-picker" type="text" readonly="" value="2016年06月"><i class="iconfont">&#xe605;</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui_cell btn-wrap">
+                            <a id="J_add" href="javascript:;" class="weui_btn weui_btn_plain_primary"><i class="iconfont">&#xe606;</i></a>
+                        </div>
+                    </div>
+
+                    <div class="card5">
+                        <a href="index.html" class="weui_btn weui_btn_primary">全部保存</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="weui_tabbar">
+            <a href="aq.html" class="weui_tabbar_item">
+                <p class="weui_tabbar_label">找人咨询</p>
+            </a>
+            <a href="atlas.html" class="weui_tabbar_item">
+                <p class="weui_tabbar_label">牛人图谱</p>
+            </a>
+            <a href="index.html" class="weui_tabbar_item weui_bar_item_on">
+                <p class="weui_tabbar_label">我的</p>
+            </a>
+        </div>
+    </div>
+    <!-- body 最后 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/jquery-weui.min.js"></script>
+    <script src="js/lib/fastclick.min.js"></script>
+    <!-- 如果使用了某些拓展插件还需要额外的JS -->
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/swiper.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-weui/0.8.0/js/city-picker.min.js"></script>
+    <script src="js/page_editor.js"></script>
+</body>
+
+</html>
