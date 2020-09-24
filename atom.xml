@@ -55,7 +55,7 @@
           &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
 &lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
 &lt;p&gt;数字 Π：&lt;/p&gt;
-&lt;figure class=&quot;highlight
+&lt;p&gt;&lt;figure class=&quot;highlight
         
       
     
@@ -79,7 +79,8 @@
       
         
         
-          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+          &lt;h2&gt;方法解释&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
         
       
     
@@ -113,30 +114,6 @@
     
     
       <category term="科学上网" scheme="https://cleam.github.io/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://cleam.github.io/2018/11/13/hello-world/"/>
-    <id>https://cleam.github.io/2018/11/13/hello-world/</id>
-    <published>2018-11-13T02:30:15.974Z</published>
-    <updated>2018-11-23T06:25:22.780Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="其他" scheme="https://cleam.github.io/tags/%E5%85%B6%E4%BB%96/"/>
     
   </entry>
   
