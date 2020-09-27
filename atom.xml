@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-09-27T08:28:43.463Z</updated>
+  <updated>2020-09-27T15:05:03.789Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>深入理解vue中v-model之自定义组件用法</title>
-    <link href="https://cleam.github.io/2020/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E4%B8%ADv-model%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%94%A8%E6%B3%95/"/>
-    <id>https://cleam.github.io/2020/09/27/深入理解vue中v-model之自定义组件用法/</id>
-    <published>2020-09-26T16:01:57.000Z</published>
-    <updated>2020-09-27T08:28:43.463Z</updated>
+    <title>深入理解vue中v-model之修饰符</title>
+    <link href="https://cleam.github.io/2020/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E4%B8%ADv-model%E4%B9%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6/"/>
+    <id>https://cleam.github.io/2020/09/27/深入理解vue中v-model之修饰符/</id>
+    <published>2020-09-27T15:03:56.000Z</published>
+    <updated>2020-09-27T15:05:03.789Z</updated>
     
     <summary type="html">
     
@@ -29,14 +29,40 @@
       
         
         
-          &lt;p&gt;根据上一篇《深入理解 vue 中 v-model 之普通用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
-&lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+          &lt;p&gt;我们知道在 vue2 中有 3
         
       
     
     </summary>
     
+    
+      <category term="vue" scheme="https://cleam.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解vue中v-model之自定义组件用法</title>
+    <link href="https://cleam.github.io/2020/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E4%B8%ADv-model%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%94%A8%E6%B3%95/"/>
+    <id>https://cleam.github.io/2020/09/27/深入理解vue中v-model之自定义组件用法/</id>
+    <published>2020-09-26T16:01:57.000Z</published>
+    <updated>2020-09-27T15:04:30.825Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;根据上一篇《深入理解 vue 中 v-model 之表单用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
+&lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="https://cleam.github.io/tags/vue/"/>
     
   </entry>
   

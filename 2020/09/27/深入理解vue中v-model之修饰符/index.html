@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="https://www.vultr.com/?ref=7246043 科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向） 科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks">
-<meta name="keywords" content="科学上网">
+  <meta name="description" content="我们知道在 vue2 中有 3 个硬编码的修饰符：lazy、number和trim，他们的作用分别如下：  lazy：将触发input事件转为触发change事件，在某些场景下来降低数据同步频率提升性能。  12&amp;lt;!-- 在“change”时而非“input”时更新 --&amp;gt;&amp;lt;input v-model.lazy=&quot;msg&quot; /&amp;gt;  number：自动将用户的输入值转为数值类">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何使用vultr搭建自己的vps实现科学上网">
-<meta property="og:url" content="https://cleam.github.io/2018/11/19/vps-with-vultr/index.html">
+<meta property="og:title" content="深入理解vue中v-model之修饰符">
+<meta property="og:url" content="https://cleam.github.io/2020/09/27/深入理解vue中v-model之修饰符/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="https://www.vultr.com/?ref=7246043 科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向） 科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks">
+<meta property="og:description" content="我们知道在 vue2 中有 3 个硬编码的修饰符：lazy、number和trim，他们的作用分别如下：  lazy：将触发input事件转为触发change事件，在某些场景下来降低数据同步频率提升性能。  12&amp;lt;!-- 在“change”时而非“input”时更新 --&amp;gt;&amp;lt;input v-model.lazy=&quot;msg&quot; /&amp;gt;  number：自动将用户的输入值转为数值类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-09-23T08:08:49.427Z">
+<meta property="og:updated_time" content="2020-09-27T15:05:03.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何使用vultr搭建自己的vps实现科学上网">
-<meta name="twitter:description" content="https://www.vultr.com/?ref=7246043 科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向） 科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks">
+<meta name="twitter:title" content="深入理解vue中v-model之修饰符">
+<meta name="twitter:description" content="我们知道在 vue2 中有 3 个硬编码的修饰符：lazy、number和trim，他们的作用分别如下：  lazy：将触发input事件转为触发change事件，在某些场景下来降低数据同步频率提升性能。  12&amp;lt;!-- 在“change”时而非“input”时更新 --&amp;gt;&amp;lt;input v-model.lazy=&quot;msg&quot; /&amp;gt;  number：自动将用户的输入值转为数值类">
 
 
 
@@ -161,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
+  <link rel="canonical" href="https://cleam.github.io/2020/09/27/深入理解vue中v-model之修饰符/">
 
 
 
@@ -171,7 +171,7 @@
   };
 </script>
 
-  <title>如何使用vultr搭建自己的vps实现科学上网 | 老李</title>
+  <title>深入理解vue中v-model之修饰符 | 老李</title>
   
 
 
@@ -374,7 +374,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/09/27/深入理解vue中v-model之修饰符/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cleam Lee">
@@ -391,7 +391,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何使用vultr搭建自己的vps实现科学上网
+          <h1 class="post-title" itemprop="name headline">深入理解vue中v-model之修饰符
               
             
           </h1>
@@ -416,24 +416,12 @@
                 
               
 
-              <time title="创建时间：2018-11-19 14:49:24" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">2018-11-19</time>
+              <time title="创建时间：2020-09-27 23:03:56 / 修改时间：23:05:03" itemprop="dateCreated datePublished" datetime="2020-09-27T23:03:56+08:00">2020-09-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-09-23 16:08:49" itemprop="dateModified" datetime="2020-09-23T16:08:49+08:00">2020-09-23</time>
               
             
           </span>
@@ -448,8 +436,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/11/19/vps-with-vultr/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/11/19/vps-with-vultr/" itemprop="commentsCount"></span>
+                <a href="/2020/09/27/深入理解vue中v-model之修饰符/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2020/09/27/深入理解vue中v-model之修饰符/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -477,11 +465,22 @@
       
 
       
-        <ul>
-<li><a href="https://www.vultr.com/?ref=7246043" target="_blank" rel="noopener">https://www.vultr.com/?ref=7246043</a></li>
-<li><a href="https://medium.com/@jackme256/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-vultr-vps-%E6%90%AD%E5%BB%BA-shadowsocks-ss-%E6%95%99%E7%A8%8B-%E6%96%B0%E6%89%8B%E5%90%91-968613081aae" target="_blank" rel="noopener">科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向）</a></li>
-<li><a href="https://zoomyale.com/2016/vultr_and_ss" target="_blank" rel="noopener">科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks</a></li>
+        <p>我们知道在 vue2 中有 3 个硬编码的修饰符：<code>lazy</code>、<code>number</code>和<code>trim</code>，他们的作用分别如下：</p>
+<ul>
+<li>lazy：将触发<code>input</code>事件转为触发<code>change</code>事件，在某些场景下来降低数据同步频率提升性能。</li>
 </ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在“change”时而非“input”时更新 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.lazy</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>number：自动将用户的输入值转为数值类型。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span> <span class="attr">type</span>=<span class="string">"number"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>trim：自动过滤用户输入的首尾空白字符</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.trim</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>TODO…</p>
+</blockquote>
 
       
     </div>
@@ -542,7 +541,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/科学上网/" rel="tag"># 科学上网</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -555,15 +554,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/09/27/深入理解vue中v-model之自定义组件用法/" rel="next" title="深入理解vue中v-model之自定义组件用法">
+                <i class="fa fa-chevron-left"></i> 深入理解vue中v-model之自定义组件用法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/22/learn-reduce/" rel="prev" title="Learn Array.reduce">
-                Learn Array.reduce <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
