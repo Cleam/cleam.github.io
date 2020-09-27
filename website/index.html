@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老李的个人网站</title>
+  <style>
+    /*====================== reset =======================*/
+    /* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+    html {
+      overflow-y: scroll;
+      height: 100%;
+    }
+
+    html,
+    body {
+      background-image: url(about:blank);
+      background-attachment: fixed;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    blockquote,
+    dl,
+    dt,
+    dd,
+    ul,
+    ol,
+    li,
+    pre,
+    fieldset,
+    lengend,
+    button,
+    input,
+    textarea,
+    th,
+    td {
+      margin: 0;
+      padding: 0;
+      outline: 0;
+    }
+
+    /* 清除内外边距 */
+    :focus {
+      outline: 0 none;
+      font-weight: normal;
+    }
+
+    body {
+      min-height: 100%;
+      color: #333;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+      font: 14px/1.5 \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei", arial, sans-serif;
+    }
+
+    /* 设置默认字体 */
+    /*body, button, input, select, textarea {font: 14px/100% \5b8b\4f53,"宋体","Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",arial,sans-serif;} !* 设置默认字体 *!*/
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 1em;
+    }
+
+    iframe,
+    img {
+      border: 0 none;
+    }
+
+    em,
+    i,
+    ins {
+      font-style: normal;
+      text-decoration: none
+    }
+
+    address,
+    cite,
+    dfn,
+    em,
+    var {
+      font-style: normal;
+    }
+
+    /* 将斜体扶正 */
+    code,
+    kbd,
+    pre,
+    samp,
+    tt {
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    /* 统一等宽字体 */
+    small {
+      font-size: 12px;
+    }
+
+    /* 小于 12px 的中文很难阅读，让 small 正常化 */
+    ul,
+    li,
+    ol {
+      list-style: none;
+    }
+
+    /* 重置列表元素 */
+    /* 重置表格元素 */
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* 重置文本格式元素 */
+    a {
+      text-decoration: none;
+      outline: none;
+      color: #333;
+      /* -webkit-transition:all 0.15s linear;-moz-transition:all 0.15s linear;-ms-transition:all 0.15s linear;-o-transition:all 0.15s linear; */
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: #ee4b4b;
+      /*  text-decoration: underline; */
+    }
+
+    a:focus {
+      font-weight: inherit;
+    }
+
+    abbr[title],
+    acronym[title] {
+      border-bottom: 1px dotted;
+      cursor: help;
+    }
+
+    /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+    q:before,
+    q:after {
+      content: '';
+    }
+
+    /* 重置表单元素 */
+    input {
+      outline: none
+    }
+
+    input::-ms-clear {
+      display: none
+    }
+
+    legend {
+      color: #333;
+    }
+
+    /* for ie6 */
+    fieldset,
+    img {
+      border: none;
+    }
+
+    /* img 搭车：让链接里的 img 无边框 */
+    /* 注：optgroup 无法扶正 */
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: inherit;
+      font-style: inherit;
+      font-weight: inherit
+    }
+
+    /* 使得表单元素在 ie 下能继承字体大小 */
+    textarea {
+      overflow: auto;
+      resize: vertical;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    /* 重置 hr */
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #eee;
+    }
+
+    /* 解决IE6 a标签外框虚线问题 */
+    *html a {
+      outline: none;
+    }
+
+    /**html a:active {star:expression(this.onFocus=this.blur());}*/
+    button {
+      cursor: pointer;
+    }
+
+    .clear-fix:after,
+    .clear-fix:before,
+    .cf:after,
+    .cf:before {
+      content: '';
+      display: table
+    }
+
+    .clear-fix:after,
+    .cf:after {
+      clear: both
+    }
+
+    /* style */
+    body {
+      position: relative;
+      background-image: radial-gradient(50% 176%, #253854 80%, #061922 100%);
+      color: #ffffff;
+    }
+
+    .snow {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+    .snow .svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    #snow-top-layer {
+      will-change: transform;
+      transform: translateY(-768px);
+      animation: fall 22.5s infinite linear;
+    }
+    #snow-bottom-layer {
+      will-change: transform;
+      transform: translateY(-768px);
+      animation: fall 45s infinite linear;
+    }
+    @keyframes fall {
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    #app {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+    .title {
+      font-size: 30px;
+      margin-bottom: 20px;
+      margin-top: -10vh;
+    }
+    .link {
+      font-size: 18px;
+      color: #eee;
+    }
+    .left-arrow {
+      position: absolute;
+      margin-left: -32px;
+      animation: 1s linear 1s infinite alternate slidein1;
+    }
+    @keyframes slidein1 {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(10px);
+      }
+    }
+    .right-arrow {
+      position: absolute;
+      margin-left: 12px;
+      animation: 1s linear 1s infinite alternate-reverse slidein2;
+    }
+    @keyframes slidein2 {
+      from {
+        transform: translateX(-10px);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      text-align: center;
+      padding: 30px;
+      width: 100%;
+      color: #aaaaaa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="snow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536" preserveAspectRatio="xMidYMax slice">
+      <g fill="#FFF" fill-opacity=".15" transform="translate(55 42)">
+        <g id="snow-bottom-layer">
+          <ellipse cx="6" cy="1009.5" rx="6" ry="5.5" />
+          <ellipse cx="138" cy="1110.5" rx="6" ry="5.5" />
+          <ellipse cx="398" cy="1055.5" rx="6" ry="5.5" />
+          <ellipse cx="719" cy="1284.5" rx="6" ry="5.5" />
+          <ellipse cx="760" cy="1155.5" rx="6" ry="5.5" />
+          <ellipse cx="635" cy="1459.5" rx="6" ry="5.5" />
+          <ellipse cx="478" cy="1335.5" rx="6" ry="5.5" />
+          <ellipse cx="322" cy="1414.5" rx="6" ry="5.5" />
+          <ellipse cx="247" cy="1234.5" rx="6" ry="5.5" />
+          <ellipse cx="154" cy="1425.5" rx="6" ry="5.5" />
+          <ellipse cx="731" cy="773.5" rx="6" ry="5.5" />
+          <ellipse cx="599" cy="874.5" rx="6" ry="5.5" />
+          <ellipse cx="339" cy="819.5" rx="6" ry="5.5" />
+          <ellipse cx="239" cy="1004.5" rx="6" ry="5.5" />
+          <ellipse cx="113" cy="863.5" rx="6" ry="5.5" />
+          <ellipse cx="102" cy="1223.5" rx="6" ry="5.5" />
+          <ellipse cx="395" cy="1155.5" rx="6" ry="5.5" />
+          <ellipse cx="826" cy="943.5" rx="6" ry="5.5" />
+          <ellipse cx="626" cy="1054.5" rx="6" ry="5.5" />
+          <ellipse cx="887" cy="1366.5" rx="6" ry="5.5" />
+          <ellipse cx="6" cy="241.5" rx="6" ry="5.5" />
+          <ellipse cx="138" cy="342.5" rx="6" ry="5.5" />
+          <ellipse cx="398" cy="287.5" rx="6" ry="5.5" />
+          <ellipse cx="719" cy="516.5" rx="6" ry="5.5" />
+          <ellipse cx="760" cy="387.5" rx="6" ry="5.5" />
+          <ellipse cx="635" cy="691.5" rx="6" ry="5.5" />
+          <ellipse cx="478" cy="567.5" rx="6" ry="5.5" />
+          <ellipse cx="322" cy="646.5" rx="6" ry="5.5" />
+          <ellipse cx="247" cy="466.5" rx="6" ry="5.5" />
+          <ellipse cx="154" cy="657.5" rx="6" ry="5.5" />
+          <ellipse cx="731" cy="5.5" rx="6" ry="5.5" />
+          <ellipse cx="599" cy="106.5" rx="6" ry="5.5" />
+          <ellipse cx="339" cy="51.5" rx="6" ry="5.5" />
+          <ellipse cx="239" cy="236.5" rx="6" ry="5.5" />
+          <ellipse cx="113" cy="95.5" rx="6" ry="5.5" />
+          <ellipse cx="102" cy="455.5" rx="6" ry="5.5" />
+          <ellipse cx="395" cy="387.5" rx="6" ry="5.5" />
+          <ellipse cx="826" cy="175.5" rx="6" ry="5.5" />
+          <ellipse cx="626" cy="286.5" rx="6" ry="5.5" />
+          <ellipse cx="887" cy="598.5" rx="6" ry="5.5" />
+        </g>
+      </g>
+      <g fill="#FFF" fill-opacity=".3" transform="translate(65 63)">
+        <g id="snow-top-layer">
+          <circle cx="8" cy="776" r="8" />
+          <circle cx="189" cy="925" r="8" />
+          <circle cx="548" cy="844" r="8" />
+          <circle cx="685" cy="1115" r="8" />
+          <circle cx="858" cy="909" r="8" />
+          <circle cx="874" cy="1438" r="8" transform="rotate(180 874 1438)" />
+          <circle cx="657" cy="1256" r="8" transform="rotate(180 657 1256)" />
+          <circle cx="443" cy="1372" r="8" transform="rotate(180 443 1372)" />
+          <circle cx="339" cy="1107" r="8" transform="rotate(180 339 1107)" />
+          <circle cx="24" cy="1305" r="8" transform="rotate(180 24 1305)" />
+          <circle cx="8" cy="8" r="8" />
+          <circle cx="189" cy="157" r="8" />
+          <circle cx="548" cy="76" r="8" />
+          <circle cx="685" cy="347" r="8" />
+          <circle cx="858" cy="141" r="8" />
+          <circle cx="874" cy="670" r="8" transform="rotate(180 874 670)" />
+          <circle cx="657" cy="488" r="8" transform="rotate(180 657 488)" />
+          <circle cx="443" cy="604" r="8" transform="rotate(180 443 604)" />
+          <circle cx="339" cy="339" r="8" transform="rotate(180 339 339)" />
+          <circle cx="24" cy="537" r="8" transform="rotate(180 24 537)" />
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div id="app">
+    <h1 class="title">老李的个人网站</h1>
+    <p><a class="link" href="https://blog.lizimu.top">
+        <span class="left-arrow">&gt;&gt;</span> 个人博客 <span class="right-arrow">&lt;&lt;</span>
+      </a></p>
+  </div>
+
+  <footer class="footer">
+    <p>湘ICP备19012454号-1</p>
+  </footer>
+</body>
+
+</html>

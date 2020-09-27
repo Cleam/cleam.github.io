@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>老高</title>
+  <title>老李</title>
   
   <subtitle>~路漫漫其修远兮~</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-09-23T10:07:10.241Z</updated>
+  <updated>2020-09-27T08:28:43.463Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入理解vue中v-model之自定义组件用法</title>
+    <link href="https://cleam.github.io/2020/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E4%B8%ADv-model%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%94%A8%E6%B3%95/"/>
+    <id>https://cleam.github.io/2020/09/27/深入理解vue中v-model之自定义组件用法/</id>
+    <published>2020-09-26T16:01:57.000Z</published>
+    <updated>2020-09-27T08:28:43.463Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;根据上一篇《深入理解 vue 中 v-model 之普通用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
+&lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
+&lt;p&gt;&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解vue中v-model之表单用法</title>
+    <link href="https://cleam.github.io/2020/09/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3vue%E4%B8%ADv-model%E4%B9%8B%E8%A1%A8%E5%8D%95%E7%94%A8%E6%B3%95/"/>
+    <id>https://cleam.github.io/2020/09/25/深入理解vue中v-model之表单用法/</id>
+    <published>2020-09-25T07:51:54.000Z</published>
+    <updated>2020-09-27T12:13:51.155Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;我们知道&lt;code&gt;v-model&lt;/code&gt;主要用于进行表单项（input、textarea、select）的输入绑定，本质上只是一个语法糖，它负责监听用户的输入事件以更新数据。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;v-model&lt;/code&gt; 在内部为不同的输入元素使用不同的
+        
+      
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="https://cleam.github.io/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo使用命令</title>
@@ -29,8 +78,7 @@
       
         
         
-          &lt;h2&gt;new：新建一篇文章&lt;/h2&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+          &lt;h2 id=&quot;new：新建一篇文章&quot;&gt;&lt;a href=&quot;#new：新建一篇文章&quot; class=&quot;headerlink&quot; title=&quot;new：新建一篇文章&quot;&gt;&lt;/a&gt;new：新建一篇文章&lt;/h2&gt;&lt;figure class=&quot;highlight
         
       
     
@@ -55,7 +103,7 @@
           &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
 &lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
 &lt;p&gt;数字 Π：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -79,8 +127,7 @@
       
         
         
-          &lt;h2&gt;方法解释&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
         
       
     
