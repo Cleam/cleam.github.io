@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-09-28T11:01:01.815Z</updated>
+  <updated>2020-09-29T03:30:17.905Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>深入理解v-model之修饰符</title>
+    <title>深入理解v-model之修饰符（vue3和vue2对比分析）</title>
     <link href="https://cleam.github.io/2020/09/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3v-model%E4%B9%8B%E4%BF%AE%E9%A5%B0%E7%AC%A6/"/>
     <id>https://cleam.github.io/2020/09/27/深入理解v-model之修饰符/</id>
     <published>2020-09-27T15:03:56.000Z</published>
-    <updated>2020-09-28T11:01:01.815Z</updated>
+    <updated>2020-09-29T03:30:17.905Z</updated>
     
     <summary type="html">
     
