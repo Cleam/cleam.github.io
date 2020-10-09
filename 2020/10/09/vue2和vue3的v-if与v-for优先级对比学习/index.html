@@ -149,12 +149,12 @@
 <meta property="og:site_name" content="老李">
 <meta property="og:description" content="Vue.js 中使用最多的两个指令就是 v-if 和 v-for，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：  在 vue 2.x 中，在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用。 在 vue 3.x 中，v-if 总是优先于 v-for 生效。  对比学习 接下来我们通过一个简单的示例来感知下，假设我们想">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cleam.github.io/images/post/todolist.png">
-<meta property="og:updated_time" content="2020-10-09T07:17:11.723Z">
+<meta property="og:image" content="https://cleam.github.io/uploads/post/todolist.png">
+<meta property="og:updated_time" content="2020-10-09T07:24:23.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue2和vue3的v-if与v-for优先级对比学习">
 <meta name="twitter:description" content="Vue.js 中使用最多的两个指令就是 v-if 和 v-for，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：  在 vue 2.x 中，在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用。 在 vue 3.x 中，v-if 总是优先于 v-for 生效。  对比学习 接下来我们通过一个简单的示例来感知下，假设我们想">
-<meta name="twitter:image" content="https://cleam.github.io/images/post/todolist.png">
+<meta name="twitter:image" content="https://cleam.github.io/uploads/post/todolist.png">
 
 
 
@@ -418,7 +418,7 @@
                 
               
 
-              <time title="创建时间：2020-10-09 14:07:12 / 修改时间：15:17:11" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
+              <time title="创建时间：2020-10-09 14:07:12 / 修改时间：15:24:23" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
             
 
             
@@ -474,7 +474,7 @@
 </ul>
 <h2>对比学习</h2>
 <p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
-<p><img src="/images/post/todolist.png" alt="todolist"></p>
+<p><img src="/uploads/post/todolist.png" alt="todolist"></p>
 <p>我们有一个 todoList：</p>
 <p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
 <p>在 vue2 中，<code>v-for</code> 优先级高于 <code>v-if</code>，我们可以这样实现：</p>
