@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-09-29T03:30:17.905Z</updated>
+  <updated>2020-10-09T07:17:11.723Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue2和vue3的v-if与v-for优先级对比学习</title>
+    <link href="https://cleam.github.io/2020/10/09/vue2%E5%92%8Cvue3%E7%9A%84v-if%E4%B8%8Ev-for%E4%BC%98%E5%85%88%E7%BA%A7%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/</id>
+    <published>2020-10-09T06:07:12.000Z</published>
+    <updated>2020-10-09T07:17:11.723Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Vue.js 中使用最多的两个指令就是 &lt;code&gt;v-if&lt;/code&gt; 和 &lt;code&gt;v-for&lt;/code&gt;，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 vue 2.x
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>深入理解v-model之修饰符（vue3和vue2对比分析）</title>
@@ -29,8 +53,7 @@
       
         
         
-          &lt;h2&gt;vue2 中&lt;/h2&gt;
-&lt;p&gt;我们知道在 vue2 中有 3
+          &lt;h2 id=&quot;vue2-中&quot;&gt;&lt;a href=&quot;#vue2-中&quot; class=&quot;headerlink&quot; title=&quot;vue2 中&quot;&gt;&lt;/a&gt;vue2 中&lt;/h2&gt;&lt;p&gt;我们知道在 vue2 中有 3
         
       
     
@@ -56,7 +79,7 @@
         
           &lt;p&gt;根据上一篇《深入理解 v-model 之表单用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
 &lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -142,11 +165,11 @@
   </entry>
   
   <entry>
-    <title>Learn Array.reduce</title>
+    <title>学会 Array.reduce</title>
     <link href="https://cleam.github.io/2018/11/22/learn-reduce/"/>
     <id>https://cleam.github.io/2018/11/22/learn-reduce/</id>
     <published>2018-11-22T06:00:36.000Z</published>
-    <updated>2020-09-23T08:06:44.536Z</updated>
+    <updated>2020-10-09T06:05:35.704Z</updated>
     
     <summary type="html">
     
