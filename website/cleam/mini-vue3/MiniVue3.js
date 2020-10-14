@@ -187,3 +187,26 @@ const _reactiveHandler = {
 function reactive(raw) {
   return new Proxy(raw, _reactiveHandler);
 }
+
+function createApp(app) {
+  return {
+    mount(container) {
+      let isMounted = false;
+      // 更新
+      let prevVdom = null;
+      watchEffect(() => {
+        if (!isMounted) {
+          // 首次挂载
+          prevVdom = app.setup();
+          mount(prevVdom, container);
+          isMounted = true;
+        } else {
+          // 当state更新时
+          let newVdom = app.setup();
+          patch(prevVdom, newVdom);
+          prevVdom = newVdom;
+        }
+      });
+    },
+  };
+}
