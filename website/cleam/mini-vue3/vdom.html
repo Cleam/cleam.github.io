@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mini vue3</title>
+  <style>
+    #red {
+      color: red;
+    }
+
+    #green {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./MiniVue3.js"></script>
+  <script>
+    // const { h, mount, patch } = MiniVue3;
+    // h(tagName: string[, props/attributes: object, children: array])
+    // exp: h('div', {id: 'xxx', class: 'xxx'}, ['span'])
+    // exp: h('div', {id: 'xxx', class: 'xxx'}, [h('span', ['Hello'])])
+
+    // mount(vDom, container)
+    // path(oldvDom, newvDom)
+
+    const vDom1 = h('div', { id: 'red' }, [h('span', 'Hello')]);
+    mount(vDom1, '#app');
+    // 期望渲染结果：<div id="red"><span>Hello</span></div>
+
+    // const vDom2 = h('div', { id: 'green' }, 'world');
+    // patch(vDom1, vDom2);
+    // // 期望渲染结果：<div id="green">world</div>
+
+    // const vDom2 = h('div', { id: 'green' }, [
+    //   h('span', ['Very', h('em', 'important')])
+    // ]);
+    // patch(vDom1, vDom2);
+    // // 期望渲染结果：<div id="green"><span>Very<em>important</em></span></div>
+
+    // const vDom2 = h('p', { id: 'green' }, [
+    //   h('span', ['你', h('em', '好')])
+    // ]);
+    // patch(vDom1, vDom2);
+    // // 期望渲染结果：<p id="green"><span>你<em>好</em></span></p>
+
+    const vDom2 = h('p', { id: 'list-wrap' }, [
+      h('ul', { class: 'list' }, [
+        h('li', { class: 'item' }, [h('a', { class: 'link', href: 'javascript:;' }, '苹果')]),
+        h('li', { class: 'item' }, [h('a', { class: 'link', href: 'javascript:;' }, '香蕉')]),
+        h('li', { class: 'item' }, [h('a', { class: 'link', href: 'javascript:;' }, '荔枝')])
+      ])
+    ]);
+    patch(vDom1, vDom2);
+    // 期望渲染结果：
+    // <p className="list-wrap">
+    // <ul className="list">
+    //   <li className="item"><a href="javascript:;" class="link">苹果</a></li>
+    //   <li className="item"><a href="javascript:;" class="link">香蕉</a></li>
+    //   <li className="item"><a href="javascript:;" class="link">荔枝</a></li>
+    // </ul>
+    // </p>
+
+  </script>
+</body>
+
+</html>

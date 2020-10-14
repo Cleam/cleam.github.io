@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mini vue3</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./MiniVue3.js"></script>
+  <script>
+    function createApp(app) {
+      return {
+        mount(container) {
+          let isMounted = false;
+          // 更新
+          let prevVdom = null;
+          watchEffect(() => {
+            if (!isMounted) {
+              // 首次挂载
+              prevVdom = app.setup();
+              mount(prevVdom, container)
+              isMounted = true;
+            } else {
+              // 当state更新时
+              let newVdom = app.setup();
+              patch(prevVdom, newVdom);
+              prevVdom = newVdom;
+            }
+          })
+        }
+      }
+    }
+  </script>
+
+  <script>
+    const App = createApp({
+      data: reactive({
+        count: 0
+      }),
+      setup() {
+        return h('div', [
+          h('span', String(this.data.count)),
+          h('hr'),
+          h('button', {
+            onClick: () => {
+              this.data.count++;
+            }
+          }, '+1'),
+          h('button', {
+            onClick: () => {
+              this.data.count--;
+            }
+          }, '-1')
+        ]);
+      }
+    });
+
+    App.mount('#app');
+  </script>
+</body>
+
+</html>
