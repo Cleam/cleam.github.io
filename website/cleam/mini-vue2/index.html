@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mini vue2</title>
+  <style>
+    .red {
+      color: red;
+    }
+
+    .green {
+      color: green;
+    }
+
+    .if-wrap {
+      padding: 10px;
+      background-color: antiquewhite;
+    }
+  </style>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
+  <script src="./MiniVue2.js"></script>
+</head>
+
+<body>
+  <h3>极简vue2示例</h3>
+  <div id="app">
+    <!-- 不支持 -->
+    <!-- <p id="p">声明绑定：{{count}} - {{obj.foo.bar}} - {{obj.baz}}</p> -->
+    <!-- 不支持-->
+    <!-- <p>声明绑定：{{count}} - {{count}}</p> -->
+    <!-- if和for未实现响应式 -->
+    <!-- <div class="if-wrap" v-if="shown">
+      <p>条件显示</p>
+      <ul>
+        <li v-for="item in list" v-bind:key="item.id">{{item.msg}}</li>
+      </ul>
+    </div> -->
+    <!-- v-on指令： -->
+    <!-- <p><button v-on:click="toggleShown">toggle shown</button></p> -->
+
+    <p>{{count}}</p>
+    <p>{{count2}}</p>
+    <p><button v-on:click="handleClick">+1</button></p>
+    <p class="vhtml">v-html指令：<span v-html="rawHtml"></span></p>
+    <p class="vtext">v-text指令：<span class="green" v-text="msg"></span></p>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          count: 0,
+          count2: 1,
+          rawHtml: '<span class="red">我是红色的</span>',
+          msg: '我是v-text指令生成的',
+          // shown: true,
+          // obj: {
+          //   baz: 'bazzzzz',
+          //   foo: {
+          //     bar: 'barrrrrrr',
+          //   },
+          // },
+          // list: [
+          //   { id: 0, msg: 'Hello' },
+          //   { id: 1, msg: 'mini' },
+          //   { id: 2, msg: 'vue2' }, 
+          // ],
+        };
+      },
+      methods: {
+        handleClick() {
+          this.count++;
+          this.count2++;
+          console.log('[handleClick]', this.count);
+        },
+        // toggleShown() {
+        //   this.shown = !this.shown;
+        //   console.log('[toggleShown]', this.shown);
+        // },
+      },
+    });
+    console.log(vm);
+    let rawHtml = vm.rawHtml;
+    let msg = vm.msg;
+    setInterval(() => {
+      vm.msg = msg + new Date().toLocaleString();
+      vm.rawHtml = rawHtml + new Date().toLocaleString();
+    }, 1000);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mini vue2</title>
+  <script src="./MiniVue2.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="p"></div>
+
+  <script>
+    const app = document.getElementById('app');
+    const p = document.getElementById('p');
+    const state = {
+      time: new Date().toLocaleString(),
+      p: {
+        name: 'dalao',
+      }
+    };
+
+    observe(state);
+
+    function update() {
+      app.textContent = state.time;
+      p.textContent = state.p.name + ': ' + (state.p.age || 18);
+    }
+
+    set(state.p, 'age', 10000);
+
+    setInterval(() => {
+      state.time = new Date().toLocaleString();
+      state.p.age--;
+    }, 1000);
+  </script>
+
+
+</body>
+
+</html>

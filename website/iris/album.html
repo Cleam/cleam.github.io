@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>UI设计师-IRIS</title>
     <!-- Bootstrap -->
@@ -16,22 +16,40 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        * { margin: 0; padding: 0; }
-        #container { width: 100%; max-width: 1200px; margin: 0 auto; padding-bottom: 30px;}
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #3a3a3a;
+        }
+        #container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+            /* background-color: white; */
+        }
+        img {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div id="container">
-        
+
     </div>
     <script>
         var container = document.getElementById('container');
-        for (var i = 0; i < 31; i++) {
+        for (var i = 1; i <= 35; i++) {
             var img = document.createElement('img');
-            img.setAttribute('src', 'images/album/' + (i + 1) + '.jpg');
+            // img.setAttribute('src', 'images/album/' + (i + 1) + '.jpg');
+            img.setAttribute('src', 'https://drone.lizimu.top/' + (i < 10 ? ('0' + i) : i) + '.jpg');
             img.setAttribute('style', 'display:block;width:100%;');
             container.appendChild(img);
         }
     </script>
 </body>
+
 </html>
