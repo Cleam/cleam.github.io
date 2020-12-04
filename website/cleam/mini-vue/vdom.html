@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue的虚拟DOM diff算法原理实现</title>
+  <script src="./vdom.js"></script>
+</head>
+
+<body>
+  <h3>Vue的虚拟DOM diff算法原理实现（<a href="./vdom.js" target="_blank">看源码</a>）</h3>
+  <div id="root"></div>
+  <script>
+    /*
+      <div id="app">
+        <ul class="list">
+          <li class="item">item1</li>
+          <li class="item">item2</li>
+          <li class="item">item3</li>
+        </ul>
+      </div>
+    */
+    const vDom = h('div', { id: 'app' }, [
+      h('p', 'not text'),
+      h('ul', { class: 'list' }, [
+        h('li', { class: 'item' }, 'item1'),
+        h('li', { class: 'item' }, 'item2'),
+        h('li', { class: 'item' }, 'item3'),
+      ])
+    ]);
+    console.log(vDom);
+    // mount(vDom, '#root');
+    // mount(vDom, document.getElementById('root'));
+    mount(vDom, document.getElementById('root'));
+
+    // patch(null, vDom);
+
+    // 更新
+    /*
+      new1:
+          <div id="root" class="root">
+            <ul class="list">
+              <li class="item">item3</li>
+              <li class="item">item2</li>
+              <li class="item">item4</li>
+              <li class="item">item5</li>
+            </ul>
+            <p>Hello, list!</p>
+          </div>
+      new2:
+          <div id="root" class="root">
+            <p class="list" id="list">
+              <a class="item">item3</a>
+              <a class="item">item2</a>
+              <a class="item">item4</a>
+              <a class="item">item6</a>
+              <a class="item">item5</a>
+            </p>
+            <p>Hello, link!</p>
+          </div>
+      new3: 
+        <p>Hello, World!</p>
+    */
+    // const newVDom1 = h('div', { id: 'root', class: 'root' }, [
+    //   h('ul', { class: 'list', }, [
+    //     h('li', { class: 'item' }, 'item3'),
+    //     h('li', { class: 'item' }, 'item2'),
+    //     h('li', { class: 'item' }, 'item4'),
+    //     h('li', { class: 'item' }, 'item5'),
+    //   ]),
+    //   h('p', 'Hello, list!')
+    // ]);
+    const newVDom2 = h('div', { id: 'root', class: 'root' }, [
+      h('p', { class: 'list', id: 'list' }, [
+        h('a', { class: 'item', style: 'display:block;color:red;' }, 'item3'),
+        h('a', { class: 'item', style: 'display:block;color:green;' }, 'item2'),
+        h('a', { class: 'item', style: 'display:block;color:red;' }, 'item4'),
+        h('a', { class: 'item', style: 'display:block;color:green;' }, 'item6'),
+        h('a', { class: 'item', style: 'display:block;color:red;' }, 'item5'),
+      ]),
+      h('p', 'Hello, link!')
+    ]);
+    // const newVDom3 = h('p', 'Hello, World!');
+
+    // 更新之后，重新patch、渲染。
+    setTimeout(() => {
+      // patch(vDom, newVDom1);
+      patch(vDom, newVDom2);
+      // patch(vDom, newVDom3);
+    }, 2000)
+  </script>
+</body>
+
+</html>

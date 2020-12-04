@@ -11,7 +11,7 @@ function defineReactive(obj, key, value) {
   Object.defineProperty(obj, key, {
     get() {
       // 依赖收集
-      Dep.target && dep.addDep(Dep.target);
+      Dep.target && dep.depend();
       // console.log('[getter key]', key);
       return value;
     },
@@ -156,24 +156,6 @@ class Compile {
     node.textContent = val;
   }
 
-  // compileText(node) {
-  //   if (!document.body.contains(node)) {
-  //     return;
-  //   }
-  //   const textContent = node.textContent;
-  //   const matches = textContent.match(/\{\{\S+(\.\S)*\}\}/g); // {{count}}
-  //   if (matches) {
-  //     // console.log(matches);
-  //     matches.forEach((exp) => {
-  //       const rawExp = exp.replace(/\{\{(.*)\}\}/, '$1');
-  //       const re = new RegExp(`(\w*)${exp}(\w*)`, 'g');
-  //       const value = get(this.vm, rawExp);
-  //       console.log(rawExp + ': ' + value);
-  //       node.textContent = node.textContent.replace(re, `$1${value}$2`);
-  //     });
-  //   }
-  // }
-
   compileElement(node) {
     if (!document.body.contains(node)) {
       return;
@@ -216,51 +198,6 @@ class Compile {
     node.addEventListener(eventName, this.vm[node.getAttribute(attrName)].bind(this.vm));
     node.removeAttribute(attrName);
   }
-  
-  // handleDirectiveIf(node) {
-  //   // console.log(node);
-  //   const attrName = 'v-if';
-  //   const value = this.vm[node.getAttribute(attrName)];
-  //   if (!value) {
-  //     node.remove();
-  //   }
-  //   node.removeAttribute(attrName);
-  // }
-  // handleDirectiveFor(node) {
-  //   // console.log(node);
-  //   const attrName = 'v-for';
-  //   const expression = node.getAttribute(attrName);
-  //   const tag = node.tagName.toLowerCase();
-  //   if (/(\w+)\s+in\s+(\w+)/.test(expression)) {
-  //     // const item = RegExp.$1;
-  //     const list = this.vm[RegExp.$2]; // list
-  //     const compileText = function (n, i) {
-  //       const textContent = n.textContent;
-  //       const matches = textContent.match(/\{\{\S+(\.\S)*\}\}/g); // {{count}}
-  //       if (matches) {
-  //         matches.forEach((exp) => {
-  //           const rawExp = exp.replace(/\{\{(.*)\}\}/, '$1');
-  //           const re = new RegExp(`(\w*)${exp}(\w*)`, 'g');
-  //           const value = get(i, rawExp.split('.').slice(1).join('.'));
-  //           // console.log(rawExp + ': ' + value);
-  //           n.textContent = n.textContent.replace(re, `$1${value}$2`);
-  //         });
-  //       }
-  //     };
-  //     for (const key in list) {
-  //       const item = list[key];
-  //       const itemEl = document.createElement(tag); // li
-  //       const path = node.getAttribute('v-bind:key').split('.').slice(1).join('.'); // item.id but maybe item.a.id
-  //       itemEl.setAttribute('key', get(item, path));
-  //       itemEl.textContent = node.textContent;
-  //       // console.log(item);
-  //       compileText(itemEl, item);
-  //       node.parentNode.appendChild(itemEl);
-  //     }
-  //     node.remove();
-  //   }
-  //   node.removeAttribute(attrName);
-  // }
 }
 
 // window.watches = [];
@@ -284,10 +221,10 @@ class Dep {
   constructor() {
     this.deps = [];
   }
-  addDep(dep) {
-    this.deps.push(dep);
+  depend() {
+    this.deps.push(Dep.target);
   }
   notify() {
-    this.deps.forEach((dep) => dep.update());
+    this.deps.forEach((w) => w.update());
   }
 }

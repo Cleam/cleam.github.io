@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-10-25T10:27:05.667Z</updated>
+  <updated>2020-12-04T02:47:57.840Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>为什么要做技术分享</title>
+    <link href="https://cleam.github.io/2020/12/04/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <id>https://cleam.github.io/2020/12/04/为什么要做技术分享/</id>
+    <published>2020-12-04T02:07:19.000Z</published>
+    <updated>2020-12-04T02:47:57.840Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-提升学习效率&quot;&gt;&lt;a href=&quot;#1-提升学习效率&quot; class=&quot;headerlink&quot; title=&quot;1. 提升学习效率&quot;&gt;&lt;/a&gt;1. 提升学习效率&lt;/h2&gt;&lt;p&gt;我们来看一张图就明白了：&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="技术管理" scheme="https://cleam.github.io/tags/%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程</title>
@@ -75,8 +100,7 @@
       
         
         
-          &lt;h2&gt;vue2 中&lt;/h2&gt;
-&lt;p&gt;我们知道在 vue2 中有 3
+          &lt;h2 id=&quot;vue2-中&quot;&gt;&lt;a href=&quot;#vue2-中&quot; class=&quot;headerlink&quot; title=&quot;vue2 中&quot;&gt;&lt;/a&gt;vue2 中&lt;/h2&gt;&lt;p&gt;我们知道在 vue2 中有 3
         
       
     
@@ -102,7 +126,7 @@
         
           &lt;p&gt;根据上一篇《深入理解 v-model 之表单用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
 &lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -151,8 +175,7 @@
       
         
         
-          &lt;h2&gt;new：新建一篇文章&lt;/h2&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+          &lt;h2 id=&quot;new：新建一篇文章&quot;&gt;&lt;a href=&quot;#new：新建一篇文章&quot; class=&quot;headerlink&quot; title=&quot;new：新建一篇文章&quot;&gt;&lt;/a&gt;new：新建一篇文章&lt;/h2&gt;&lt;figure class=&quot;highlight
         
       
     
@@ -177,7 +200,7 @@
           &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
 &lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
 &lt;p&gt;数字 Π：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -201,8 +224,7 @@
       
         
         
-          &lt;h2&gt;方法解释&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
         
       
     
