@@ -141,18 +141,17 @@
 
 
 
-  <meta name="description" content="方法解释arr.reduce(callback[, initialValue])对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。 示例（累加操作）12345678910111213141516// 定义一个数组const arr = [1, 2, 3, 4, 5];// 定义一个callback函数，它接收4个参数const call">
-<meta name="keywords" content="JavaScript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="学会 Array.reduce">
-<meta property="og:url" content="https://cleam.github.io/2018/11/22/learn-reduce/index.html">
+  <meta name="description" content="前端生涯记录总结">
+<meta name="keywords" content="html,css,javascript,webpack,vue,react,nodejs">
+<meta property="og:type" content="website">
+<meta property="og:title" content="老李">
+<meta property="og:url" content="https://cleam.github.io/page/2/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="方法解释arr.reduce(callback[, initialValue])对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。 示例（累加操作）12345678910111213141516// 定义一个数组const arr = [1, 2, 3, 4, 5];// 定义一个callback函数，它接收4个参数const call">
+<meta property="og:description" content="前端生涯记录总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-09T06:05:35.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学会 Array.reduce">
-<meta name="twitter:description" content="方法解释arr.reduce(callback[, initialValue])对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。 示例（累加操作）12345678910111213141516// 定义一个数组const arr = [1, 2, 3, 4, 5];// 定义一个callback函数，它接收4个参数const call">
+<meta name="twitter:title" content="老李">
+<meta name="twitter:description" content="前端生涯记录总结">
 
 
 
@@ -161,7 +160,7 @@
 
 
 
-  <link rel="canonical" href="https://cleam.github.io/2018/11/22/learn-reduce/">
+  <link rel="canonical" href="https://cleam.github.io/page/2/">
 
 
 
@@ -171,7 +170,7 @@
   };
 </script>
 
-  <title>学会 Array.reduce | 老李</title>
+  <title>老李</title>
   
 
 
@@ -220,7 +219,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -357,9 +357,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -391,7 +391,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">学会 Array.reduce
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/22/learn-reduce/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">学会 Array.reduce</a>
               
             
           </h1>
@@ -449,7 +452,7 @@
               </span>
               
                 <a href="/2018/11/22/learn-reduce/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/11/22/learn-reduce/" itemprop="commentsCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/22/learn-reduce/" class="cy_cmt_count" data-xid="2018/11/22/learn-reduce/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -477,7 +480,9 @@
       
 
       
-        <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
+        
+          
+            <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
 <h2 id="示例（累加操作）"><a href="#示例（累加操作）" class="headerlink" title="示例（累加操作）"></a>示例（累加操作）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 定义一个callback函数，它接收4个参数</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 对比查看提供与不提供初始值initialValue时的执行情况</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback); <span class="comment">// 不提供initialValue</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr.reduce(callback, <span class="number">5</span>); <span class="comment">// 提供initialValue为5</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：20</span></span><br></pre></td></tr></table></figure>
 <h2 id="callback-函数接收的-4-个参数说明"><a href="#callback-函数接收的-4-个参数说明" class="headerlink" title="callback 函数接收的 4 个参数说明"></a>callback 函数接收的 4 个参数说明</h2><ul>
 <li>累加值（acc）（理解：上一次<code>callback</code>的返回值，当做下一次<code>callback</code>的第一个参数。）</li>
@@ -495,6 +500,8 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [];</span><br><span class="line"><span class="keyword">const</span> callback2 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr2[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr2.reduce(callback2, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr3 = [];</span><br><span class="line"><span class="keyword">const</span> callback3 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line">arr3.reduce(callback3); <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
 
@@ -505,87 +512,24 @@
     
 
     
-      <div>
-        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_qdgcs_lzg.jpg" alt="Cleam Lee wechat" style="width: 200px; max-width: 100%;">
-    <div>欢迎扫一扫订阅！</div>
-</div>
-
-      </div>
-    
 
     
        
     
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/uploads/wechatpay2.jpg" alt="Cleam Lee 微信">
-        <p>微信</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay2.jpg" alt="Cleam Lee 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/19/vps-with-vultr/" rel="next" title="如何使用vultr搭建自己的vps实现科学上网">
-                <i class="fa fa-chevron-left"></i> 如何使用vultr搭建自己的vps实现科学上网
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/02/Javascript内建对象Math学习/" rel="prev" title="Javascript内建对象Math学习">
-                Javascript内建对象Math学习 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -595,20 +539,187 @@
   </article>
 
 
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/19/vps-with-vultr/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">如何使用vultr搭建自己的vps实现科学上网</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:49:24" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-23 16:08:49" itemprop="dateModified" datetime="2020-09-23T16:08:49+08:00">2020-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/11/19/vps-with-vultr/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/19/vps-with-vultr/" class="cy_cmt_count" data-xid="2018/11/19/vps-with-vultr/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><a href="https://www.vultr.com/?ref=7246043" target="_blank" rel="noopener">https://www.vultr.com/?ref=7246043</a></li>
+<li><a href="https://medium.com/@jackme256/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-vultr-vps-%E6%90%AD%E5%BB%BA-shadowsocks-ss-%E6%95%99%E7%A8%8B-%E6%96%B0%E6%89%8B%E5%90%91-968613081aae" target="_blank" rel="noopener">科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向）</a></li>
+<li><a href="https://zoomyale.com/2016/vultr_and_ss" target="_blank" rel="noopener">科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-      <div id="SOHUCS"></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -629,17 +740,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -752,22 +854,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法解释"><span class="nav-number">1.</span> <span class="nav-text">方法解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例（累加操作）"><span class="nav-number">2.</span> <span class="nav-text">示例（累加操作）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#callback-函数接收的-4-个参数说明"><span class="nav-number">3.</span> <span class="nav-text">callback 函数接收的 4 个参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解reduce"><span class="nav-number">4.</span> <span class="nav-text">理解reduce()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边缘情况"><span class="nav-number">5.</span> <span class="nav-text">边缘情况</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -890,10 +976,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
-
-
 
   
 
@@ -912,18 +994,7 @@
 
 
   
-    <script type="text/javascript">
-    (function(){
-      var appid = 'cyv4uru5Q';
-      var conf = 'cbfe86faeb0f6ea874d7bbd322530037';
-      var width = window.innerWidth || document.documentElement.clientWidth;
-      if (width < 960) {
-      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
-        window.changyan.api.config({appid:appid,conf:conf})});
-      }
-    })();
-    </script>
-    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyv4uru5Q"></script>
   
 
 

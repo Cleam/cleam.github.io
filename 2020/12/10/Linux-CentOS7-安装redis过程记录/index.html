@@ -141,20 +141,20 @@
 
 
 
-  <meta name="description" content="1. 提升学习效率我们来看一张图就明白了：  想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（被动学习+主动学习）那效果不言而喻，比前者（纯被动学习）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中主动学习吸收率最高的学习方法了。">
-<meta name="keywords" content="技术管理">
+  <meta name="description" content="前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。  一、查看系统版本信息 123456# 查看系统信息cat /proc/version# Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (G">
+<meta name="keywords" content="redis,运维">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么要做技术分享">
-<meta property="og:url" content="https://cleam.github.io/2020/12/04/为什么要做技术分享/index.html">
+<meta property="og:title" content="Linux（CentOS 7）安装redis过程记录">
+<meta property="og:url" content="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="1. 提升学习效率我们来看一张图就明白了：  想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（被动学习+主动学习）那效果不言而喻，比前者（纯被动学习）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中主动学习吸收率最高的学习方法了。">
+<meta property="og:description" content="前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。  一、查看系统版本信息 123456# 查看系统信息cat /proc/version# Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (G">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cleam.github.io/uploads/post/for-study.jpg">
-<meta property="og:updated_time" content="2020-12-04T02:47:57.840Z">
+<meta property="og:image" content="https://cleam.github.io/uploads/post/redis.png">
+<meta property="og:updated_time" content="2020-12-10T14:43:11.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么要做技术分享">
-<meta name="twitter:description" content="1. 提升学习效率我们来看一张图就明白了：  想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（被动学习+主动学习）那效果不言而喻，比前者（纯被动学习）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中主动学习吸收率最高的学习方法了。">
-<meta name="twitter:image" content="https://cleam.github.io/uploads/post/for-study.jpg">
+<meta name="twitter:title" content="Linux（CentOS 7）安装redis过程记录">
+<meta name="twitter:description" content="前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。  一、查看系统版本信息 123456# 查看系统信息cat /proc/version# Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (G">
+<meta name="twitter:image" content="https://cleam.github.io/uploads/post/redis.png">
 
 
 
@@ -163,7 +163,7 @@
 
 
 
-  <link rel="canonical" href="https://cleam.github.io/2020/12/04/为什么要做技术分享/">
+  <link rel="canonical" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
 
 
 
@@ -173,7 +173,7 @@
   };
 </script>
 
-  <title>为什么要做技术分享 | 老李</title>
+  <title>Linux（CentOS 7）安装redis过程记录 | 老李</title>
   
 
 
@@ -376,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/04/为什么要做技术分享/">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cleam Lee">
@@ -393,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">为什么要做技术分享
+          <h1 class="post-title" itemprop="name headline">Linux（CentOS 7）安装redis过程记录
               
             
           </h1>
@@ -418,7 +418,7 @@
                 
               
 
-              <time title="创建时间：2020-12-04 10:07:19 / 修改时间：10:47:57" itemprop="dateCreated datePublished" datetime="2020-12-04T10:07:19+08:00">2020-12-04</time>
+              <time title="创建时间：2020-12-10 17:21:49 / 修改时间：22:43:11" itemprop="dateCreated datePublished" datetime="2020-12-10T17:21:49+08:00">2020-12-10</time>
             
 
             
@@ -438,8 +438,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2020/12/04/为什么要做技术分享/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2020/12/04/为什么要做技术分享/" itemprop="commentsCount"></span>
+                <a href="/2020/12/10/Linux-CentOS7-安装redis过程记录/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2020/12/10/Linux-CentOS7-安装redis过程记录/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -467,16 +467,37 @@
       
 
       
-        <h2 id="1-提升学习效率"><a href="#1-提升学习效率" class="headerlink" title="1. 提升学习效率"></a>1. 提升学习效率</h2><p>我们来看一张图就明白了：</p>
-<p><img src="/uploads/post/for-study.jpg" alt="教学法"></p>
-<p>想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（<code>被动学习+主动学习</code>）那效果不言而喻，比前者（纯<code>被动学习</code>）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中<code>主动学习</code>吸收率最高的学习方法了。</p>
-<h2 id="2-提升影响力，提升自信心"><a href="#2-提升影响力，提升自信心" class="headerlink" title="2. 提升影响力，提升自信心"></a>2. 提升影响力，提升自信心</h2><p>对于分享者，每分享一次，都会加深听众对你的认识，“原来这些我平常不知道的，这个大哥都知道”、“原来我常碰到的这个错误是这个原因啊”。无形中自己的影响力就慢慢加大了。自己优越感提升了，自然也更自信了。慢慢也会发现分享对自己带来的好处，从而对自己形成一个良性循环。</p>
-<h2 id="3-总结经验教训，让自己以及他人少走弯路"><a href="#3-总结经验教训，让自己以及他人少走弯路" class="headerlink" title="3. 总结经验教训，让自己以及他人少走弯路"></a>3. 总结经验教训，让自己以及他人少走弯路</h2><p>通过技术分享可以总结过去，展望未来，比如近期分享的站在前端开发工程师的角度《聊聊前后端之登录鉴权》，就是对自己过去做登录鉴权的一个总结，不单单站在前端角度思考，更多的是站在整个登录鉴权流程去思考，应该使用<code>session-cookie</code>方案还是<code>token</code>方案，或者是使用<code>OAuth</code>方案，对着三种方案做了原理分析、优缺点对比、突出问题讲解（比如<code>session-cookie</code>方案时跨域要怎么处理，会出现哪些问题等等），分享前还各种参考资料的搜集整理等等，最后通过一个 demo（从前端到后端打通）的实战来分享出来。</p>
-<p>通过该总结，自己对鉴权也更加熟悉，大大提升了对鉴权的理解。对于他人（听众）来说，有些人可能不熟悉的，也知道怎么回事了，对于熟悉的，同样也是系统的加深了一遍印象，后面跟后端对接业务的时候也能够很好的指定方案，出现问题也能很好的排错。</p>
-<p>同时，还有另外一方面，通过技术分享，可以查漏补缺、取长补短。分享者不见得面面俱到，平常觉得应该是这样处理的问题，可能在分享会上碰到比你研究更深的人提出质疑甚至是修改之后，也能让分享者发现自己的错误：“原来我之前一直这样思考（一直这样做）是有问题的（考虑不全的），感谢大佬的提醒”。</p>
-<blockquote>
-<p>以上是我到目前为止做技术分享的一点理解和感悟。</p>
+        <blockquote>
+<p>前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。</p>
 </blockquote>
+<h2>一、查看系统版本信息</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure></p>
+<h2>二、修改 yum 安装源</h2>
+<p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
+<h2>三、安装 redis</h2>
+<p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：
+<img src="/uploads/post/redis.png" alt="redis下载"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<h3>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3>
+<p>解决方法：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure></p>
+<h3>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3>
+<p>解决方法：升级依赖</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h2>三、运行</h2>
+<p>我的 redis 安装在<code>/opt/</code>目录下：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<h2>四、修改为后台启动</h2>
+<p>编辑配置文件 <code>redis.conf</code></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<p>将<code>daemonize no</code>修改为<code>daemonize yes</code>，保存之后，重新启动。</p>
+<h2>五、参考</h2>
+<ul>
+<li>https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</li>
+<li>https://redis.io/download</li>
+<li>https://www.cnblogs.com/aquester/p/13581147.html</li>
+<li>https://www.cnblogs.com/shook/p/12883742.html</li>
+</ul>
 
       
     </div>
@@ -537,7 +558,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/技术管理/" rel="tag"># 技术管理</a>
+            <a href="/tags/redis-运维/" rel="tag"># redis,运维</a>
           
         </div>
       
@@ -550,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" rel="next" title="记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程">
-                <i class="fa fa-chevron-left"></i> 记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程
+              <a href="/2020/12/10/渐进增强和优雅降级的区别/" rel="next" title="渐进增强和优雅降级">
+                <i class="fa fa-chevron-left"></i> 渐进增强和优雅降级
               </a>
             
           </div>
@@ -559,10 +580,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/12/10/渐进增强和优雅降级的区别/" rel="prev" title="渐进增强和优雅降级">
-                渐进增强和优雅降级 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -745,7 +762,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-提升学习效率"><span class="nav-number">1.</span> <span class="nav-text">1. 提升学习效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-提升影响力，提升自信心"><span class="nav-number">2.</span> <span class="nav-text">2. 提升影响力，提升自信心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结经验教训，让自己以及他人少走弯路"><span class="nav-number">3.</span> <span class="nav-text">3. 总结经验教训，让自己以及他人少走弯路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">一、查看系统版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">二、修改 yum 安装源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">三、安装 redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">错误 1：zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">错误 2：server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">三、运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">四、修改为后台启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">五、参考</span></a></li></ol></div>
             
 
           </div>

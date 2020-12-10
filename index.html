@@ -374,6 +374,357 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/10/Linux-CentOS7-安装redis过程记录/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Linux（CentOS 7）安装redis过程记录</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-10 17:21:49 / 修改时间：22:43:11" itemprop="dateCreated datePublished" datetime="2020-12-10T17:21:49+08:00">2020-12-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/12/10/Linux-CentOS7-安装redis过程记录/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/" class="cy_cmt_count" data-xid="2020/12/10/Linux-CentOS7-安装redis过程记录/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。</p>
+</blockquote>
+<h2>一、查看系统版本信息</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure></p>
+<h2>二、修改 yum 安装源</h2>
+<p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
+<h2>三、安装 redis</h2>
+<p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：
+<img src="/uploads/post/redis.png" alt="redis下载"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<h3>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3>
+<p>解决方法：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure></p>
+<h3>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3>
+<p>解决方法：升级依赖</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h2>三、运行</h2>
+<p>我的 redis 安装在<code>/opt/</code>目录下：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<h2>四、修改为后台启动</h2>
+<p>编辑配置文件 <code>redis.conf</code></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<p>将<code>daemonize no</code>修改为<code>daemonize yes</code>，保存之后，重新启动。</p>
+<h2>五、参考</h2>
+<ul>
+<li>https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</li>
+<li>https://redis.io/download</li>
+<li>https://www.cnblogs.com/aquester/p/13581147.html</li>
+<li>https://www.cnblogs.com/shook/p/12883742.html</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/10/渐进增强和优雅降级的区别/" class="post-title-link" itemprop="https://cleam.github.io/index.html">渐进增强和优雅降级</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-10 10:09:27 / 修改时间：10:31:15" itemprop="dateCreated datePublished" datetime="2020-12-10T10:09:27+08:00">2020-12-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/12/10/渐进增强和优雅降级的区别/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/" class="cy_cmt_count" data-xid="2020/12/10/渐进增强和优雅降级的区别/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>拿浏览器兼容举例：</p>
+<ul>
+<li><strong>渐进增强(progressive enhancement)：</strong>针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
+<li><strong>优雅降级(graceful degradation)：</strong>一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
+</ul>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
+<h3 id="“优雅降级”观点"><a href="#“优雅降级”观点" class="headerlink" title="“优雅降级”观点"></a>“优雅降级”观点</h3><p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
+<h3 id="“渐进增强”观点"><a href="#“渐进增强”观点" class="headerlink" title="“渐进增强”观点"></a>“渐进增强”观点</h3><p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
+<p>那么问题来了。现在产品经理看到 IE6,7,8 网页效果相对高版本现代浏览器少了很多圆角， 阴影（CSS3），要求兼容（使用图片背景，放弃 CSS3），你会如何说服他？</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li><a href="https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement" target="_blank" rel="noopener">Graceful degradation versus progressive enhancement</a></li>
+<li><a href="https://www.mavenecommerce.com/2017/10/31/progressive-enhancement-vs-graceful-degradation/" target="_blank" rel="noopener">Progressive Enhancement vs Graceful Degradation</a></li>
+</ul>
+<blockquote>
+<p>内容整理来源于网络。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/04/为什么要做技术分享/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1958,359 +2309,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/22/learn-reduce/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/22/learn-reduce/" class="post-title-link" itemprop="https://cleam.github.io/index.html">学会 Array.reduce</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-22 14:00:36" itemprop="dateCreated datePublished" datetime="2018-11-22T14:00:36+08:00">2018-11-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-10-09 14:05:35" itemprop="dateModified" datetime="2020-10-09T14:05:35+08:00">2020-10-09</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/11/22/learn-reduce/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/22/learn-reduce/" class="cy_cmt_count" data-xid="2018/11/22/learn-reduce/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
-<h2 id="示例（累加操作）"><a href="#示例（累加操作）" class="headerlink" title="示例（累加操作）"></a>示例（累加操作）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 定义一个callback函数，它接收4个参数</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 对比查看提供与不提供初始值initialValue时的执行情况</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback); <span class="comment">// 不提供initialValue</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr.reduce(callback, <span class="number">5</span>); <span class="comment">// 提供initialValue为5</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：20</span></span><br></pre></td></tr></table></figure>
-<h2 id="callback-函数接收的-4-个参数说明"><a href="#callback-函数接收的-4-个参数说明" class="headerlink" title="callback 函数接收的 4 个参数说明"></a>callback 函数接收的 4 个参数说明</h2><ul>
-<li>累加值（acc）（理解：上一次<code>callback</code>的返回值，当做下一次<code>callback</code>的第一个参数。）</li>
-<li>当前值（cur）</li>
-<li>当前索引（currentIndex）</li>
-<li>原数组（sourceArr）</li>
-</ul>
-<h2 id="理解reduce"><a href="#理解reduce" class="headerlink" title="理解reduce()"></a>理解<code>reduce()</code></h2><ul>
-<li>如果没有提供初始值（<code>initialValue</code>），<code>reduce()</code>将从数组索引 1（也就是第 2 个元素）开始执行<code>callback</code>（跳过数组的第 1 个元素），此时，<code>acc</code>等于数组的第一个元素值（即<code>arr[0]</code>），<code>cur</code>等于数组的第 2 个元素值（即<code>arr[1]</code>）</li>
-<li>如果提供了初始值（<code>initialValue</code>）,<code>reduce()</code>将从数组索引 0（也就是第 1 个元素）开始执行<code>callback</code>，此时，<code>acc</code>等于<code>initialValue</code>的值，<code>cur</code>等于数组的第 1 个元素值（即<code>arr[0]</code>）</li>
-</ul>
-<h2 id="边缘情况"><a href="#边缘情况" class="headerlink" title="边缘情况"></a>边缘情况</h2><ul>
-<li>如果数组<code>arr</code>为空且没有提供初始值<code>initialValue</code>，代码将报<code>TypeError</code>错误</li>
-<li>如果数组只有一个值（<code>arr.length === 1</code>）且没有提供初始值<code>initialValue</code> 或 提供了初始值<code>initialValue</code>但数组<code>arr</code>为空，则直接返回那个唯一的值且回调方法<code>callback</code>不会被调用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [];</span><br><span class="line"><span class="keyword">const</span> callback2 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr2[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr2.reduce(callback2, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr3 = [];</span><br><span class="line"><span class="keyword">const</span> callback3 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line">arr3.reduce(callback3); <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/19/vps-with-vultr/" class="post-title-link" itemprop="https://cleam.github.io/index.html">如何使用vultr搭建自己的vps实现科学上网</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-19 14:49:24" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">2018-11-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-09-23 16:08:49" itemprop="dateModified" datetime="2020-09-23T16:08:49+08:00">2020-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/11/19/vps-with-vultr/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/19/vps-with-vultr/" class="cy_cmt_count" data-xid="2018/11/19/vps-with-vultr/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><a href="https://www.vultr.com/?ref=7246043" target="_blank" rel="noopener">https://www.vultr.com/?ref=7246043</a></li>
-<li><a href="https://medium.com/@jackme256/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-vultr-vps-%E6%90%AD%E5%BB%BA-shadowsocks-ss-%E6%95%99%E7%A8%8B-%E6%96%B0%E6%89%8B%E5%90%91-968613081aae" target="_blank" rel="noopener">科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向）</a></li>
-<li><a href="https://zoomyale.com/2016/vultr_and_ss" target="_blank" rel="noopener">科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2353,7 +2358,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2376,7 +2381,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
