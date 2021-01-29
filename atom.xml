@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-12-10T14:43:11.795Z</updated>
+  <updated>2020-12-10T14:54:51.382Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://cleam.github.io/2020/12/10/Linux-CentOS7-%E5%AE%89%E8%A3%85redis%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/"/>
     <id>https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/</id>
     <published>2020-12-10T09:21:49.000Z</published>
-    <updated>2020-12-10T14:43:11.795Z</updated>
+    <updated>2020-12-10T14:54:51.382Z</updated>
     
     <summary type="html">
     
@@ -40,7 +40,7 @@
     </summary>
     
     
-      <category term="redis,运维" scheme="https://cleam.github.io/tags/redis-%E8%BF%90%E7%BB%B4/"/>
+      <category term="运维" scheme="https://cleam.github.io/tags/%E8%BF%90%E7%BB%B4/"/>
     
   </entry>
   

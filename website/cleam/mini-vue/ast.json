@@ -1,0 +1,213 @@
+// <div id="app">
+//   <h3>vue模板编译分析</h3>
+//   <!-- 了解编译过程 -->
+//   <p>{{msg}} - {{msg}} - 😋</p>
+//   <p v-if="shown">我显示了吗？</p>
+//   <p>{{msg === '你好' ? 'Hello' : 'Front-End Brother'}}</p>
+//   <ul class="list">
+//     <li v-for="item in list" class="item" :key="item.id">{{item.name}}</li>
+//   </ul>
+// </div>
+// 上述模板对应的AST：
+{
+  "type": 1,
+  "tag": "div",
+  "attrsList": [
+    {
+      "name": "id",
+      "value": "app"
+    }
+  ],
+  "attrsMap": {
+    "id": "app"
+  },
+  "rawAttrsMap": {},
+  "parent": "undefined",
+  "children": [
+    {
+      "type": 1,
+      "tag": "h3",
+      "attrsList": [],
+      "attrsMap": {},
+      "rawAttrsMap": {},
+      "parent": ["object"],
+      "children": [
+        {
+          "type": 3,
+          "text": "vue模板编译分析",
+          "static": true
+        }
+      ],
+      "plain": true,
+      "static": true,
+      "staticInFor": false,
+      "staticRoot": false,
+      "pre": "undefined"
+    },
+    {
+      "type": 3,
+      "text": " ",
+      "static": true
+    },
+    {
+      "type": 1,
+      "tag": "p",
+      "attrsList": [],
+      "attrsMap": {},
+      "rawAttrsMap": {},
+      "parent": ["object"],
+      "children": [
+        {
+          "type": 2,
+          "expression": "_s(msg)+\" - \"+_s(msg)+\" - 😝\"",
+          "tokens": [
+            {
+              "@binding": "msg"
+            },
+            " - ",
+            {
+              "@binding": "msg"
+            },
+            " - 😝"
+          ],
+          "text": "{{msg}} - {{msg}} - 😝",
+          "static": false
+        }
+      ],
+      "plain": true,
+      "static": false,
+      "staticRoot": false,
+      "pre": "undefined"
+    },
+    {
+      "type": 3,
+      "text": " ",
+      "static": true
+    },
+    {
+      "type": 1,
+      "tag": "p",
+      "attrsList": [],
+      "attrsMap": {
+        "v-if": "shown"
+      },
+      "rawAttrsMap": {},
+      "parent": ["object"],
+      "children": [
+        {
+          "type": 3,
+          "text": "我显示了吗？",
+          "static": true
+        }
+      ],
+      "if": "shown",
+      "ifConditions": [
+        {
+          "exp": "shown",
+          "block": ["object"]
+        }
+      ],
+      "plain": true,
+      "static": false,
+      "staticRoot": false,
+      "pre": "undefined",
+      "ifProcessed": true
+    },
+    {
+      "type": 3,
+      "text": " ",
+      "static": true
+    },
+    {
+      "type": 1,
+      "tag": "p",
+      "attrsList": [],
+      "attrsMap": {},
+      "rawAttrsMap": {},
+      "parent": ["object"],
+      "children": [
+        {
+          "type": 2,
+          "expression": "_s(msg === '你好' ? 'Hello' : 'Front-End Brother')",
+          "tokens": [
+            {
+              "@binding": "msg === '你好' ? 'Hello' : 'Front-End Brother'"
+            }
+          ],
+          "text": "{{msg === '你好' ? 'Hello' : 'Front-End Brother'}}",
+          "static": false
+        }
+      ],
+      "plain": true,
+      "static": false,
+      "staticRoot": false,
+      "pre": "undefined"
+    },
+    {
+      "type": 3,
+      "text": " ",
+      "static": true
+    },
+    {
+      "type": 1,
+      "tag": "ul",
+      "attrsList": [],
+      "attrsMap": {
+        "class": "list"
+      },
+      "rawAttrsMap": {},
+      "parent": ["object"],
+      "children": [
+        {
+          "type": 1,
+          "tag": "li",
+          "attrsList": [],
+          "attrsMap": {
+            "v-for": "item in list",
+            "class": "item",
+            ":key": "item.id"
+          },
+          "rawAttrsMap": {},
+          "parent": ["object"],
+          "children": [
+            {
+              "type": 2,
+              "expression": "_s(item.name)",
+              "tokens": [
+                {
+                  "@binding": "item.name"
+                }
+              ],
+              "text": "{{item.name}}",
+              "static": false
+            }
+          ],
+          "for": "list",
+          "alias": "item",
+          "key": "item.id",
+          "plain": false,
+          "staticClass": "\"item\"",
+          "static": false,
+          "staticRoot": false,
+          "pre": "undefined",
+          "forProcessed": true
+        }
+      ],
+      "plain": false,
+      "staticClass": "\"list\"",
+      "static": false,
+      "staticRoot": false,
+      "pre": "undefined"
+    }
+  ],
+  "plain": false,
+  "attrs": [
+    {
+      "name": "id",
+      "value": "\"app\"",
+      "dynamic": "undefined"
+    }
+  ],
+  "static": false,
+  "staticRoot": false
+}
