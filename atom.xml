@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2021-05-13T06:33:33.681Z</updated>
+  <updated>2021-05-13T09:37:07.994Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git工作流</title>
+    <link href="https://cleam.github.io/2021/05/13/Git%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
+    <id>https://cleam.github.io/2021/05/13/Git工作流/</id>
+    <published>2021-05-13T08:10:10.000Z</published>
+    <updated>2021-05-13T09:37:07.994Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Git 工作流程是有关如何使用 Git 以一致且富有成效的方式完成工作的秘诀或建议。Git 工作流程鼓励用户有效，一致地利用 Git。&lt;/p&gt;
+&lt;p&gt;Git 在用户管理变更方面提供了很大的灵活性，鉴于 Git 对灵活性的关注，没有关于如何与 Git 交互的标准化流程。所以
+        
+      
+    
+    </summary>
+    
+    
+      <category term="git" scheme="https://cleam.github.io/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>npm peerDependencies</title>
