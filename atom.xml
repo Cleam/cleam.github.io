@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2020-12-10T14:54:51.382Z</updated>
+  <updated>2021-05-13T06:33:33.681Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>npm peerDependencies</title>
+    <link href="https://cleam.github.io/2021/05/13/npm-peerDependencies/"/>
+    <id>https://cleam.github.io/2021/05/13/npm-peerDependencies/</id>
+    <published>2021-05-13T02:06:35.000Z</published>
+    <updated>2021-05-13T06:33:33.681Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;希望通过此文阐明当你要使用 npm 的时候知道什么是&lt;code&gt;npm
+        
+      
+    
+    </summary>
+    
+    
+      <category term="翻译,npm" scheme="https://cleam.github.io/tags/%E7%BF%BB%E8%AF%91-npm/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux（CentOS 7）安装redis过程记录</title>
@@ -32,8 +57,7 @@
           &lt;blockquote&gt;
 &lt;p&gt;前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2&gt;一、查看系统版本信息&lt;/h2&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+&lt;h2 id=&quot;一、查看系统版本信息&quot;&gt;&lt;a href=&quot;#一、查看系统版本信息&quot; class=&quot;headerlink&quot;
         
       
     

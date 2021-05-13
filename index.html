@@ -374,6 +374,243 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/13/npm-peerDependencies/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/05/13/npm-peerDependencies/" class="post-title-link" itemprop="https://cleam.github.io/index.html">npm peerDependencies</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-05-13 10:06:35 / 修改时间：14:33:33" itemprop="dateCreated datePublished" datetime="2021-05-13T10:06:35+08:00">2021-05-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/05/13/npm-peerDependencies/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/13/npm-peerDependencies/" class="cy_cmt_count" data-xid="2021/05/13/npm-peerDependencies/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>希望通过此文阐明当你要使用 npm 的时候知道什么是<code>npm peerDependencies</code>，弄明白什么时候以及为什么使用它。<br><code>peerDependencies</code>（翻译：“同行依赖”或“对等依赖”）是<code>package.json</code>文件中的<code>peerDependencies</code>属性对象（列表）。<br>为了更好的理解此文，你至少要先了解<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a></p>
+</blockquote>
+<p>本文内容：</p>
+<ol>
+<li>首先，我们将准确比较<code>dependencies</code>与<code>peerDependencies</code>的工作方式。</li>
+<li>其次，我们将看到一些<code>dependencies</code>与<code>peerDependencies</code>的示例。</li>
+<li>然后，我们将研究 npm 如何处理版本冲突。</li>
+<li>最后，通过上面的基础铺垫，我们将看看如何合理的使用<code>peerDependencies</code>。</li>
+</ol>
+<h2 id="设想"><a href="#设想" class="headerlink" title="设想"></a>设想</h2><p>为了保持真实性，假设您正在创建一个 Angular 库，甚至只是一个简单的 JavaScript 文件，其中导出了一些功能（函数）。</p>
+<p>您的项目依赖于<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm Registry</a>中的软件包，这些软件包是您项目的<code>dependencies</code>依赖项。</p>
+<p>你想从你的项目中创建你自己的 npm 包，所以你使用<code>npm pack</code>生成了一个 npm 包，你甚至想将它发布到<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm Registry</a>中。</p>
+<p>团队中其他人想在他们项目中使用你的 npm 包作为他们项目的依赖。你在<code>package.json</code>使用<code>dependencies</code>和<code>peerDependencies</code>来告诉使用你的 npm 包的其他项目，要使你的 npm 包正常工作，则<code>dependencies</code>和<code>peerDependencies</code>中列出的包也需要安装。</p>
+<p>因此，在最基本的层次上，这是<code>dependencies</code>与<code>peerDependencies</code>的工作方式：</p>
+<h3 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h3><p><code>Dependencies</code>是<code>package.json</code>文件中的<a href="https://docs.npmjs.com/files/package.json#dependencies" target="_blank" rel="noopener">dependencies</a>对象，当你添加一个 npm 包到<code>dependencies</code>对象中时，仿佛在说：</p>
+<ul>
+<li>我的代码需要这个包才能运行。</li>
+<li>如果该 npm 包在我的<code>node_modules</code>目录中尚不存在，请自动添加。</li>
+<li>此外，添加<code>dependencies</code>中列出的 npm 包，这些 npm 包称为依赖项（<code>transitive dependencies</code>）。</li>
+</ul>
+<h3 id="peerDependencies"><a href="#peerDependencies" class="headerlink" title="peerDependencies"></a>peerDependencies</h3><p><code>peerDependencies</code>是<code>package.json</code>文件中的<a href="https://docs.npmjs.com/files/package.json#peerdependencies" target="_blank" rel="noopener">peerDependencies</a>对象，当你添加一个 npm 包到<code>peerDependencies</code>对象中时，仿佛在说：</p>
+<ul>
+<li>我的代码与此版本的 npm 包兼容。</li>
+<li>如果此 npm 包已存在于<code>node_modules</code>中，则什么也不用做。</li>
+<li>如果该软件包在<code>node_modules</code>目录中尚不存在或版本错误，请不要添加它。但是，需要向用户提示未找到该 npm 包的警告。</li>
+</ul>
+<h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><h3 id="添加-dependencies"><a href="#添加-dependencies" class="headerlink" title="添加 dependencies"></a>添加 dependencies</h3><p>依赖包是我们使我们项目能够正常运行的一个 npm 包，通常作为<code>dependencies</code>添加的一些受欢迎的程序包有<a href="https://www.npmjs.com/package/lodash" target="_blank" rel="noopener">lodash</a>、<a href="https://www.npmjs.com/package/request" target="_blank" rel="noopener">request</a>和<a href="https://www.npmjs.com/package/moment" target="_blank" rel="noopener">moment</a>等等。</p>
+<p>我们添加一个常规依赖项，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure>
+<p>npm 将包名称和版本添加到我们项目的 package.json 文件中的<code>dependencies</code>对象中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你们中的有些人可能还记得过去，我们不得不使用<code>--save</code>标志来更新 package.json 中的依赖项。值得庆幸的是，我们不再需要这样做了。</p>
+<h3 id="添加-peerDependencies"><a href="#添加-peerDependencies" class="headerlink" title="添加 peerDependencies"></a>添加 peerDependencies</h3><p>同行依赖包（<code>peerDependencies</code>）用于指定我们的程序包与 npm 程序包的特定版本兼容，<a href="https://angular.io/" target="_blank" rel="noopener">Angular</a>和<a href="https://reactjs.org/" target="_blank" rel="noopener">React</a>就是很好的例子。</p>
+<p>要添加<code>peerDependencies</code>，您实际上需要手动修改<code>package.json</code>文件。例如，对于 Angular 组件库项目，我建议添加<code>angular/core</code>作为<code>peerDependencies</code>。因此，如果您想指定您的程序包是为 Angular 7 构建的，则可以包含以下内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"peerDependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"@angular/core"</span>: <span class="string">"^7.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关于冲突"><a href="#关于冲突" class="headerlink" title="关于冲突"></a>关于冲突</h2><p>我对某个 npm 包应该进入<code>dependencies</code>还是进入<code>peerDependencies</code>提出了很多疑问，做出此决定的关键在于了解 npm 如何处理版本冲突。</p>
+<h3 id="冲突测试"><a href="#冲突测试" class="headerlink" title="冲突测试"></a>冲突测试</h3><p>首先，我们创建一个简单的测试项目：<code>conflict-test</code></p>
+<p>我是这样创建的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">md conflict-test</span><br><span class="line"><span class="built_in">cd</span> conflict-test</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+<p>然后，我手动编辑<code>package.json</code>文件并添加了两个依赖项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"todd-a"</span>: <span class="string">"^1.0.0"</span>,</span><br><span class="line">  <span class="string">"todd-b"</span>: <span class="string">"^1.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两个<code>todd-a</code>和<code>todd-b</code>软件包也具有它们自己的依赖项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// todd-a:</span></span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span>,</span><br><span class="line">  <span class="string">"todd-child"</span>: <span class="string">"^1.0.0"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// todd-b:</span></span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span>,</span><br><span class="line">  <span class="string">"todd-child"</span>: <span class="string">"^2.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我想让您注意的是，<code>todd-a</code>和<code>todd-b</code>使用的是<code>lodash</code>的相同版本。但是，它们对于<code>todd-child</code>有版本冲突：</p>
+<ul>
+<li><code>todd-a</code>使用<code>todd-child</code>版本<code>1.0.0</code></li>
+<li><code>todd-b</code>使用<code>todd-child</code>版本<code>2.0.0</code></li>
+</ul>
+<p>现在我知道，像我一样，您非常感兴趣，看看 npm 如何处理此版本冲突。在我的项目<code>conflict-test</code>中运行<code>npm install</code>，就像我们期望的那样，npm 在我们的<code>node_modules</code>文件夹中神奇地安装了<code>todd-a</code>和<code>todd-b</code>软件包。它还添加了它们所依赖的程序包（<code>transitive dependencies</code>）。因此，在运行<code>npm install</code>之后，我们来看一下<code>node_modules</code>文件夹。看起来像这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">├── lodash 4.17.11</span><br><span class="line">├── todd<span class="_">-a</span> 1.0.0</span><br><span class="line">├── todd-b 1.0.0</span><br><span class="line">│   └── node_modules</span><br><span class="line">│       └── todd-child 2.0.0</span><br><span class="line">└── todd-child 1.0.0</span><br></pre></td></tr></table></figure>
+<p>有趣的是，我们的项目有一个<code>lodash</code>副本。但是，它有两个<code>todd-child</code>副本。请注意，<code>todd-b</code>获得了其自己的<code>todd-child 2.0.0</code>的专用副本。</p>
+<p>因此：</p>
+<blockquote>
+<p>npm 通过添加有冲突的程序包的重复私有版本来处理版本冲突。</p>
+</blockquote>
+<h3 id="peerDependencies-1"><a href="#peerDependencies-1" class="headerlink" title="peerDependencies"></a>peerDependencies</h3><p>从我们对 npm 版本冲突的实验中可以看出，如果将软件包添加到依赖项中，则有可能最终将其复制到<code>node_modules</code>中。</p>
+<p>有时，具有相同软件包的两个版本也可以。但是，在同一代码库中有两个不同版本的某些程序包会导致冲突。</p>
+<p>例如，假设我们的组件库是使用<code>Angular 5</code>创建的。当有人将其添加为<code>Angular 6</code>应用的依赖项时，我们不希望我们的程序包添加另一个完全不同的<code>angular/core</code>版本。</p>
+<p>关键是：当该程序包可能与现有版本冲突并导致问题时，我们不希望我们的库添加另一个版本的程序包到<code>node-modules</code>。</p>
+<p><strong>选择<code>peerDependencies</code>还是<code>dependencies</code>？</strong></p>
+<p>当我的程序包依赖于另一个程序包时，应该将其放在<code>dependencies</code>还是<code>peerDependencies</code>中？</p>
+<p>好吧，就像大多数技术问题一样：看情况。</p>
+<p><code>peerDependencies</code>表示兼容性。例如，您将希望具体说明您的库与哪个版本的<code>Angular</code>兼容。</p>
+<h3 id="指导方案"><a href="#指导方案" class="headerlink" title="指导方案"></a>指导方案</h3><p>当满足以下条件之一时，建议使用<code>peerDependencies</code>：</p>
+<ul>
+<li>多个依赖包可能会导致冲突</li>
+<li>依赖关系清晰明了</li>
+<li>您希望开发人员决定要安装哪个版本</li>
+</ul>
+<p>让我们以<code>angular/core</code>为例。显然，如果您正在创建 Angular Library，则<code>angular/core</code>将成为您的库界面中非常明显的一部分。因此，它属于<code>peerDependencies</code>。</p>
+<p>但是，也许您的库在内部使用<code>Moment.js</code>来处理一些与时间相关的输入，<code>Moment.js</code>很可能不会在 Angular Services 或组件的界面中公开。因此，它属于<code>dependencies</code>。</p>
+<h3 id="Angular-作为依赖"><a href="#Angular-作为依赖" class="headerlink" title="Angular 作为依赖"></a>Angular 作为依赖</h3><p>假设您要在文档中指定您的库是一组 Angular 组件和服务，您可能会问以下问题：</p>
+<blockquote>
+<p>我是否甚至需要将<code>angular/core</code>指定为依赖项？如果有人在使用我的库，他们将已经有一个现有的 Angular 项目。</p>
+</blockquote>
+<p>好问题！</p>
+<p>是的，我们通常可以假设对于我们特定于 Angular 的库，Workspace 将已经有可用的 Angular 软件包。因此，从技术上讲，我们无需费心将它们添加到我们的依赖项列表中。</p>
+<p>但是，我们确实想告诉开发人员我们的库与哪些 Angular 版本兼容。因此，我建议采用以下方法：</p>
+<p>至少为<code>peerDependencies</code>添加兼容的 Angular 版本的<code>angular/core</code>。</p>
+<p>这样，如果开发人员尝试在其 Angular 6 项目中使用 Angular 7 库，则会看到警告。不必添加其他 Angular 软件包。您可以假定它们是否具有<code>angular/core</code>，是否具有其他 Angular 库。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如有疑问，您可能应该倾向于使用<code>peerDependencies</code>。这样，您的软件包的用户就可以选择添加哪些软件包。</p>
+<blockquote>
+<p>英文原文：<a href="https://indepth.dev/posts/1187/npm-peer-dependencies" target="_blank" rel="noopener">https://indepth.dev/posts/1187/npm-peer-dependencies</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -473,33 +710,24 @@
             <blockquote>
 <p>前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。</p>
 </blockquote>
-<h2>一、查看系统版本信息</h2>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure></p>
-<h2>二、修改 yum 安装源</h2>
-<p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
-<h2>三、安装 redis</h2>
-<p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：
-<img src="/uploads/post/redis.png" alt="redis下载"></p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
-<h3>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3>
-<p>解决方法：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure></p>
-<h3>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3>
-<p>解决方法：升级依赖</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure></p>
-<h2>三、运行</h2>
-<p>我的 redis 安装在<code>/opt/</code>目录下：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
-<h2>四、修改为后台启动</h2>
-<p>编辑配置文件 <code>redis.conf</code></p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<h2 id="一、查看系统版本信息"><a href="#一、查看系统版本信息" class="headerlink" title="一、查看系统版本信息"></a>一、查看系统版本信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、修改-yum-安装源"><a href="#二、修改-yum-安装源" class="headerlink" title="二、修改 yum 安装源"></a>二、修改 yum 安装源</h2><p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
+<h2 id="三、安装-redis"><a href="#三、安装-redis" class="headerlink" title="三、安装 redis"></a>三、安装 redis</h2><p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：<br><img src="/uploads/post/redis.png" alt="redis下载"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录"><a href="#错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录" class="headerlink" title="错误 1：zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录"></a>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3><p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
+<h3 id="错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员"><a href="#错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员" class="headerlink" title="错误 2：server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员"></a>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3><p>解决方法：升级依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h2><p>我的 redis 安装在<code>/opt/</code>目录下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="四、修改为后台启动"><a href="#四、修改为后台启动" class="headerlink" title="四、修改为后台启动"></a>四、修改为后台启动</h2><p>编辑配置文件 <code>redis.conf</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
 <p>将<code>daemonize no</code>修改为<code>daemonize yes</code>，保存之后，重新启动。</p>
-<h2>五、参考</h2>
-<ul>
-<li>https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</li>
-<li>https://redis.io/download</li>
-<li>https://www.cnblogs.com/aquester/p/13581147.html</li>
-<li>https://www.cnblogs.com/shook/p/12883742.html</li>
+<h2 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h2><ul>
+<li><a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</a></li>
+<li><a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></li>
+<li><a href="https://www.cnblogs.com/aquester/p/13581147.html" target="_blank" rel="noopener">https://www.cnblogs.com/aquester/p/13581147.html</a></li>
+<li><a href="https://www.cnblogs.com/shook/p/12883742.html" target="_blank" rel="noopener">https://www.cnblogs.com/shook/p/12883742.html</a></li>
 </ul>
 
           
@@ -2103,212 +2331,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/02/Javascript内建对象Math学习/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Javascript内建对象Math学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-02 11:07:23" itemprop="dateCreated datePublished" datetime="2020-03-02T11:07:23+08:00">2020-03-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-09-23 16:08:57" itemprop="dateModified" datetime="2020-09-23T16:08:57+08:00">2020-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2020/03/02/Javascript内建对象Math学习/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/" class="cy_cmt_count" data-xid="2020/03/02/Javascript内建对象Math学习/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。</p>
-<p>Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。</p>
-<p>数字 Π：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="number">3.141592653589793</span>;</span><br></pre></td></tr></table></figure>
-<p>2 的平方根：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.SQRT2;</span><br><span class="line"><span class="number">1.4142135623730951</span>;</span><br></pre></td></tr></table></figure>
-<p>欧拉常数 e：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.E;</span><br><span class="line"><span class="number">2.718281828459045</span>;</span><br></pre></td></tr></table></figure>
-<p>2 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN2;</span><br><span class="line"><span class="number">0.6931471805599453</span>;</span><br></pre></td></tr></table></figure>
-<p>10 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN10;</span><br><span class="line"><span class="number">2.302585092994046</span>;</span><br></pre></td></tr></table></figure>
-<p>random()所返回的是 0 到 1 之间的某个数，下面给出一些常用示例：</p>
-<p>1、获取 0 到 100 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span> * <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
-<p>2、获取 max 和 min 之间的值，可以通过一个公式(<code>(max - min) * Math.random() + min</code>)来获取。如获取 2 到 10 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span> * <span class="built_in">Math</span>.random() + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>如果只需要整数的话，使用<code>Math.floor()</code>用于舍弃和<code>Math.ceil()</code>用于取入，也可以直接调用<code>Math.round()</code>进行四舍五入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.63</span>);</span><br></pre></td></tr></table></figure>
-<p>获取随机数 0 或 1：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random());</span><br></pre></td></tr></table></figure>
-<p><code>Math.max()</code>获取最大值、<code>Math.min()</code>获取最小值：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">12</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure>
-<p>示例：对表单中输入的月份进行验证时，可以使用下面方式来确保数据正常工作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">1</span>, input), <span class="number">12</span>);</span><br></pre></td></tr></table></figure>
-<p>Math 的其他数学计算方法：</p>
-<ul>
-<li>指数运算(2 的 3 次方)：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>平方根：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sqrt(<span class="number">9</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>正弦、余弦函数：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sin(number);</span><br><span class="line"><span class="built_in">Math</span>.cos(number);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中 number 的为弧度值，返回参数 number 的正弦值，返回值介于 [-1, 1] 之间。</p>
-</blockquote>
-<p><code>角度 = 360 * 弧度 / (2 * Math.PI)</code><br>化简为：<br><code>角度 = 180 * 弧度 / Math.PI</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2358,7 +2380,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2387,7 +2409,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
