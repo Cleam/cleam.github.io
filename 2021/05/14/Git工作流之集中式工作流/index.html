@@ -141,13 +141,13 @@
 
 
 
-  <meta name="description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央存储库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管存储库方面">
+  <meta name="description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管仓库方面与其">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git工作流之集中式工作流">
 <meta property="og:url" content="https://cleam.github.io/2021/05/14/Git工作流之集中式工作流/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央存储库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管存储库方面">
+<meta property="og:description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管仓库方面与其">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/init_central_repo.svg">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/man_conflicts.svg">
@@ -159,10 +159,10 @@
 <meta property="og:image" content="https://cleam.github.io/uploads/post/rc_xl.svg">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/conflict_resolution.svg">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/scr_xl.svg">
-<meta property="og:updated_time" content="2021-05-14T10:19:03.123Z">
+<meta property="og:updated_time" content="2021-05-14T11:58:49.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git工作流之集中式工作流">
-<meta name="twitter:description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央存储库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管存储库方面">
+<meta name="twitter:description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管仓库方面与其">
 <meta name="twitter:image" content="https://cleam.github.io/uploads/post/init_central_repo.svg">
 
 
@@ -427,7 +427,7 @@
                 
               
 
-              <time title="创建时间：2021-05-14 10:12:22 / 修改时间：18:19:03" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
+              <time title="创建时间：2021-05-14 10:12:22 / 修改时间：19:58:49" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
             
 
             
@@ -476,70 +476,85 @@
       
 
       
-        <p>对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与<a href="https://subversion.apache.org/" target="_blank" rel="noopener">Subversion</a>一样，集中式工作流使用中央存储库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 <strong>使用<code>master</code>作为默认的开发分支且所有提交操作都在该分支上。</strong> 这种工作流除了<code>master</code>分支外，不需要任何其他分支。</p>
-<p>集中式工作流在使用远程服务器端托管存储库方面与其他工作流类似，开发人员可以通过这种存储库推送（<code>push</code>）和拉取（<code>pull</code>）资源。</p>
+        <p>对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与<a href="https://subversion.apache.org/" target="_blank" rel="noopener">Subversion</a>一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 <strong>使用<code>master</code>作为默认的开发分支且所有提交操作都在该分支上。</strong> 这种工作流除了<code>master</code>分支外，不需要任何其他分支。</p>
+<p>集中式工作流在使用远程服务器端托管仓库方面与其他工作流类似，开发人员可以通过这种仓库推送（<code>push</code>）和拉取（<code>pull</code>）资源。</p>
 <p>与其他工作流程相比，集中式工作流程没有定义的合并请求（<code>pull request</code>）或分叉（<code>fork</code>）模式。<strong>集中式工作流通常更适合从 SVN 迁移到 Git 的团队以及规模较小的团队。</strong></p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><h3 id="初始化中央存储库"><a href="#初始化中央存储库" class="headerlink" title="初始化中央存储库"></a>初始化中央存储库</h3><p><img src="/uploads/post/init_central_repo.svg" alt="初始化中央存储库"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@host git init --bare /path/to/repo.git</span><br></pre></td></tr></table></figure>
-<p>一般我们将仓库托管到 git 仓库托管平台（如 gitlab、github、gitee）。</p>
-<h3 id="克隆中央存储库"><a href="#克隆中央存储库" class="headerlink" title="克隆中央存储库"></a>克隆中央存储库</h3><p>接下来，每个开发人员都将创建整个项目的本地副本。通过以下<code>git clone</code>命令完成的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://user@host/path/to/repo.git</span><br></pre></td></tr></table></figure>
-<p>当 clone 一个存储库时，假设您要在以后与之进行进一步的交互，Git 会自动添加一个叫<code>origin</code>的快捷方式，并指向“父”存储库。</p>
-<h3 id="修改与提交"><a href="#修改与提交" class="headerlink" title="修改与提交"></a>修改与提交</h3><p>一旦在本地克隆了存储库，开发人员就可以使用标准的 Git 提交过程进行更改：编辑（edit），暂存（stage）和提交（commit）。</p>
+<h2>运作原理</h2>
+<h3>初始化中央仓库</h3>
+<p><img src="/uploads/post/init_central_repo.svg" alt="初始化中央仓库"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@host git init --bare /path/to/repo.git</span><br></pre></td></tr></table></figure></p>
+<p>一般我们将仓库托管到 git 仓库托管平台（如 gitlab github gitee ...），在托管平台上面初始化中央仓库。</p>
+<h3>克隆中央仓库</h3>
+<p>接下来，每个开发人员都将创建整个项目的本地副本。通过以下<code>git clone</code>命令完成的：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://user@host/path/to/repo.git</span><br></pre></td></tr></table></figure></p>
+<p>当 clone 一个仓库时，假设您要在以后与之进行进一步的交互，Git 会自动添加一个叫<code>origin</code>的快捷方式，并指向“父”仓库。</p>
+<h3>修改与提交</h3>
+<p>一旦在本地克隆了仓库，开发人员就可以使用标准的 Git 提交过程进行更改：编辑（edit），暂存（stage）和提交（commit）。</p>
 <blockquote>
 <p>暂存：实际上就是我改了 3 个文件，但是我只想提交 2 个文件，就可以先<code>git add</code>将指定的 2 个文件暂存，然后使用<code>git commit</code>就只会提交暂存的那 2 个文件，这样便避免了提交非必要文件。</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment"># 查看仓库状态</span></span><br><span class="line">git add  <span class="comment"># 暂存</span></span><br><span class="line">git commit <span class="comment"># 提交</span></span><br></pre></td></tr></table></figure>
-<p>请记住，由于这些命令创建了本地提交，小王可以根据需要多次重复此过程，而不必担心中央存储库中的情况。这对于需要分解为更简单，更原子的块的大型功能非常有用。</p>
-<h3 id="推送新提交到中央存储库"><a href="#推送新提交到中央存储库" class="headerlink" title="推送新提交到中央存储库"></a>推送新提交到中央存储库</h3><p>将本地更新推送到远程中央存储库中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>该命令会将本地新提交的更改推送到远程中央存储库。在此推送过程中可能出现一种特殊情况就是小丽（另一开发者）在小王之前推送过代码，此时 Git 将输出一条消息，指出此冲突。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment"># 查看仓库状态</span></span><br><span class="line">git add  <span class="comment"># 暂存</span></span><br><span class="line">git commit <span class="comment"># 提交</span></span><br></pre></td></tr></table></figure></p>
+<p>请记住，由于这些命令创建了本地提交，小王可以根据需要多次重复此过程，而不必担心中央仓库中的情况。这对于需要分解为更简单，更原子的块的大型功能非常有用。</p>
+<h3>推送新提交到中央仓库</h3>
+<p>将本地更新推送到远程中央仓库中。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<p>该命令会将本地新提交的更改推送到远程中央仓库。在此推送过程中可能出现一种特殊情况就是小丽（另一开发者）在小王之前推送过代码，此时 Git 将输出一条消息，指出此冲突。</p>
 <p>冲突情况下，应该先执行 Git 拉取命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
 <p>下一节将对此冲突情形进行扩展。</p>
-<h3 id="冲突管理"><a href="#冲突管理" class="headerlink" title="冲突管理"></a>冲突管理</h3><p>中央存储库代表官方项目，因此其提交历史应视为神圣且不可改变。如果开发人员的本地提交偏离中央存储库，则 Git 将拒绝推送其更改，因为这将覆盖官方提交。</p>
+<h3>冲突管理</h3>
+<p>中央仓库代表官方项目，因此其提交历史应视为神圣且不可改变。如果开发人员的本地提交偏离中央仓库，则 Git 将拒绝推送其更改，因为这将覆盖官方提交。</p>
 <p><img src="/uploads/post/man_conflicts.svg" alt="冲突管理"></p>
 <p>在开发人员发布功能之前，他们需要获取更新的中央提交并在其基础上重新进行更改。这就像在说：“我想将自己的更改添加到其他所有人已经完成的操作中。”与传统的 SVN 工作流程一样，结果是完美的线性历史记录。</p>
 <p>如果本地更改直接与上游提交冲突，则 Git 将暂停变基过程（the rebasing process），并为您提供手动解决冲突的机会。关于 Git 的好处是，它使用相同的<code>git status</code>和<code>git add</code>命令来生成提交和解决合并冲突。这使新开发人员可以轻松管理自己的合并。另外，如果他们遇到麻烦，Git 可以很轻松地中止整个重新部署并重试（或寻求帮助）。</p>
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><p>让我们举一个例子，说明典型的小型团队如何使用此 Git 工作流进行协作。我们将看到<code>小王</code>和<code>小丽</code>这两个开发人员如何使用单独的功能并通过集中式存储库共享他们的贡献。</p>
-<h3 id="小王"><a href="#小王" class="headerlink" title="小王"></a>小王</h3><p><img src="/uploads/post/scfp_xw.svg" alt="scfp_xw"></p>
+<h2>举例说明</h2>
+<p>让我们举一个例子，说明典型的小型团队如何使用此 Git 工作流进行协作。我们将看到<code>小王</code>和<code>小丽</code>这两个开发人员如何使用单独的功能并通过集中式仓库共享他们的贡献。</p>
+<h3>小王</h3>
+<p><img src="/uploads/post/scfp_xw.svg" alt="scfp_xw"></p>
 <p>在他的本地仓库中，<code>小王</code>可以使用标准的 Git 提交过程（编辑、暂存和提交）来开发功能。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment"># 查看仓库状态</span></span><br><span class="line">git add  <span class="comment"># 暂存</span></span><br><span class="line">git commit <span class="comment"># 提交</span></span><br></pre></td></tr></table></figure>
-<p>请记住，由于这些命令创建了本地提交，因此<code>小王</code>可以根据需要多次重复此过程，而不必担心中央存储库中的情况。</p>
-<h3 id="小丽"><a href="#小丽" class="headerlink" title="小丽"></a>小丽</h3><p><img src="/uploads/post/scfp_xl.svg" alt="scfp_xl"></p>
-<p>同时，<code>小丽</code>使用相同的（编辑、暂存和提交）过程在自己的本地存储库中开发自己的功能。像<code>小王</code>一样，她不在乎中央存储库中发生的事情，她也不用在乎<code>小王</code>在其本地存储库中正在做什么，因为所有本地存储库都是私有的。</p>
-<h3 id="小王发布他完成的功能"><a href="#小王发布他完成的功能" class="headerlink" title="小王发布他完成的功能"></a>小王发布他完成的功能</h3><p><img src="/uploads/post/pf_xw.svg" alt="pf_xw"></p>
-<p><code>小王</code>完成其功能后，应将其本地提交发布到中央存储库，以便其他团队成员可以访问它。他可以使用<code>git push</code>命令执行此操作，如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>请记住，<code>源（origin）</code>是与<code>小王</code>克隆 Git 仓库时创建的中央存储库的远程连接。<code>master</code>参数告诉 Git 尝试使<code>源（origin）的master分支</code>对照<code>本地的master分支</code>。由于<code>小王</code>克隆以来中央存储库尚未更新，因此不会造成任何冲突，并且推送将按预期进行。</p>
-<h3 id="小丽尝试发布她完成的功能"><a href="#小丽尝试发布她完成的功能" class="headerlink" title="小丽尝试发布她完成的功能"></a>小丽尝试发布她完成的功能</h3><p><img src="/uploads/post/pce_xl.svg" alt="pce_xl"></p>
-<p>让我们看看如果<code>小王</code>成功将其更改发布到中央存储库后<code>小丽</code>尝试发布其功能，会发生什么情况。她可以使用完全相同的<code>push</code>命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>但是，由于她的本地历史与中央存储库有所不同，因此 Git 会以相当冗长的错误消息拒绝该请求：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">error: failed to push some refs to <span class="string">'/path/to/repo.git'</span></span><br><span class="line">hint: Updates were rejected because the tip of your current branch is behind</span><br><span class="line">hint: its remote counterpart. Merge the remote changes (e.g. <span class="string">'git pull'</span>)</span><br><span class="line">hint: before pushing again.</span><br><span class="line">hint: See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure>
-<p>这样可以防止<code>小丽</code>覆盖正式提交。她需要将<code>小王</code>的更新放入存储库中，并将其与本地更改集成，然后重试。</p>
-<h3 id="小丽重新以小王的提交为基准"><a href="#小丽重新以小王的提交为基准" class="headerlink" title="小丽重新以小王的提交为基准"></a>小丽重新以小王的提交为基准</h3><p><code>小丽</code>可以使用<code>git pull</code>将上游更改合并到她的存储库中。这个命令有点像<code>svn update</code>-将整个上游提交历史记录拉到<code>小丽</code>的本地存储库中，并尝试将其与她的本地提交集成：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
-<p><code>--rebase</code>选项告诉 Git 在将其与中央存储库中的更改同步后，将所有<code>小丽</code>的提交都移至 master 分支的末端，如下所示：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment"># 查看仓库状态</span></span><br><span class="line">git add  <span class="comment"># 暂存</span></span><br><span class="line">git commit <span class="comment"># 提交</span></span><br></pre></td></tr></table></figure></p>
+<p>请记住，由于这些命令创建了本地提交，因此<code>小王</code>可以根据需要多次重复此过程，而不必担心中央仓库中的情况。</p>
+<h3>小丽</h3>
+<p><img src="/uploads/post/scfp_xl.svg" alt="scfp_xl"></p>
+<p>同时，<code>小丽</code>使用相同的（编辑、暂存和提交）过程在自己的本地仓库中开发自己的功能。像<code>小王</code>一样，她不在乎中央仓库中发生的事情，她也不用在乎<code>小王</code>在其本地仓库中正在做什么，因为所有本地仓库都是私有的。</p>
+<h3>小王发布他完成的功能</h3>
+<p><img src="/uploads/post/pf_xw.svg" alt="pf_xw"></p>
+<p><code>小王</code>完成其功能后，应将其本地提交发布到中央仓库，以便其他团队成员可以访问它。他可以使用<code>git push</code>命令执行此操作，如下所示：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<p>请记住，<code>源（origin）</code>是与<code>小王</code>克隆 Git 仓库时创建的中央仓库的远程连接。<code>master</code>参数告诉 Git 尝试使<code>源（origin）的master分支</code>对照<code>本地的master分支</code>。由于<code>小王</code>克隆以来中央仓库尚未更新，因此不会造成任何冲突，并且推送将按预期进行。</p>
+<h3>小丽尝试发布她完成的功能</h3>
+<p><img src="/uploads/post/pce_xl.svg" alt="pce_xl"></p>
+<p>让我们看看如果<code>小王</code>成功将其更改发布到中央仓库后<code>小丽</code>尝试发布其功能，会发生什么情况。她可以使用完全相同的<code>push</code>命令：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<p>但是，由于她的本地历史与中央仓库有所不同，因此 Git 会以相当冗长的错误消息拒绝该请求：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">error: failed to push some refs to <span class="string">'/path/to/repo.git'</span></span><br><span class="line">hint: Updates were rejected because the tip of your current branch is behind</span><br><span class="line">hint: its remote counterpart. Merge the remote changes (e.g. <span class="string">'git pull'</span>)</span><br><span class="line">hint: before pushing again.</span><br><span class="line">hint: See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.</span><br></pre></td></tr></table></figure></p>
+<p>这样可以防止<code>小丽</code>覆盖正式提交。她需要将<code>小王</code>的更新放入仓库中，并将其与本地更改集成，然后重试。</p>
+<h3>小丽重新以小王的提交为基准</h3>
+<p><code>小丽</code>可以使用<code>git pull</code>将上游更改合并到她的仓库中。这个命令有点像<code>svn update</code>-将整个上游提交历史记录拉到<code>小丽</code>的本地仓库中，并尝试将其与她的本地提交集成：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure></p>
+<p><code>--rebase</code>选项告诉 Git 在将其与中央仓库中的更改同步后，将所有<code>小丽</code>的提交都移至 master 分支的末端，如下所示：</p>
 <p><img src="/uploads/post/rebase.svg" alt="rebase"></p>
-<p>如果您忘记了此选项<code>--rebase</code>，<code>pull</code>仍然有效，但是每次有人需要与中央存储库同步时，您都会得到多余的“合并提交”。对于此工作流程，最好重新设置基准，而不是生成合并提交。</p>
-<h3 id="小丽解决合并冲突"><a href="#小丽解决合并冲突" class="headerlink" title="小丽解决合并冲突"></a>小丽解决合并冲突</h3><p><img src="/uploads/post/rc_xl.svg" alt="rc_xl"></p>
+<p>如果您忘记了此选项<code>--rebase</code>，<code>pull</code>仍然有效，但是每次有人需要与中央仓库同步时，您都会得到多余的“合并提交”。对于此工作流程，最好重新设置基准，而不是生成合并提交。</p>
+<h3>小丽解决合并冲突</h3>
+<p><img src="/uploads/post/rc_xl.svg" alt="rc_xl"></p>
 <p>变基（<code>rebase</code>）工作是通过将每个本地提交一次一个的转移到最新的（<code>master</code>）主分支。这意味着您可以逐个提交地解决合并冲突，而不是在一个大规模合并提交中解决所有冲突。这样可以使您的提交尽可能集中，并保证项目历史记录的整洁。反过来，这使得找出错误的位置变得容易得多，并且在必要时以对项目的影响最小的方式回滚更改。</p>
 <p>如果<code>小丽</code>和<code>小王</code>正在开发不相关的功能，则重新定基过程不太可能产生冲突。但如果产生了冲突，Git 将在当前提交时暂停定基（rebase），并输出以下消息以及一些相关说明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> xxx</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> xxx</span><br></pre></td></tr></table></figure></p>
 <p><img src="/uploads/post/conflict_resolution.svg" alt="conflict_resolution"></p>
 <p>Git 的伟大之处在于，任何人都可以解决自己的合并冲突。在我们的示例中，<code>小丽</code>只需运行<a href="https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-status" target="_blank" rel="noopener">git status</a>即可查看问题出在哪里。冲突的文件将显示在“未合并的路径”部分中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Unmerged paths:</span><br><span class="line"># (use &quot;git reset HEAD ...&quot; to unstage)</span><br><span class="line"># (use &quot;git add/rm ...&quot; as appropriate to mark resolution)</span><br><span class="line">#</span><br><span class="line"># both modified:</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Unmerged paths:</span><br><span class="line"># (use &quot;git reset HEAD ...&quot; to unstage)</span><br><span class="line"># (use &quot;git add/rm ...&quot; as appropriate to mark resolution)</span><br><span class="line">#</span><br><span class="line"># both modified:</span><br></pre></td></tr></table></figure></p>
 <p>然后，她将根据自己的喜好编辑文件。对结果感到满意后，她可以按照常用的方式暂存文件（<code>git add</code>），然后让<a href="https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase" target="_blank" rel="noopener">git rebase</a>完成其余工作：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add</span><br><span class="line">git rebase --<span class="built_in">continue</span> <span class="comment"># 合并冲突，结合 git add 命令一起用于修复冲突（fix conflicts and then run "git rebase --continue"）</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add</span><br><span class="line">git rebase --<span class="built_in">continue</span> <span class="comment"># 合并冲突，结合 git add 命令一起用于修复冲突（fix conflicts and then run "git rebase --continue"）</span></span><br></pre></td></tr></table></figure></p>
 <p>以上就是一个提交的冲突处理的整个流程，Git 将继续进行下一个提交，并针对产生冲突的任何其他提交重复该过程。</p>
 <p>当您（在冲突处理过程中）意识到感觉不对、不知道发生了什么时，不要惊慌，只需执行以下命令，您便会回到开始的位置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --abort <span class="comment"># 放弃合并，回到rebase操作之前的状态，之前的提交不会丢弃；</span></span><br></pre></td></tr></table></figure>
-<h3 id="小丽成功发布已完成的功能"><a href="#小丽成功发布已完成的功能" class="headerlink" title="小丽成功发布已完成的功能"></a>小丽成功发布已完成的功能</h3><p><img src="/uploads/post/scr_xl.svg" alt="scr_xl"></p>
-<p>与中央存储库同步后，<code>小丽</code>将能够成功发布其更改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如您所见，仅使用少量 Git 命令即可复制传统的 Subversion 开发环境。这对于将团队从 SVN 过渡过来非常有用，但它没有利用 Git 的分布式特性。</p>
-<p>集中式工作流程非常适合小型团队。当您的团队规模扩大时，上面详述的冲突解决过程可能会成为瓶颈。如果您的团队对集中式工作流程感到满意，但想简化其协作工作，那么绝对值得探索<a href="./feature_branch_workflow">功能分支工作流（Feature Branch Workflow）</a>的好处。通过为每个功能指定一个独立的分支，可以在将新功能集成到正式项目中之前就新功能进行深入的讨论。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --abort <span class="comment"># 放弃合并，回到rebase操作之前的状态，之前的提交不会丢弃；</span></span><br></pre></td></tr></table></figure></p>
+<h3>小丽成功发布已完成的功能</h3>
+<p><img src="/uploads/post/scr_xl.svg" alt="scr_xl"></p>
+<p>与中央仓库同步后，<code>小丽</code>将能够成功发布其更改：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<h2>总结</h2>
+<p>如您所见，仅使用少量 Git 命令即可复制传统的 Subversion 开发环境。这对于将团队从 SVN 过渡过来非常有用，但它没有利用 Git 的分布式特性。</p>
+<p>集中式工作流程非常适合小型团队。当您的团队规模扩大时，上面详述的冲突解决过程可能会成为瓶颈。如果您的团队对集中式工作流程感到满意，但想简化其协作工作，那么绝对值得探索<a href="/2021/05/15/Git工作流之功能分支工作流/" title="Git工作流之功能分支工作流">Git工作流之功能分支工作流</a>。通过为每个功能指定一个独立的分支，可以在将新功能集成到正式项目中之前就新功能进行深入的讨论。</p>
 <blockquote>
 <p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">英文原文</a></p>
 </blockquote>
@@ -815,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运作原理"><span class="nav-number">1.</span> <span class="nav-text">运作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化中央存储库"><span class="nav-number">1.1.</span> <span class="nav-text">初始化中央存储库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆中央存储库"><span class="nav-number">1.2.</span> <span class="nav-text">克隆中央存储库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改与提交"><span class="nav-number">1.3.</span> <span class="nav-text">修改与提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送新提交到中央存储库"><span class="nav-number">1.4.</span> <span class="nav-text">推送新提交到中央存储库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲突管理"><span class="nav-number">1.5.</span> <span class="nav-text">冲突管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例说明"><span class="nav-number">2.</span> <span class="nav-text">举例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小王"><span class="nav-number">2.1.</span> <span class="nav-text">小王</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小丽"><span class="nav-number">2.2.</span> <span class="nav-text">小丽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小王发布他完成的功能"><span class="nav-number">2.3.</span> <span class="nav-text">小王发布他完成的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小丽尝试发布她完成的功能"><span class="nav-number">2.4.</span> <span class="nav-text">小丽尝试发布她完成的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小丽重新以小王的提交为基准"><span class="nav-number">2.5.</span> <span class="nav-text">小丽重新以小王的提交为基准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小丽解决合并冲突"><span class="nav-number">2.6.</span> <span class="nav-text">小丽解决合并冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小丽成功发布已完成的功能"><span class="nav-number">2.7.</span> <span class="nav-text">小丽成功发布已完成的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">运作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">初始化中央仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">克隆中央仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">修改与提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">推送新提交到中央仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.5.</span> <span class="nav-text">冲突管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">举例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">小王</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">小丽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">小王发布他完成的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">小丽尝试发布她完成的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.5.</span> <span class="nav-text">小丽重新以小王的提交为基准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.6.</span> <span class="nav-text">小丽解决合并冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.7.</span> <span class="nav-text">小丽成功发布已完成的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
