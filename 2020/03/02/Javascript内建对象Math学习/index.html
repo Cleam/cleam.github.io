@@ -480,45 +480,47 @@
         <p>Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。</p>
 <p>Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。</p>
 <p>数字 Π：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="number">3.141592653589793</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="number">3.141592653589793</span>;</span><br></pre></td></tr></table></figure></p>
 <p>2 的平方根：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.SQRT2;</span><br><span class="line"><span class="number">1.4142135623730951</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.SQRT2;</span><br><span class="line"><span class="number">1.4142135623730951</span>;</span><br></pre></td></tr></table></figure></p>
 <p>欧拉常数 e：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.E;</span><br><span class="line"><span class="number">2.718281828459045</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.E;</span><br><span class="line"><span class="number">2.718281828459045</span>;</span><br></pre></td></tr></table></figure></p>
 <p>2 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN2;</span><br><span class="line"><span class="number">0.6931471805599453</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN2;</span><br><span class="line"><span class="number">0.6931471805599453</span>;</span><br></pre></td></tr></table></figure></p>
 <p>10 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN10;</span><br><span class="line"><span class="number">2.302585092994046</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN10;</span><br><span class="line"><span class="number">2.302585092994046</span>;</span><br></pre></td></tr></table></figure></p>
 <p>random()所返回的是 0 到 1 之间的某个数，下面给出一些常用示例：</p>
 <p>1、获取 0 到 100 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span> * <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span> * <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure></p>
 <p>2、获取 max 和 min 之间的值，可以通过一个公式(<code>(max - min) * Math.random() + min</code>)来获取。如获取 2 到 10 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span> * <span class="built_in">Math</span>.random() + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span> * <span class="built_in">Math</span>.random() + <span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
 <p>如果只需要整数的话，使用<code>Math.floor()</code>用于舍弃和<code>Math.ceil()</code>用于取入，也可以直接调用<code>Math.round()</code>进行四舍五入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.63</span>);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.63</span>);</span><br></pre></td></tr></table></figure></p>
 <p>获取随机数 0 或 1：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random());</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random());</span><br></pre></td></tr></table></figure></p>
 <p><code>Math.max()</code>获取最大值、<code>Math.min()</code>获取最小值：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">12</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">12</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure></p>
 <p>示例：对表单中输入的月份进行验证时，可以使用下面方式来确保数据正常工作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">1</span>, input), <span class="number">12</span>);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">1</span>, input), <span class="number">12</span>);</span><br></pre></td></tr></table></figure></p>
 <p>Math 的其他数学计算方法：</p>
 <ul>
 <li>指数运算(2 的 3 次方)：</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>平方根：</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sqrt(<span class="number">9</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sqrt(<span class="number">9</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>正弦、余弦函数：</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sin(number);</span><br><span class="line"><span class="built_in">Math</span>.cos(number);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sin(number);</span><br><span class="line"><span class="built_in">Math</span>.cos(number);</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>其中 number 的为弧度值，返回参数 number 的正弦值，返回值介于 [-1, 1] 之间。</p>
 </blockquote>
-<p><code>角度 = 360 * 弧度 / (2 * Math.PI)</code><br>化简为：<br><code>角度 = 180 * 弧度 / Math.PI</code></p>
+<p><code>角度 = 360 * 弧度 / (2 * Math.PI)</code>
+化简为：
+<code>角度 = 180 * 弧度 / Math.PI</code></p>
 
       
     </div>
@@ -672,7 +674,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

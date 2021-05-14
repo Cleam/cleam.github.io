@@ -491,7 +491,8 @@
 <li>用自己申请的域名绑定到公网 IP</li>
 <li>申请免费 SSL 证书，导入到群晖</li>
 </ol>
-<h2 id="光猫改桥接-申请公网-IP"><a href="#光猫改桥接-申请公网-IP" class="headerlink" title="光猫改桥接+申请公网 IP"></a>光猫改桥接+申请公网 IP</h2><ul>
+<h2>光猫改桥接+申请公网 IP</h2>
+<ul>
 <li>方法一（推荐）：打 10000，将电信光猫改成桥接模式，并申请公网 IP。</li>
 <li>方法二：也可以看<a href="https://post.smzdm.com/p/aoo8klv6/" target="_blank" rel="noopener">这篇文章</a>或<a href="https://www.jianshu.com/p/ee61b0b58854" target="_blank" rel="noopener">这篇文章</a>的教程获取到超级管理员账号，然后登陆进去改路由器为桥接模式。教程大概就是：</li>
 </ul>
@@ -499,19 +500,22 @@
 <li>使用光猫背面的（普通用户）账号密码登录进光猫，然后访问链接<code>http://192.168.1.1/backupsettings.conf</code>下载光猫的配置文件；</li>
 <li><code>backupsettings.conf</code>配置文件中就包含了超级管理员<code>telecomadmin</code>的密码（可以搜索 password 查看到），宽带账号密码也在里面（搜 username）。</li>
 </ol>
-<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin"><br><img src="/uploads/post/username.png" alt="username"></p>
+<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin">
+<img src="/uploads/post/username.png" alt="username"></p>
 <p>有了这些信息，光猫就可以自己修改了，不过我也折腾了很久，才将桥接改成功，并且路由器拨号上网也没问题了，当时遇到一个问题就是路由器 WAN IP 和百度搜索到的外网 IP 不一致，我以为自己没有公网 IP，所以后面又还原回去了，就打 10000 让电信师傅来帮忙弄了，电信师傅来弄的时候，最后也是一样的结果，路由器上 WAN IP 和百度上显示的外网 IP 不一致 😓（因为这是验证是否有公网 IP 的方法）：</p>
 <ul>
 <li>路由器 IP：<img src="/uploads/post/WANIP.png" alt="路由器IP"></li>
 <li>IP138 获取的 IP：<img src="/uploads/post/IP138IP.png" alt="IP138获取的IP"></li>
 </ul>
 <p>最终电信师傅回去之后微信告诉我，重启路由器就行了。重启路由后，果然成功了 😂。</p>
-<h2 id="路由器拨号上网-端口转发"><a href="#路由器拨号上网-端口转发" class="headerlink" title="路由器拨号上网+端口转发"></a>路由器拨号上网+端口转发</h2><p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
+<h2>路由器拨号上网+端口转发</h2>
+<p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
 <ul>
 <li>路由器拨号上网：<img src="/uploads/post/router_pppoe.png" alt="路由器拨号上网"></li>
 <li>端口转发配置：<img src="/uploads/post/config_transform_port.png" alt="端口转发配置"></li>
 </ul>
-<h2 id="域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><a href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖" class="headerlink" title="域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖"></a>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2><p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
+<h2>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2>
+<p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
 <ul>
 <li>域名解析：<img src="/uploads/post/jiexi.png" alt="域名解析"></li>
 <li>免费证书：<img src="/uploads/post/ssl.png" alt="免费证书"></li>
@@ -677,7 +681,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -787,7 +791,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#光猫改桥接-申请公网-IP"><span class="nav-number">1.</span> <span class="nav-text">光猫改桥接+申请公网 IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器拨号上网-端口转发"><span class="nav-number">2.</span> <span class="nav-text">路由器拨号上网+端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><span class="nav-number">3.</span> <span class="nav-text">域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">光猫改桥接+申请公网 IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">路由器拨号上网+端口转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</span></a></li></ol></div>
             
 
           </div>
