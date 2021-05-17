@@ -374,6 +374,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/18/Git工作流之分叉工作流/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/05/18/Git工作流之分叉工作流/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Git工作流之分叉工作流</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-05-18 19:39:14" itemprop="dateCreated datePublished" datetime="2021-05-18T19:39:14+08:00">2021-05-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-17 20:43:57" itemprop="dateModified" datetime="2021-05-17T20:43:57+08:00">2021-05-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/05/18/Git工作流之分叉工作流/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/18/Git工作流之分叉工作流/" class="cy_cmt_count" data-xid="2021/05/18/Git工作流之分叉工作流/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>分叉（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>分叉工作流最常见于公共开源项目中。</strong></p>
+<p>分叉工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
+<p>分叉工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
+<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>与其他 Git 工作流程一样，分叉工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
+<p>相反，他们<code>派生（fork）</code>了官方仓库以在服务器上创建它的副本。此新副本将用作其个人公共存储库-不允许其他开发人员将其推送到其中，但他们可以从中进行更改（我们稍后将解释为什么这很重要）。在创建服务器端副本之后，开发人员执行，<code>git clone</code>将其副本复制到本地计算机上。就像其他工作流程一样，这是他们的私有开发环境。</p>
+<p>准备发布本地提交时，他们会将提交推送到自己的公共仓库中，而不是正式的仓库中。然后，他们向主仓库提交<code>合并请求（pull request）</code>，这使项目维护者知道已准备好要集成更新。如果所贡献的代码存在问题，则合并请求还可以用作方便的讨论线程。以下是此工作流程的分步示例。</p>
+<ol>
+<li>开发人员<code>派生（fork）</code>一个“官方”服务器端存储库（这将创建自己的服务器端副本）；</li>
+<li>新的服务器端副本将克隆（<code>git clone</code>）到其本地；</li>
+<li>“官方”存储库的 Git 远程路径添加到本地（<code>git remote add origin xxx</code>）；</li>
+<li>创建一个新的本地<code>功能分支（feature branch）</code>；</li>
+<li>开发人员在新功能分支上进行更改；</li>
+<li>将为更改创建新的提交（<code>git add &amp;&amp; git commit</code>）；</li>
+<li>分支被推送到开发人员自己的服务器端（副本）；</li>
+<li>开发人员打开从新分支到“官方”存储库的<code>合并请求（pull request）</code>；</li>
+<li>合并请求被批准用于合并，并被合并到原始服务器端存储库中。</li>
+</ol>
+<p>为了将完成的功能集成到官方代码库中，维护人员将贡献者的更改拉入他们的本地存储库，检查以确保它不会破坏项目，将其合并到其本地 master 分支中，然后将其推送到服务器上的官方存储库中。贡献现在是项目的一部分，其他开发人员应从官方存储库中提取信息以同步其本地存储库。</p>
+<p>重要的是要了解，Forking 工作流中“正式”存储库的概念仅仅是一个约定。实际上，使正式存储库如此正式的唯一原因是它是项目维护者的公共存储库。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/17/Git工作流之GitFlow工作流/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -419,7 +602,7 @@
                 
               
 
-              <time title="创建时间：2021-05-17 15:12:15 / 修改时间：15:13:24" itemprop="dateCreated datePublished" datetime="2021-05-17T15:12:15+08:00">2021-05-17</time>
+              <time title="创建时间：2021-05-17 15:12:15 / 修改时间：18:40:29" itemprop="dateCreated datePublished" datetime="2021-05-17T15:12:15+08:00">2021-05-17</time>
             
 
             
@@ -470,8 +653,66 @@
       
         
           
-            <blockquote>
-<p>todo…</p>
+            <p><strong>GitFlow 工作流（GitFlow Workflow）</strong>是一个 Git 工作流程，可帮助持续进行软件开发和实施 <a href="https://www.atlassian.com/devops/what-is-devops" target="_blank" rel="noopener">DevOps</a> 实践。它最初<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">由 Vincent Driessen 在 nive 上发行</a>并广受欢迎。Gitflow 工作流定义了围绕项目发行版设计的严格分支模型。这为管理<strong>较大的项目</strong>提供了一个强大的框架。</p>
+<p>Gitflow 非常适合具有预定发布周期的项目以及<a href="https://www.atlassian.com/continuous-delivery" target="_blank" rel="noopener">DevOps 连续交付</a>的<a href="https://www.atlassian.com/devops/what-is-devops/devops-best-practices" target="_blank" rel="noopener">最佳实践</a>。此工作流程未添加《<a href="/2021/05/15/Git工作流之功能分支工作流/" title="Git工作流之功能分支工作流">Git工作流之功能分支工作流</a>》所需的任何新概念或命令。而是将非常具体的角色分配给不同的分支，并定义它们应如何以及何时进行交互。除了功能分支外，它还使用单独的分支来准备、维护和记录版本。当然，您还可以利用功能分支工作流（Feature Branch Workflow）的所有好处：合并请求、功能试验和更有效的协作。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>Gitflow 实际上只是 Git 工作流的抽象概念。这意味着它决定了要建立哪种分支以及如何将它们合并在一起。我们将触及以下分支的目的。 <code>git-flow工具集</code>是具有安装过程的实际命令行工具，安装过程很简单，git-flow 的软件包可在多个操作系统上使用。</p>
+<ul>
+<li>Mac OS: <code>brew install git-flow</code></li>
+<li>Windows: <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">下载并安装 git-flow</a></li>
+</ul>
+<p>安装 git-flow 后，您可以通过执行<code>git flow init</code>在项目中使用它。Git-flow 是基于 Git 的包装，<code>git flow init</code>命令是<code>git init</code>命令的扩展，除了为您创建分支外，不会更改仓库中的任何内容。</p>
+<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p><img src="/uploads/post/gitflow_01.svg" alt="how it works"></p>
+<h3 id="develop-和-master-分支"><a href="#develop-和-master-分支" class="headerlink" title="develop 和 master 分支"></a>develop 和 master 分支</h3><p>该工作流使用两个分支而不是单个主（master）分支来记录项目的历史记录。master 分支存储正式的发行历史，而 develop 分支则充当功能的集成分支。使用版本号标记 master 分支中的所有提交也很方便。</p>
+<p>第一步是用一个<code>develop分支</code>来补充默认的 master。一种简单的方法是让一个开发人员在本地创建一个空的 develop 分支并将其推送到服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch develop</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure>
+<p>该分支将包含项目的完整历史记录，而 master 将包含简化版本。现在，其他开发人员应该克隆中央仓库，并为<code>develop</code>创建跟踪分支。</p>
+<p>使用 git-flow 扩展库时，在现有存储库上执行<code>git flow init</code>将创建<code>develop</code>分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ git flow init</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> ~/project/.git/</span><br><span class="line">No branches exist yet. Base branches must be created now.</span><br><span class="line">Branch name <span class="keyword">for</span> production releases: [master]</span><br><span class="line">Branch name <span class="keyword">for</span> <span class="string">"next release"</span> development: [develop]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">How to name your supporting branch prefixes?</span><br><span class="line">Feature branches? [feature/]</span><br><span class="line">Release branches? [release/]</span><br><span class="line">Hotfix branches? [hotfix/]</span><br><span class="line">Support branches? [support/]</span><br><span class="line">Version tag prefix? []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ git branch</span><br><span class="line">* develop</span><br><span class="line"> master</span><br></pre></td></tr></table></figure>
+<h2 id="功能分支（feature-branches）"><a href="#功能分支（feature-branches）" class="headerlink" title="功能分支（feature branches）"></a>功能分支（feature branches）</h2><p>每个新功能应驻留在其自己的分支中，可以将其<a href="https://www.atlassian.com/git/tutorials/syncing/git-push" target="_blank" rel="noopener">推送到中央仓库</a>以进行备份与协作。但是，功能分支不是基于<code>master分支</code>，而是将<code>develop分支</code>用作其父分支。当功能开发完成后，它会重新合并到<code>develop分支</code>中。功能绝不能直接与<code>master分支</code>进行交互。</p>
+<p><img src="/uploads/post/gitflow_02.svg" alt="feature branches"></p>
+<p>请注意，出于所有意图和目的，将<code>功能分支（feature branch）</code>与<code>开发分支（develop）</code>结合使用是<strong>功能分支工作流</strong>的处理方式。但是，<strong>Gitflow 工作流</strong>并不止于此。</p>
+<p>通常创建<code>功能分支</code>是基于<code>最新的开发分支（develop）</code>。</p>
+<h3 id="创建一个功能分支"><a href="#创建一个功能分支" class="headerlink" title="创建一个功能分支"></a>创建一个功能分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature start feature_branch</span><br></pre></td></tr></table></figure>
+<h3 id="完成一个功能分支"><a href="#完成一个功能分支" class="headerlink" title="完成一个功能分支"></a>完成一个功能分支</h3><p>完成功能开发工作后，下一步就是将<code>功能分支（feature branch）</code>合并到<code>开发分支（develop）</code>中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature finish feature_branch</span><br></pre></td></tr></table></figure>
+<h2 id="发布分支（release-branches）"><a href="#发布分支（release-branches）" class="headerlink" title="发布分支（release branches）"></a>发布分支（release branches）</h2><p><img src="/uploads/post/gitflow_03.svg" alt="release branches"></p>
+<p>一旦<code>开发分支（develop）</code>获得了足够的功能以进行发布（或临近预定的发布日期），就可以从开发分支（develop）中<code>派生（fork）</code>一个<code>发布分支（release）</code>。创建此分支将开始下一个<strong>发行周期</strong>，因此此刻之后不能添加任何新功能-该分支中仅应包含错误修复、文档生成以及其他面向发行版的任务。一旦准备好发布，<code>发布分支</code>将合并到<code>master</code>并用版本号标记。此外，应该将其重新合并到开发分支（develop）中。</p>
+<p>使用专门的分支来准备发布，使一个团队可以完善 ​​ 当前版本，而另一个团队可以继续开发下一个版本的功能。</p>
+<!-- 它还创建了明确定义的开发阶段（例如，很容易地说：“本周我们正在为版本 4.0 做准备，并且可以在存储库的结构中实际看到它）。” -->
+<p>创建<code>发布分支</code>是另一种直接的分支操作。像<code>功能分支</code>一样，发布分支也基于<code>开发分支</code>。可以使用以下方法创建新的<code>发布分支</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">$ git flow release start 0.1.0</span><br><span class="line">Switched to a new branch <span class="string">'release/0.1.0'</span></span><br></pre></td></tr></table></figure>
+<p>一旦<code>release分支</code>准备好发布，它将被合并到 master 中并进行开发，然后<strong>发布分支将被删除</strong>。重新合并到<code>develop分支</code>中很重要，因为关键更新可能已添加到 release 分支，并且新功能需要访问这些更新。如果您的团队要求<code>代码评审</code>，那么这将是提出发起<code>合并请求</code>的理想场所。</p>
+<p>要完成<code>release分支</code>，请使用以下方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow release finish <span class="string">'0.1.0'</span></span><br></pre></td></tr></table></figure>
+<h2 id="热修分支（hotfix-branches）"><a href="#热修分支（hotfix-branches）" class="headerlink" title="热修分支（hotfix branches）"></a>热修分支（hotfix branches）</h2><p><img src="/uploads/post/gitflow_04.svg" alt="hotfix branches"></p>
+<p>维护或<code>热修分支（hotfix）</code>用于快速修补生产版本。热修分支（hotfix）与发布分支（release）以及功能（feature）分支很像，只是它们基于<code>master</code>而不是<code>develop</code>分支。这是唯一应直接基于<code>master</code>而创建的分支。修复完成后，应将其<code>合并到master和develop</code>（或当前 release 分支）中，并应使用<code>更新的版本号</code>标记 master。</p>
+<p>拥有专用的错误修复开发线（hotfix 分支），您的团队可以在不中断其余工作流程或不等待下一个发布周期的情况下解决问题。您可以将<code>热修分支（hotfix）</code>视为直接与 master 一起使用的临时发布分支。可以使用以下方法创建热修分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix start hotfix_branch</span><br></pre></td></tr></table></figure>
+<p>与完成发布分支相似，热修分支也<code>合并到master和develop</code>中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git branch -D hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix finish hotfix_branch</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>完整示例如下，假设我们有一个带有 master 分支的仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"><span class="comment"># work happens on feature branch 发生在功能分支的工作</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge develop</span><br><span class="line">git branch -d feature_branch</span><br></pre></td></tr></table></figure>
+<p>除了功能开发和发布流程外，<code>热修（hotfix）</code>示例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"><span class="comment"># work is done commits are added to the hotfix_branch</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这里，我们讨论了 Gitflow 工作流。 Gitflow 是您和您的团队可以利用的多种《<a href="/2021/05/13/Git工作流/" title="Git工作流">Git工作流</a>》之一。</p>
+<p>了解 Gitflow 的一些关键点：</p>
+<ul>
+<li>该工作流程非常适合基于发行版的软件工作流程。</li>
+<li>Gitflow 为生产修复程序提供了专用渠道（热修分支）。</li>
+</ul>
+<p>Gitflow 的总体流程为：</p>
+<ol>
+<li>一个基于<code>主分支（master）</code>创建的<code>开发分支（develop）</code>；</li>
+<li>一个基于开发分支创建的<code>发布分支（release）</code>;</li>
+<li><code>功能分支（feature branch）</code>基于开发分支创建；</li>
+<li>功能完成后，将其合并到开发分支中;</li>
+<li>完成发布分支后，将它<code>合并到master和develop</code>中；</li>
+<li>如果检测到<code>主分支（master）</code>出现问题，则会从主分支中创建一个<code>热修分支（hotfix）</code>;</li>
+<li>热修分支完成后，将它<code>合并到master和develop</code>中。</li>
+</ol>
+<p>接下来，了解分《<a href="/2021/05/18/Git工作流之分叉工作流/" title="Git工作流之分叉工作流">Git工作流之分叉工作流</a>》</p>
+<blockquote>
+<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank" rel="noopener">英文原文</a></p>
 </blockquote>
 
           
@@ -591,7 +832,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-05-17 15:29:19" itemprop="dateModified" datetime="2021-05-17T15:29:19+08:00">2021-05-17</time>
+                <time title="修改时间：2021-05-17 16:51:29" itemprop="dateModified" datetime="2021-05-17T16:51:29+08:00">2021-05-17</time>
               
             
           </span>
@@ -638,35 +879,35 @@
         
           
             <p><strong>Git 功能分支工作流（Feature Branch Workflow）</strong>背后的核心思想是所有功能开发应在专用分支而不是<code>master</code>分支中进行。这种封装使多个开发人员可以轻松地使用特定功能，而又不会干扰主代码库。这也意味着<code>master</code>分支将永远不会包含残破的代码，这对于持续集成环境是一个巨大的优势。</p>
-<p>封装功能开发还可以利用拉取请求，这是围绕分支发起讨论的一种方式。他们为其他开发人员提供了在功能集成到正式项目中之前对其进行签名的机会。或者，如果您陷于某个功能的中间，则可以开启一个<strong>合并请求（pull request）</strong>，以征询同事的建议。关键是，合并请求使您的团队可以非常轻松地就彼此的工作发表评论。</p>
+<p>功能分支开发还可以利用<strong>合并请求（pull request）</strong>，这是围绕分支发起讨论的一种方式。这为其他开发人员提供了在功能集成到正式项目中之前对其进行审查的机会。甚至，如果您在开发功能过程中卡住了，则可以开启一个<strong>合并请求（pull request）</strong>，以征询同事的建议。更关键是，合并请求操作使您的团队可以非常轻松地就彼此的工作发表讨论。</p>
 <p>Git 功能分支工作流是可组合的工作流程，其他高级 Git 工作流程也可以利用。Git 功能分支工作流是针对分支模型的，这意味着它是用于管理和创建分支的指导框架。其他工作流程更注重回购。 Git Feature Branch 工作流程可以合并到其他工作流程中。实际上，<strong>GitFlow 工作流（GitFlow Workflow）</strong>和<strong>Git 分叉工作流（Forking Workflow）</strong>在其分支模型方面使用了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>Git 功能分支工作流（Feature Branch Workflow）假设有一个中央仓库，而<strong>master</strong>则代表正式的项目历史记录，开发人员在每次开始使用新功能时都创建一个新分支，而不是直接在其本地<strong>master</strong>分支上提交。功能分支应具有描述性名称，例如<code>animated-menu-items</code>、<code>issue-#1061</code>或<code>feature_xxxx</code>。这个起名的目的是给每个分支一个明确的、高度集中的目的。 Git 在主分支和功能分支之间没有技术上的区别，因此开发人员可以编辑、暂存和提交对功能分支的更改。</p>
-<p>另外，可以（并且应该）将功能分支推送到中央仓库，这样就可以与其他开发人员共享功能，而无需更改任何正式代码。由于<code>master</code>是唯一的“特殊”分支，因此在中央仓库中存储多个功能分支不会造成任何问题。当然，这也是备份每个人的本地提交的便捷方法。以下是<strong>功能分支</strong>的生命周期。</p>
-<h3 id="从主（master）分支开始"><a href="#从主（master）分支开始" class="headerlink" title="从主（master）分支开始"></a>从主（master）分支开始</h3><p>所有功能分支都是根据项目的最新代码状态创建的。本指南假定在 master 分支中对此进行了维护和更新。</p>
+<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>Git 功能分支工作流（Feature Branch Workflow）假设有一个中央仓库，而<strong>master</strong>则代表正式的项目历史记录，开发人员在每次开始使用新功能时都创建一个新分支，而不是直接在其本地<strong>master</strong>分支上提交。功能分支应具有描述性名称，例如<code>animated-menu-items</code>、<code>issue-#1061</code>或<code>feature_xxxx</code>，这样命名的目的是明确每一个分支的功能和作用。 Git 在主分支和功能分支之间没有技术上的区别，因此开发人员可以编辑、暂存和提交对功能分支的更改。</p>
+<p>另外，可以（并且应该）将功能分支推送到中央仓库，这样就可以与其他开发人员共享功能，而无需更改任何正式代码。由于<code>master</code>是唯一的“特殊”分支，因此在中央仓库中存储多个功能分支不会造成任何问题。当然，这也是备份每个人的本地提交的便捷方法。以下是<strong>功能分支的生命周期。</strong></p>
+<h3 id="从主（master）分支开始"><a href="#从主（master）分支开始" class="headerlink" title="从主（master）分支开始"></a>从主（master）分支开始</h3><p>所有功能分支都是根据项目的最新代码状态创建的。这里假设 master 分支即为我们项目的主分支。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master <span class="comment"># 切换到 master 分支</span></span><br><span class="line">git fetch origin  <span class="comment"># 提取最新的提交</span></span><br><span class="line">git reset --hard origin/master <span class="comment"># 重置仓库的master本地副本</span></span><br></pre></td></tr></table></figure>
 <p>这会将仓库切换到 master 分支，提取最新的提交，并重置仓库的<code>master</code>本地副本以匹配最新版本。</p>
-<h3 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h3><p>为您使用的每个功能或问题使用一个单独的分支。创建分支后，请在本地将其检出，以便您所做的任何更改都将在该分支上。</p>
+<h3 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h3><p>针对每一个新功能（或新 bug ）创建一个单独的分支。创建分支后，请在本地将其检出（checkout），以便您所做的任何更改都将在该分支上。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new-feature</span><br></pre></td></tr></table></figure>
-<p>这会检出一个基于<code>master</code>的名为<code>new-feature</code>的分支，并且<code>-b</code>标志告诉 Git 创建该分支（如果尚不存在）。</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>在该分支上，以正常的方式编辑、暂存和提交更改，并根据需要构建具有多次提交的功能。</p>
+<p>这会检出一个基于<code>master</code>的名为<code>new-feature</code>的分支，并且<code>-b</code>标志告诉 Git 创建该分支（如果该分支不存在）。</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>在该分支上，以正常的方式编辑、暂存和提交更改，并根据需要构建多次提交。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status  <span class="comment"># 查看状态</span></span><br><span class="line">git add &lt;some-file&gt; <span class="comment"># 暂存文件</span></span><br><span class="line">git commit  <span class="comment"># 提交更改</span></span><br></pre></td></tr></table></figure>
-<h3 id="将功能分支推送到远程（中央仓库）"><a href="#将功能分支推送到远程（中央仓库）" class="headerlink" title="将功能分支推送到远程（中央仓库）"></a>将功能分支推送到远程（中央仓库）</h3><p>最好将功能分支推送到中央存储库。与其他开发人员协作时，这可以用作方便的备份，这将使他们能够查看对新分支的提交。</p>
+<h3 id="将功能分支推送到远程（中央仓库）"><a href="#将功能分支推送到远程（中央仓库）" class="headerlink" title="将功能分支推送到远程（中央仓库）"></a>将功能分支推送到远程（中央仓库）</h3><p>最好将功能分支推送到中央仓库。与其他开发人员协作时，这既可以用作备份，也能使其他人查看到新分支的提交。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin new-feature</span><br></pre></td></tr></table></figure>
-<p>此命令将新功能推送到中央仓库（origin），并且<code>-u</code>标志将其添加为（上游）远程跟踪分支。设置跟踪分支后，无需任何参数即可调用<code>git push</code>来自动将新功能分支推送到中央存储库。</p>
-<p>然后到 <strong>git 仓库管理平台</strong>（如 gitlab github gitee …）去创建<strong>合并请求</strong>，将功能分支合并到<code>master</code>主分支。可以在提合并请求时指定审批人以确保顺利合并。（其间，如果有冲突，需要先解决冲突再提交）</p>
-<h2 id="合并请求"><a href="#合并请求" class="headerlink" title="合并请求"></a>合并请求</h2><p>除了隔离功能开发之外，分支机构还可以通过合并请求讨论更改。某人完成一项功能后，不会立即将其合并到主功能中，相反，他们将功能分支推送到中央仓库，并提出合并请求，要求将其更改合并到主分支中。这使其他开发人员有机会在其更改成为主代码的一部分之前对其进行<strong>代码审查（code review）</strong>。</p>
-<p><strong>代码审查</strong>是合并请求的主要好处，但实际上，它们是设计用来讨论代码的通用方法。您可以将合并请求视为专门讨论特定分支的讨论地。这意味着它们也可以在开发过程中更早地被使用。例如，如果开发人员需要特定功能的帮助，则他们要做的就是提交合并请求。感兴趣的各方将被自动通知，他们将能够在相关提交旁边看到问题。</p>
-<p>一旦合并请求被接受后，发布一个功能的实际操作与《<a href="/2021/05/14/Git工作流之集中式工作流/" title="Git工作流之集中式工作流">Git工作流之集中式工作流</a>》中的操作几乎相同。(关于合并请求，首先，您需要确保本地主机与上游主机同步。然后，将功能分支合并到 master 中，并将更新后的 master 推回中央仓库。仓库管理平台&lt;gitlab、github、gitee、Bitbucket……&gt;可以更好的简化该操作)。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是使用功能分支工作流的场景类型的示例，该场景是一个团队围绕新功能合并请求（<code>pull request</code>）进行代码审查（<code>code review</code>）的场景。这是该模型可用于多种用途的一个示例：</p>
+<p>这样便将新功能推送到中央仓库（origin），并且加上<code>-u</code>标志将其添加为（上游）远程跟踪分支。设置跟踪分支后，后面提交代码时，无需任何其他参数即可通过<code>git push</code>命令来自动将更新操作推送到远程中央仓库。</p>
+<p>接着，到 <strong>git 仓库管理平台</strong>（如 gitlab）去创建<strong>合并请求</strong>，将功能分支合并到<code>master</code>主分支。可以在提合并请求时指定审批人以确保顺利合并。（其间，如果有冲突，需要先解决冲突再提交）</p>
+<h2 id="合并请求"><a href="#合并请求" class="headerlink" title="合并请求"></a>合并请求</h2><p>除了隔离功能开发之外，Git 分支还可以通过合并请求来讨论更改。某人完成一项功能后，不会立即将其合并到主功能中，相反，他们将功能分支推送到中央仓库，并提出合并请求，要求将其更改合并到主分支中。这使其他开发人员有机会在其更改成为主代码的一部分之前对其进行<strong>代码审查（code review）</strong>。</p>
+<p><strong>代码审查</strong>是合并请求的主要好处，但实际上，它们是被设计用来讨论代码的通用方法。您可以将合并请求视为用于专门讨论特定分支的讨论地。这意味着它们也可以在开发过程中更早地被使用。例如，如果开发人员需要特定功能的帮助，则他们要做的就是提交合并请求。感兴趣的各方将被自动通知，他们将能够在相关提交旁边看到问题。</p>
+<p>一旦合并请求被接受后，发布一个功能的实际操作与《<a href="/2021/05/14/Git工作流之集中式工作流/" title="Git工作流之集中式工作流">Git工作流之集中式工作流</a>》中的操作几乎相同。(关于合并请求，首先，您需要确保本地主机与上游主机同步。然后，将功能分支合并到 master 中，并将更新后的 master 推回中央仓库。仓库管理平台&lt;如 gitlab&gt;可以更好的简化该操作)。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是使用功能分支工作流的示例，该场景是一个团队围绕新功能合并请求（<code>pull request</code>）进行代码审查（<code>code review</code>）的场景：</p>
 <h3 id="小丽开始一个新功能开发"><a href="#小丽开始一个新功能开发" class="headerlink" title="小丽开始一个新功能开发"></a>小丽开始一个新功能开发</h3><p><img src="/uploads/post/model.svg" alt="model"></p>
 <p>在开始开发功能之前，<strong>小丽</strong>需要一个新的分支来进行工作，她可以使用下面命令创建一个新功能分支：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b xl-feature master</span><br></pre></td></tr></table></figure>
 <p>这样便基于<code>master</code>分支创建了一个叫<code>xl-feature</code>的分支，<code>-b</code>标记是告诉 git 如果分支不存在就创建分支。</p>
-<p><strong>小丽</strong>为了完成新功能，在分支上进行开发、修改以及可能的多次提交操作：</p>
+<p><strong>小丽</strong>为了完成新功能，在分支上进行开发、修改以及提交操作（可能重复多次）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
 <h3 id="小丽中途吃午饭"><a href="#小丽中途吃午饭" class="headerlink" title="小丽中途吃午饭"></a>小丽中途吃午饭</h3><p>到了午饭时间，当<strong>小丽</strong>有事要停下功能开发时，在她离开前最好将代码提交到中央仓库，一是方便代码备份；二是有利于其他开发人员看到她的初始提交。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin xl-feature</span><br></pre></td></tr></table></figure>
-<p>此命令将<code>xl-feature</code>推送到中央仓库，并且<code>-u</code>标志将其添加为远程跟踪分支。设置跟踪分支后，<strong>小丽</strong>可以调用<code>git push</code>，而无需任何参数来推送其功能。</p>
+<p>此命令将<code>xl-feature</code>推送到中央仓库，并且使用参数<code>-u</code>标志将其添加为远程跟踪分支。设置跟踪分支后，<strong>小丽</strong>后面可以调用<code>git push</code>而无需添加任何其他参数来推送其功能。</p>
 <h3 id="小丽完成新功能"><a href="#小丽完成新功能" class="headerlink" title="小丽完成新功能"></a>小丽完成新功能</h3><p><img src="/uploads/post/finish_xl.svg" alt="finish_xl"></p>
 <p>当<strong>小丽</strong>吃完午饭回来，完成了剩余功能开发。在将其合并为 master 之前，她需要提交合并请求，以让团队的其他成员知道她已经完成了。但是首先，她应该确保中央仓库中有她的最新提交：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
@@ -680,7 +921,7 @@
 <p>一旦<strong>小王</strong>准备好接受合并请求，就需要有人将功能合并到稳定的项目中（这可以由<strong>小王</strong>或<strong>小丽</strong>来完成）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git pull origin xl-feature</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 <p>某些 GUI （仓库管理平台，如 gitlab）只需单击“接受”按钮，即可通过运行所有这些命令来自动执行<code>合并请求</code>接受过程。</p>
-<p>同时，<code>小明</code>也在做完全相同的事情（进行功能开发）。</p>
+<p>同时，<code>小明</code>也在做完全相同的事情（进行新功能开发）。</p>
 <p><strong>小王</strong>和<strong>小丽</strong>正在研究<strong>小丽</strong>开发的功能，并在其合并请求中对其进行讨论时，<strong>小明</strong>则在自己的功能分支中做着完全相同的事情。我们可以看到，通过将功能隔离到单独的分支中，每个人都可以独立工作，在必要时再与其他开发人员共享更改。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在本文中，我们讨论了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。此工作流有助于组织和跟踪专注于业务域功能集的分支。其他 Git 工作流（如<strong>分叉工作流（Forking Workflow）</strong>和<strong>GitFlow 工作流（GitFlow Workflow）</strong>）是针对仓库的，可以利用 Git 功能分支工作流（Feature Branch Workflow）来管理其分支模型。本文档演示了用于实现<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>的高级代码示例和虚构示例。与<strong>功能分支工作流</strong>相关的一些关键：</p>
 <ul>
@@ -2122,186 +2363,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="post-title-link" itemprop="https://cleam.github.io/index.html">vue2和vue3的v-if与v-for优先级对比学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-10-09 14:07:12 / 修改时间：15:24:23" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="cy_cmt_count" data-xid="2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vue.js 中使用最多的两个指令就是 <code>v-if</code> 和 <code>v-for</code>，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：</p>
-<ul>
-<li>在 vue 2.x 中，在一个元素上同时使用 <code>v-if</code> 和 <code>v-for</code> 时，<code>v-for</code> 会优先作用。</li>
-<li>在 vue 3.x 中，<code>v-if</code> 总是优先于 <code>v-for</code> 生效。</li>
-</ul>
-<h2>对比学习</h2>
-<p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
-<p><img src="/uploads/post/todolist.png" alt="todolist"></p>
-<p>我们有一个 todoList：</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
-<p>在 vue2 中，<code>v-for</code> 优先级高于 <code>v-if</code>，我们可以这样实现：</p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- vue2中，v-for优先级高于v-if --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在 vue3 中，由于 <code>v-if</code> 优先级要高于 <code>v-for</code>，所以不能像 vue2 那样将 <code>v-for</code> 和 <code>v-if</code> 放在同一个元素上，我们在 li 外面套一层用来执行 for 循环：</p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>可以看出，如果在 vue2.x 中 <code>v-if</code> 和 <code>v-for</code> 在同一个元素上使用是无法直接在 vue3.x 中兼容的。</p>
-<h2>最佳实践</h2>
-<p>针对 <code>v-if</code> 和 <code>v-for</code> 的使用，其实官方是建议我们使用计算属性来处理的，这样既提高了性能，又可以兼容到 vue3.x，接下来我们看看计算属性实现方式：</p>
-<p>模板部分：</p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>js 部分：</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>示例效果：</p>
-<p><iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
-<h2>总结</h2>
-<ol>
-<li>vue2.x 中<code>v-for</code>优先级高于<code>v-if</code>，vue3.x 相反；</li>
-<li>尽量避免在同一个元素上面同时使用<code>v-if</code>和<code>v-for</code>，建议使用计算属性替代。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2351,7 +2412,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
