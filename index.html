@@ -374,7 +374,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/18/Git工作流之分叉工作流/">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/18/Git工作流之派生工作流/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cleam Lee">
@@ -394,7 +394,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2021/05/18/Git工作流之分叉工作流/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Git工作流之分叉工作流</a>
+                <a href="/2021/05/18/Git工作流之派生工作流/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Git工作流之派生工作流</a>
               
             
           </h1>
@@ -419,24 +419,12 @@
                 
               
 
-              <time title="创建时间：2021-05-18 19:39:14" itemprop="dateCreated datePublished" datetime="2021-05-18T19:39:14+08:00">2021-05-18</time>
+              <time title="创建时间：2021-05-18 19:39:14 / 修改时间：14:48:18" itemprop="dateCreated datePublished" datetime="2021-05-18T19:39:14+08:00">2021-05-18</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-05-17 20:43:57" itemprop="dateModified" datetime="2021-05-17T20:43:57+08:00">2021-05-17</time>
               
             
           </span>
@@ -451,8 +439,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2021/05/18/Git工作流之分叉工作流/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/18/Git工作流之分叉工作流/" class="cy_cmt_count" data-xid="2021/05/18/Git工作流之分叉工作流/" itemprop="commentsCount"></span>
+                <a href="/2021/05/18/Git工作流之派生工作流/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/18/Git工作流之派生工作流/" class="cy_cmt_count" data-xid="2021/05/18/Git工作流之派生工作流/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -482,10 +470,11 @@
       
         
           
-            <p><strong>分叉（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>分叉工作流最常见于公共开源项目中。</strong></p>
-<p>分叉工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
-<p>分叉工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>与其他 Git 工作流程一样，分叉工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
+            <p><strong>派生（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>派生工作流最常见于公共开源项目中。</strong></p>
+<p>派生工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
+<p>派生工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
+<h2>运作原理</h2>
+<p>与其他 Git 工作流程一样，派生工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
 <p>相反，他们<code>派生（fork）</code>了官方仓库以在服务器上创建它的副本。此新副本将用作其个人公共存储库-不允许其他开发人员将其推送到其中，但他们可以从中进行更改（我们稍后将解释为什么这很重要）。在创建服务器端副本之后，开发人员执行，<code>git clone</code>将其副本复制到本地计算机上。就像其他工作流程一样，这是他们的私有开发环境。</p>
 <p>准备发布本地提交时，他们会将提交推送到自己的公共仓库中，而不是正式的仓库中。然后，他们向主仓库提交<code>合并请求（pull request）</code>，这使项目维护者知道已准备好要集成更新。如果所贡献的代码存在问题，则合并请求还可以用作方便的讨论线程。以下是此工作流程的分步示例。</p>
 <ol>
@@ -501,6 +490,43 @@
 </ol>
 <p>为了将完成的功能集成到官方代码库中，维护人员将贡献者的更改拉入他们的本地存储库，检查以确保它不会破坏项目，将其合并到其本地 master 分支中，然后将其推送到服务器上的官方存储库中。贡献现在是项目的一部分，其他开发人员应从官方存储库中提取信息以同步其本地存储库。</p>
 <p>重要的是要了解，Forking 工作流中“正式”存储库的概念仅仅是一个约定。实际上，使正式存储库如此正式的唯一原因是它是项目维护者的公共存储库。</p>
+<h2>派生与克隆（Forking vs cloning）</h2>
+<p>需要注意：“派生”不是特殊操作。派生的存储库是使用标准的<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone" target="_blank" rel="noopener">git clone</a>命令创建的。派生的存储库通常是“服务器端克隆”，通常由诸如<a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">Gitlab </a>之类的第三方 Git 服务进行管理和托管。</p>
+<h2>在派生工作流中分支</h2>
+<p>就像<strong>功能分支工作流（Feature Branch Workflow）<strong>和 <strong>Gitflow 工作流</strong>一样，开发者仍然应该使用分支来隔离各个功能。唯一的区别是这些分支如何共享。在</strong>派生（Forking）工作流</strong>中，中央存储库被拉到另一个开发人员的本地存储库中，而在功能分支工作流和 Gitflow 工作流中，它们被推到官方存储库中。</p>
+<h2>派生存储库（Fork a repository）</h2>
+<p>派生（Forking）工作流项目的所有新开发人员都需要派生正式存储库。如前所述，派生只是一种标准<code>git clone</code>操作。可以通过 <code>SSH</code>进入服务器并运行<code>git clone</code>将其复制到服务器上的另一个位置来实现。流行的 Git 托管服务提供了自动执行此步骤的派生功能。</p>
+<h2>克隆派生仓库（Clone your fork）</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://user@bitbucket.org/user/repo.git</span><br></pre></td></tr></table></figure></p>
+<h2>添加远程跟踪分支（Adding a remote）</h2>
+<p>其他 Git 工作流程使用指向中央存储库的单个原始远程服务器，而 Forking 工作流则需要两个远程服务器-一个用于官方存储库，一个用于开发人员的个人服务器端存储库。虽然您可以随意调用这些远程服务器，但通常的约定是使用<code>origin</code>作为派生存储库的远程服务器（运行<code>git clone</code>时将自动创建该远程服务器），并使用上游作为正式存储库的远程服务器。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://bitbucket.org/maintainer/repo</span><br><span class="line"><span class="comment"># 身份验证</span></span><br><span class="line"><span class="comment"># git remote add upstream https://user@bitbucket.org/maintainer/repo.git</span></span><br></pre></td></tr></table></figure></p>
+<h2>在分支中工作：开发和推送更改（making &amp; pushing changes）</h2>
+<p>就像其他 Git 工作流程中一样，他们可以在开发人员的本地化分支存储库副本中编辑代码，提交更改并创建分支：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature <span class="comment"># Edit some code</span></span><br><span class="line">git commit -a -m <span class="string">"Add first draft of some feature"</span></span><br></pre></td></tr></table></figure></p>
+<p>他们所做的所有更改都将完全是私有的，直到将其推送到其公共存储库中为止。而且，如果正式项目向前发展，他们可以使用<code>git pull</code>访问新的提交：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure></p>
+<p>由于开发人员应在专用功能分支中工作，因此通常应导致快速合并。</p>
+<h2>发起合并请求（Making a Pull Request）</h2>
+<p><img src="/uploads/post/forking_01.svg" alt="pull request"></p>
+<p>一旦开发人员准备好共享他们的新功能，他们需要做两件事。首先，他们必须将其贡献推送到其公共存储库中，以使其他开发人员可以访问他们的贡献。他们的源远程跟踪库应该已经设置好了，所以他们要做的就是以下操作：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure></p>
+<p>其次，他们需要通知项目维护者他们想将其功能合并到官方代码库中。Git 托管服务（如 Bitbucket、Gitlab）提供了一个“<code>合并请求（pull request）</code>”按钮，该按钮会提交一个表单，要求您指定要合并到官方存储库中的分支。通常，您需要将<code>功能分支</code>集成到上游远程的<code>主分支</code>中。</p>
+<h2>总结</h2>
+<p>回顾一下，派生（Forking）工作流通常在公共开源项目中使用。派生是在项目存储库的服务器副本上执行的<code>git clone</code>操作。派生工作流通常与 Bitbucket 之类的 Git 托管服务结合使用。</p>
+<p>派生（forking）工作流的高级示例是：</p>
+<ol>
+<li>您想为托管在<code>bitbucket.org/userA/open-project</code>上的开源库做出贡献；</li>
+<li>使用 Bitbucket，您可以创建一个仓库的分支到<code>bitbucket.org/YourName/open-project</code>；</li>
+<li>在您的本地，您可以运行<code>git clone</code>以获取仓库的本地副本；</li>
+<li>您在本地仓库中创建一个新的<code>功能分支</code>；</li>
+<li>完成新功能的工作已完成，并运行<code>git commit</code>执行了保存更改的工作；</li>
+<li>然后，您将新<code>功能分支</code>推送到您的远程<code>派生仓库</code>中；</li>
+<li>使用 Bitbucket 您可以在<code>bitbucket.org/userA/open-project</code>上针对原始仓库对新分支发起一个<code>合并请求（pull request）</code>。</li>
+</ol>
+<p><strong>派生（forking）工作流</strong>可帮助项目的维护者打开存储库以接受任何开发人员的贡献，而不必手动管理每个贡献者的授权设置。这为维护人员提供了更多的“拉”式工作流程。<strong>派生（forking）工作流最常用于开放源代码项目</strong>，也可以应用于私有业务工作流，以从对合并到发行进行更权威的控制，这对于具有发布部署管理或严格发布周期的团队很有用。</p>
+<p>不确定哪种工作流程适合您？查看我们全面的<a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Git 工作流比较页面</a>。</p>
+<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow" target="_blank" rel="noopener">英文原文</a></p>
 
           
         
@@ -602,12 +628,24 @@
                 
               
 
-              <time title="创建时间：2021-05-17 15:12:15 / 修改时间：18:40:29" itemprop="dateCreated datePublished" datetime="2021-05-17T15:12:15+08:00">2021-05-17</time>
+              <time title="创建时间：2021-05-17 15:12:15" itemprop="dateCreated datePublished" datetime="2021-05-17T15:12:15+08:00">2021-05-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-18 09:31:42" itemprop="dateModified" datetime="2021-05-18T09:31:42+08:00">2021-05-18</time>
               
             
           </span>
@@ -653,48 +691,58 @@
       
         
           
-            <p><strong>GitFlow 工作流（GitFlow Workflow）</strong>是一个 Git 工作流程，可帮助持续进行软件开发和实施 <a href="https://www.atlassian.com/devops/what-is-devops" target="_blank" rel="noopener">DevOps</a> 实践。它最初<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">由 Vincent Driessen 在 nive 上发行</a>并广受欢迎。Gitflow 工作流定义了围绕项目发行版设计的严格分支模型。这为管理<strong>较大的项目</strong>提供了一个强大的框架。</p>
+            <p><strong>GitFlow 工作流（GitFlow Workflow）<strong>是一个 Git 工作流程，可帮助持续进行软件开发和实施 <a href="https://www.atlassian.com/devops/what-is-devops" target="_blank" rel="noopener">DevOps</a> 实践。它最初<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">由 Vincent Driessen 在 nive 上发行</a>并广受欢迎。Gitflow 工作流定义了围绕项目发行版设计的严格分支模型。这为管理</strong>较大的项目</strong>提供了一个强大的框架。</p>
 <p>Gitflow 非常适合具有预定发布周期的项目以及<a href="https://www.atlassian.com/continuous-delivery" target="_blank" rel="noopener">DevOps 连续交付</a>的<a href="https://www.atlassian.com/devops/what-is-devops/devops-best-practices" target="_blank" rel="noopener">最佳实践</a>。此工作流程未添加《<a href="/2021/05/15/Git工作流之功能分支工作流/" title="Git工作流之功能分支工作流">Git工作流之功能分支工作流</a>》所需的任何新概念或命令。而是将非常具体的角色分配给不同的分支，并定义它们应如何以及何时进行交互。除了功能分支外，它还使用单独的分支来准备、维护和记录版本。当然，您还可以利用功能分支工作流（Feature Branch Workflow）的所有好处：合并请求、功能试验和更有效的协作。</p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>Gitflow 实际上只是 Git 工作流的抽象概念。这意味着它决定了要建立哪种分支以及如何将它们合并在一起。我们将触及以下分支的目的。 <code>git-flow工具集</code>是具有安装过程的实际命令行工具，安装过程很简单，git-flow 的软件包可在多个操作系统上使用。</p>
+<h2>入门</h2>
+<p>Gitflow 实际上只是 Git 工作流的抽象概念。这意味着它决定了要建立哪种分支以及如何将它们合并在一起。我们将触及以下分支的目的。 <code>git-flow工具集</code>是具有安装过程的实际命令行工具，安装过程很简单，git-flow 的软件包可在多个操作系统上使用。</p>
 <ul>
 <li>Mac OS: <code>brew install git-flow</code></li>
 <li>Windows: <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">下载并安装 git-flow</a></li>
 </ul>
 <p>安装 git-flow 后，您可以通过执行<code>git flow init</code>在项目中使用它。Git-flow 是基于 Git 的包装，<code>git flow init</code>命令是<code>git init</code>命令的扩展，除了为您创建分支外，不会更改仓库中的任何内容。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p><img src="/uploads/post/gitflow_01.svg" alt="how it works"></p>
-<h3 id="develop-和-master-分支"><a href="#develop-和-master-分支" class="headerlink" title="develop 和 master 分支"></a>develop 和 master 分支</h3><p>该工作流使用两个分支而不是单个主（master）分支来记录项目的历史记录。master 分支存储正式的发行历史，而 develop 分支则充当功能的集成分支。使用版本号标记 master 分支中的所有提交也很方便。</p>
+<h2>运作原理</h2>
+<p><img src="/uploads/post/gitflow_01.svg" alt="how it works"></p>
+<h3>develop 和 master 分支</h3>
+<p>该工作流使用两个分支而不是单个主（master）分支来记录项目的历史记录。master 分支存储正式的发行历史，而 develop 分支则充当功能的集成分支。使用版本号标记 master 分支中的所有提交也很方便。</p>
 <p>第一步是用一个<code>develop分支</code>来补充默认的 master。一种简单的方法是让一个开发人员在本地创建一个空的 develop 分支并将其推送到服务器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch develop</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch develop</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure></p>
 <p>该分支将包含项目的完整历史记录，而 master 将包含简化版本。现在，其他开发人员应该克隆中央仓库，并为<code>develop</code>创建跟踪分支。</p>
 <p>使用 git-flow 扩展库时，在现有存储库上执行<code>git flow init</code>将创建<code>develop</code>分支：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ git flow init</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> ~/project/.git/</span><br><span class="line">No branches exist yet. Base branches must be created now.</span><br><span class="line">Branch name <span class="keyword">for</span> production releases: [master]</span><br><span class="line">Branch name <span class="keyword">for</span> <span class="string">"next release"</span> development: [develop]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">How to name your supporting branch prefixes?</span><br><span class="line">Feature branches? [feature/]</span><br><span class="line">Release branches? [release/]</span><br><span class="line">Hotfix branches? [hotfix/]</span><br><span class="line">Support branches? [support/]</span><br><span class="line">Version tag prefix? []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ git branch</span><br><span class="line">* develop</span><br><span class="line"> master</span><br></pre></td></tr></table></figure>
-<h2 id="功能分支（feature-branches）"><a href="#功能分支（feature-branches）" class="headerlink" title="功能分支（feature branches）"></a>功能分支（feature branches）</h2><p>每个新功能应驻留在其自己的分支中，可以将其<a href="https://www.atlassian.com/git/tutorials/syncing/git-push" target="_blank" rel="noopener">推送到中央仓库</a>以进行备份与协作。但是，功能分支不是基于<code>master分支</code>，而是将<code>develop分支</code>用作其父分支。当功能开发完成后，它会重新合并到<code>develop分支</code>中。功能绝不能直接与<code>master分支</code>进行交互。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ git flow init</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> ~/project/.git/</span><br><span class="line">No branches exist yet. Base branches must be created now.</span><br><span class="line">Branch name <span class="keyword">for</span> production releases: [master]</span><br><span class="line">Branch name <span class="keyword">for</span> <span class="string">"next release"</span> development: [develop]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">How to name your supporting branch prefixes?</span><br><span class="line">Feature branches? [feature/]</span><br><span class="line">Release branches? [release/]</span><br><span class="line">Hotfix branches? [hotfix/]</span><br><span class="line">Support branches? [support/]</span><br><span class="line">Version tag prefix? []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ git branch</span><br><span class="line">* develop</span><br><span class="line"> master</span><br></pre></td></tr></table></figure></p>
+<h2>功能分支（feature branches）</h2>
+<p>每个新功能应驻留在其自己的分支中，可以将其<a href="https://www.atlassian.com/git/tutorials/syncing/git-push" target="_blank" rel="noopener">推送到中央仓库</a>以进行备份与协作。但是，功能分支不是基于<code>master分支</code>，而是将<code>develop分支</code>用作其父分支。当功能开发完成后，它会重新合并到<code>develop分支</code>中。功能绝不能直接与<code>master分支</code>进行交互。</p>
 <p><img src="/uploads/post/gitflow_02.svg" alt="feature branches"></p>
 <p>请注意，出于所有意图和目的，将<code>功能分支（feature branch）</code>与<code>开发分支（develop）</code>结合使用是<strong>功能分支工作流</strong>的处理方式。但是，<strong>Gitflow 工作流</strong>并不止于此。</p>
 <p>通常创建<code>功能分支</code>是基于<code>最新的开发分支（develop）</code>。</p>
-<h3 id="创建一个功能分支"><a href="#创建一个功能分支" class="headerlink" title="创建一个功能分支"></a>创建一个功能分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature start feature_branch</span><br></pre></td></tr></table></figure>
-<h3 id="完成一个功能分支"><a href="#完成一个功能分支" class="headerlink" title="完成一个功能分支"></a>完成一个功能分支</h3><p>完成功能开发工作后，下一步就是将<code>功能分支（feature branch）</code>合并到<code>开发分支（develop）</code>中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature finish feature_branch</span><br></pre></td></tr></table></figure>
-<h2 id="发布分支（release-branches）"><a href="#发布分支（release-branches）" class="headerlink" title="发布分支（release branches）"></a>发布分支（release branches）</h2><p><img src="/uploads/post/gitflow_03.svg" alt="release branches"></p>
+<h3>创建一个功能分支</h3>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature start feature_branch</span><br></pre></td></tr></table></figure></p>
+<h3>完成一个功能分支</h3>
+<p>完成功能开发工作后，下一步就是将<code>功能分支（feature branch）</code>合并到<code>开发分支（develop）</code>中。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow feature finish feature_branch</span><br></pre></td></tr></table></figure></p>
+<h2>发布分支（release branches）</h2>
+<p><img src="/uploads/post/gitflow_03.svg" alt="release branches"></p>
 <p>一旦<code>开发分支（develop）</code>获得了足够的功能以进行发布（或临近预定的发布日期），就可以从开发分支（develop）中<code>派生（fork）</code>一个<code>发布分支（release）</code>。创建此分支将开始下一个<strong>发行周期</strong>，因此此刻之后不能添加任何新功能-该分支中仅应包含错误修复、文档生成以及其他面向发行版的任务。一旦准备好发布，<code>发布分支</code>将合并到<code>master</code>并用版本号标记。此外，应该将其重新合并到开发分支（develop）中。</p>
 <p>使用专门的分支来准备发布，使一个团队可以完善 ​​ 当前版本，而另一个团队可以继续开发下一个版本的功能。</p>
-<!-- 它还创建了明确定义的开发阶段（例如，很容易地说：“本周我们正在为版本 4.0 做准备，并且可以在存储库的结构中实际看到它）。” -->
+<p>&lt;!-- 它还创建了明确定义的开发阶段（例如，很容易地说：“本周我们正在为版本 4.0 做准备，并且可以在存储库的结构中实际看到它）。” --&gt;</p>
 <p>创建<code>发布分支</code>是另一种直接的分支操作。像<code>功能分支</code>一样，发布分支也基于<code>开发分支</code>。可以使用以下方法创建新的<code>发布分支</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">$ git flow release start 0.1.0</span><br><span class="line">Switched to a new branch <span class="string">'release/0.1.0'</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout develop</span><br><span class="line">git checkout -b release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">$ git flow release start 0.1.0</span><br><span class="line">Switched to a new branch <span class="string">'release/0.1.0'</span></span><br></pre></td></tr></table></figure></p>
 <p>一旦<code>release分支</code>准备好发布，它将被合并到 master 中并进行开发，然后<strong>发布分支将被删除</strong>。重新合并到<code>develop分支</code>中很重要，因为关键更新可能已添加到 release 分支，并且新功能需要访问这些更新。如果您的团队要求<code>代码评审</code>，那么这将是提出发起<code>合并请求</code>的理想场所。</p>
 <p>要完成<code>release分支</code>，请使用以下方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow release finish <span class="string">'0.1.0'</span></span><br></pre></td></tr></table></figure>
-<h2 id="热修分支（hotfix-branches）"><a href="#热修分支（hotfix-branches）" class="headerlink" title="热修分支（hotfix branches）"></a>热修分支（hotfix branches）</h2><p><img src="/uploads/post/gitflow_04.svg" alt="hotfix branches"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge release/0.1.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow release finish <span class="string">'0.1.0'</span></span><br></pre></td></tr></table></figure></p>
+<h2>热修分支（hotfix branches）</h2>
+<p><img src="/uploads/post/gitflow_04.svg" alt="hotfix branches"></p>
 <p>维护或<code>热修分支（hotfix）</code>用于快速修补生产版本。热修分支（hotfix）与发布分支（release）以及功能（feature）分支很像，只是它们基于<code>master</code>而不是<code>develop</code>分支。这是唯一应直接基于<code>master</code>而创建的分支。修复完成后，应将其<code>合并到master和develop</code>（或当前 release 分支）中，并应使用<code>更新的版本号</code>标记 master。</p>
 <p>拥有专用的错误修复开发线（hotfix 分支），您的团队可以在不中断其余工作流程或不等待下一个发布周期的情况下解决问题。您可以将<code>热修分支（hotfix）</code>视为直接与 master 一起使用的临时发布分支。可以使用以下方法创建热修分支：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix start hotfix_branch</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix start hotfix_branch</span><br></pre></td></tr></table></figure></p>
 <p>与完成发布分支相似，热修分支也<code>合并到master和develop</code>中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git branch -D hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix finish hotfix_branch</span><br></pre></td></tr></table></figure>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>完整示例如下，假设我们有一个带有 master 分支的仓库。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"><span class="comment"># work happens on feature branch 发生在功能分支的工作</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge develop</span><br><span class="line">git branch -d feature_branch</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用git-flow 扩展工具方式：</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git branch -D hotfix_branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git-flow 扩展工具方式：</span></span><br><span class="line">git flow hotfix finish hotfix_branch</span><br></pre></td></tr></table></figure></p>
+<h2>示例</h2>
+<p>完整示例如下，假设我们有一个带有 master 分支的仓库。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b develop</span><br><span class="line">git checkout -b feature_branch</span><br><span class="line"><span class="comment"># work happens on feature branch 发生在功能分支的工作</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge develop</span><br><span class="line">git branch -d feature_branch</span><br></pre></td></tr></table></figure></p>
 <p>除了功能开发和发布流程外，<code>热修（hotfix）</code>示例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"><span class="comment"># work is done commits are added to the hotfix_branch</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这里，我们讨论了 Gitflow 工作流。 Gitflow 是您和您的团队可以利用的多种《<a href="/2021/05/13/Git工作流/" title="Git工作流">Git工作流</a>》之一。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b hotfix_branch</span><br><span class="line"><span class="comment"># work is done commits are added to the hotfix_branch</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge hotfix_branch</span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix_branch</span><br></pre></td></tr></table></figure></p>
+<h2>总结</h2>
+<p>在这里，我们讨论了 Gitflow 工作流。 Gitflow 是您和您的团队可以利用的多种《<a href="/2021/05/13/Git工作流/" title="Git工作流">Git工作流</a>》之一。</p>
 <p>了解 Gitflow 的一些关键点：</p>
 <ul>
 <li>该工作流程非常适合基于发行版的软件工作流程。</li>
@@ -710,7 +758,7 @@
 <li>如果检测到<code>主分支（master）</code>出现问题，则会从主分支中创建一个<code>热修分支（hotfix）</code>;</li>
 <li>热修分支完成后，将它<code>合并到master和develop</code>中。</li>
 </ol>
-<p>接下来，了解分《<a href="/2021/05/18/Git工作流之分叉工作流/" title="Git工作流之分叉工作流">Git工作流之分叉工作流</a>》</p>
+<p>接下来，了解分《<a href="/2021/05/18/Git工作流之派生工作流/" title="Git工作流之派生工作流">Git工作流之派生工作流</a>》</p>
 <blockquote>
 <p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank" rel="noopener">英文原文</a></p>
 </blockquote>
@@ -832,7 +880,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-05-17 16:51:29" itemprop="dateModified" datetime="2021-05-17T16:51:29+08:00">2021-05-17</time>
+                <time title="修改时间：2021-05-18 09:36:32" itemprop="dateModified" datetime="2021-05-18T09:36:32+08:00">2021-05-18</time>
               
             
           </span>
@@ -878,52 +926,66 @@
       
         
           
-            <p><strong>Git 功能分支工作流（Feature Branch Workflow）</strong>背后的核心思想是所有功能开发应在专用分支而不是<code>master</code>分支中进行。这种封装使多个开发人员可以轻松地使用特定功能，而又不会干扰主代码库。这也意味着<code>master</code>分支将永远不会包含残破的代码，这对于持续集成环境是一个巨大的优势。</p>
+            <p>**Git 功能分支工作流（Feature Branch Workflow）**背后的核心思想是所有功能开发应在专用分支而不是<code>master</code>分支中进行。这种封装使多个开发人员可以轻松地使用特定功能，而又不会干扰主代码库。这也意味着<code>master</code>分支将永远不会包含残破的代码，这对于持续集成环境是一个巨大的优势。</p>
 <p>功能分支开发还可以利用<strong>合并请求（pull request）</strong>，这是围绕分支发起讨论的一种方式。这为其他开发人员提供了在功能集成到正式项目中之前对其进行审查的机会。甚至，如果您在开发功能过程中卡住了，则可以开启一个<strong>合并请求（pull request）</strong>，以征询同事的建议。更关键是，合并请求操作使您的团队可以非常轻松地就彼此的工作发表讨论。</p>
-<p>Git 功能分支工作流是可组合的工作流程，其他高级 Git 工作流程也可以利用。Git 功能分支工作流是针对分支模型的，这意味着它是用于管理和创建分支的指导框架。其他工作流程更注重回购。 Git Feature Branch 工作流程可以合并到其他工作流程中。实际上，<strong>GitFlow 工作流（GitFlow Workflow）</strong>和<strong>Git 分叉工作流（Forking Workflow）</strong>在其分支模型方面使用了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>Git 功能分支工作流（Feature Branch Workflow）假设有一个中央仓库，而<strong>master</strong>则代表正式的项目历史记录，开发人员在每次开始使用新功能时都创建一个新分支，而不是直接在其本地<strong>master</strong>分支上提交。功能分支应具有描述性名称，例如<code>animated-menu-items</code>、<code>issue-#1061</code>或<code>feature_xxxx</code>，这样命名的目的是明确每一个分支的功能和作用。 Git 在主分支和功能分支之间没有技术上的区别，因此开发人员可以编辑、暂存和提交对功能分支的更改。</p>
+<p>Git 功能分支工作流是可组合的工作流程，其他高级 Git 工作流程也可以利用。Git 功能分支工作流是针对分支模型的，这意味着它是用于管理和创建分支的指导框架。其他工作流程更注重回购。 Git Feature Branch 工作流程可以合并到其他工作流程中。实际上，<strong>GitFlow 工作流（GitFlow Workflow）<strong>和</strong>Git 派生工作流（Forking Workflow）<strong>在其分支模型方面使用了</strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。</p>
+<h2>运作原理</h2>
+<p>Git 功能分支工作流（Feature Branch Workflow）假设有一个中央仓库，而<strong>master</strong>则代表正式的项目历史记录，开发人员在每次开始使用新功能时都创建一个新分支，而不是直接在其本地<strong>master</strong>分支上提交。功能分支应具有描述性名称，例如<code>animated-menu-items</code>、<code>issue-#1061</code>或<code>feature_xxxx</code>，这样命名的目的是明确每一个分支的功能和作用。 Git 在主分支和功能分支之间没有技术上的区别，因此开发人员可以编辑、暂存和提交对功能分支的更改。</p>
 <p>另外，可以（并且应该）将功能分支推送到中央仓库，这样就可以与其他开发人员共享功能，而无需更改任何正式代码。由于<code>master</code>是唯一的“特殊”分支，因此在中央仓库中存储多个功能分支不会造成任何问题。当然，这也是备份每个人的本地提交的便捷方法。以下是<strong>功能分支的生命周期。</strong></p>
-<h3 id="从主（master）分支开始"><a href="#从主（master）分支开始" class="headerlink" title="从主（master）分支开始"></a>从主（master）分支开始</h3><p>所有功能分支都是根据项目的最新代码状态创建的。这里假设 master 分支即为我们项目的主分支。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master <span class="comment"># 切换到 master 分支</span></span><br><span class="line">git fetch origin  <span class="comment"># 提取最新的提交</span></span><br><span class="line">git reset --hard origin/master <span class="comment"># 重置仓库的master本地副本</span></span><br></pre></td></tr></table></figure>
+<h3>从主（master）分支开始</h3>
+<p>所有功能分支都是根据项目的最新代码状态创建的。这里假设 master 分支即为我们项目的主分支。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master <span class="comment"># 切换到 master 分支</span></span><br><span class="line">git fetch origin  <span class="comment"># 提取最新的提交</span></span><br><span class="line">git reset --hard origin/master <span class="comment"># 重置仓库的master本地副本</span></span><br></pre></td></tr></table></figure></p>
 <p>这会将仓库切换到 master 分支，提取最新的提交，并重置仓库的<code>master</code>本地副本以匹配最新版本。</p>
-<h3 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h3><p>针对每一个新功能（或新 bug ）创建一个单独的分支。创建分支后，请在本地将其检出（checkout），以便您所做的任何更改都将在该分支上。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new-feature</span><br></pre></td></tr></table></figure>
+<h3>创建新分支</h3>
+<p>针对每一个新功能（或新 bug ）创建一个单独的分支。创建分支后，请在本地将其检出（checkout），以便您所做的任何更改都将在该分支上。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new-feature</span><br></pre></td></tr></table></figure></p>
 <p>这会检出一个基于<code>master</code>的名为<code>new-feature</code>的分支，并且<code>-b</code>标志告诉 Git 创建该分支（如果该分支不存在）。</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>在该分支上，以正常的方式编辑、暂存和提交更改，并根据需要构建多次提交。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status  <span class="comment"># 查看状态</span></span><br><span class="line">git add &lt;some-file&gt; <span class="comment"># 暂存文件</span></span><br><span class="line">git commit  <span class="comment"># 提交更改</span></span><br></pre></td></tr></table></figure>
-<h3 id="将功能分支推送到远程（中央仓库）"><a href="#将功能分支推送到远程（中央仓库）" class="headerlink" title="将功能分支推送到远程（中央仓库）"></a>将功能分支推送到远程（中央仓库）</h3><p>最好将功能分支推送到中央仓库。与其他开发人员协作时，这既可以用作备份，也能使其他人查看到新分支的提交。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin new-feature</span><br></pre></td></tr></table></figure>
+<h3>更新</h3>
+<p>在该分支上，以正常的方式编辑、暂存和提交更改，并根据需要构建多次提交。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status  <span class="comment"># 查看状态</span></span><br><span class="line">git add &lt;some-file&gt; <span class="comment"># 暂存文件</span></span><br><span class="line">git commit  <span class="comment"># 提交更改</span></span><br></pre></td></tr></table></figure></p>
+<h3>将功能分支推送到远程（中央仓库）</h3>
+<p>最好将功能分支推送到中央仓库。与其他开发人员协作时，这既可以用作备份，也能使其他人查看到新分支的提交。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin new-feature</span><br></pre></td></tr></table></figure></p>
 <p>这样便将新功能推送到中央仓库（origin），并且加上<code>-u</code>标志将其添加为（上游）远程跟踪分支。设置跟踪分支后，后面提交代码时，无需任何其他参数即可通过<code>git push</code>命令来自动将更新操作推送到远程中央仓库。</p>
-<p>接着，到 <strong>git 仓库管理平台</strong>（如 gitlab）去创建<strong>合并请求</strong>，将功能分支合并到<code>master</code>主分支。可以在提合并请求时指定审批人以确保顺利合并。（其间，如果有冲突，需要先解决冲突再提交）</p>
-<h2 id="合并请求"><a href="#合并请求" class="headerlink" title="合并请求"></a>合并请求</h2><p>除了隔离功能开发之外，Git 分支还可以通过合并请求来讨论更改。某人完成一项功能后，不会立即将其合并到主功能中，相反，他们将功能分支推送到中央仓库，并提出合并请求，要求将其更改合并到主分支中。这使其他开发人员有机会在其更改成为主代码的一部分之前对其进行<strong>代码审查（code review）</strong>。</p>
+<p>接着，到 <strong>git 仓库管理平台</strong>（如 Bitbucket、Gitlab）去创建<strong>合并请求</strong>，将功能分支合并到<code>master</code>主分支。可以在提合并请求时指定审批人以确保顺利合并。（其间，如果有冲突，需要先解决冲突再提交）</p>
+<h2>合并请求</h2>
+<p>除了隔离功能开发之外，Git 分支还可以通过合并请求来讨论更改。某人完成一项功能后，不会立即将其合并到主功能中，相反，他们将功能分支推送到中央仓库，并提出合并请求，要求将其更改合并到主分支中。这使其他开发人员有机会在其更改成为主代码的一部分之前对其进行<strong>代码审查（code review）</strong>。</p>
 <p><strong>代码审查</strong>是合并请求的主要好处，但实际上，它们是被设计用来讨论代码的通用方法。您可以将合并请求视为用于专门讨论特定分支的讨论地。这意味着它们也可以在开发过程中更早地被使用。例如，如果开发人员需要特定功能的帮助，则他们要做的就是提交合并请求。感兴趣的各方将被自动通知，他们将能够在相关提交旁边看到问题。</p>
-<p>一旦合并请求被接受后，发布一个功能的实际操作与《<a href="/2021/05/14/Git工作流之集中式工作流/" title="Git工作流之集中式工作流">Git工作流之集中式工作流</a>》中的操作几乎相同。(关于合并请求，首先，您需要确保本地主机与上游主机同步。然后，将功能分支合并到 master 中，并将更新后的 master 推回中央仓库。仓库管理平台&lt;如 gitlab&gt;可以更好的简化该操作)。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是使用功能分支工作流的示例，该场景是一个团队围绕新功能合并请求（<code>pull request</code>）进行代码审查（<code>code review</code>）的场景：</p>
-<h3 id="小丽开始一个新功能开发"><a href="#小丽开始一个新功能开发" class="headerlink" title="小丽开始一个新功能开发"></a>小丽开始一个新功能开发</h3><p><img src="/uploads/post/model.svg" alt="model"></p>
+<p>一旦合并请求被接受后，发布一个功能的实际操作与《<a href="/2021/05/14/Git工作流之集中式工作流/" title="Git工作流之集中式工作流">Git工作流之集中式工作流</a>》中的操作几乎相同。(关于合并请求，首先，您需要确保本地主机与上游主机同步。然后，将功能分支合并到 master 中，并将更新后的 master 推回中央仓库。仓库管理平台&lt;如 Bitbucket、Gitlab&gt;可以更好的简化该操作)。</p>
+<h2>示例</h2>
+<p>以下是使用功能分支工作流的示例，该场景是一个团队围绕新功能合并请求（<code>pull request</code>）进行代码审查（<code>code review</code>）的场景：</p>
+<h3>小丽开始一个新功能开发</h3>
+<p><img src="/uploads/post/model.svg" alt="model"></p>
 <p>在开始开发功能之前，<strong>小丽</strong>需要一个新的分支来进行工作，她可以使用下面命令创建一个新功能分支：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b xl-feature master</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b xl-feature master</span><br></pre></td></tr></table></figure></p>
 <p>这样便基于<code>master</code>分支创建了一个叫<code>xl-feature</code>的分支，<code>-b</code>标记是告诉 git 如果分支不存在就创建分支。</p>
 <p><strong>小丽</strong>为了完成新功能，在分支上进行开发、修改以及提交操作（可能重复多次）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
-<h3 id="小丽中途吃午饭"><a href="#小丽中途吃午饭" class="headerlink" title="小丽中途吃午饭"></a>小丽中途吃午饭</h3><p>到了午饭时间，当<strong>小丽</strong>有事要停下功能开发时，在她离开前最好将代码提交到中央仓库，一是方便代码备份；二是有利于其他开发人员看到她的初始提交。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin xl-feature</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add &lt;some-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure></p>
+<h3>小丽中途吃午饭</h3>
+<p>到了午饭时间，当<strong>小丽</strong>有事要停下功能开发时，在她离开前最好将代码提交到中央仓库，一是方便代码备份；二是有利于其他开发人员看到她的初始提交。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin xl-feature</span><br></pre></td></tr></table></figure></p>
 <p>此命令将<code>xl-feature</code>推送到中央仓库，并且使用参数<code>-u</code>标志将其添加为远程跟踪分支。设置跟踪分支后，<strong>小丽</strong>后面可以调用<code>git push</code>而无需添加任何其他参数来推送其功能。</p>
-<h3 id="小丽完成新功能"><a href="#小丽完成新功能" class="headerlink" title="小丽完成新功能"></a>小丽完成新功能</h3><p><img src="/uploads/post/finish_xl.svg" alt="finish_xl"></p>
+<h3>小丽完成新功能</h3>
+<p><img src="/uploads/post/finish_xl.svg" alt="finish_xl"></p>
 <p>当<strong>小丽</strong>吃完午饭回来，完成了剩余功能开发。在将其合并为 master 之前，她需要提交合并请求，以让团队的其他成员知道她已经完成了。但是首先，她应该确保中央仓库中有她的最新提交：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-<p>然后，她通过仓库管理平台（如 gitlab）发起合并请求将<code>xl-feature</code>合并到<code>master</code>，团队其他人便可自动收到通知。合并请求的好处在于，它们在相关的提交旁边会显示注释，因此很容易提出有关特定变更的问题。</p>
-<h3 id="小王收到合并请求"><a href="#小王收到合并请求" class="headerlink" title="小王收到合并请求"></a>小王收到合并请求</h3><p><img src="/uploads/post/pr_xw.svg" alt="pr_xw"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<p>然后，她通过仓库管理平台（如 Bitbucket、Gitlab）发起合并请求将<code>xl-feature</code>合并到<code>master</code>，团队其他人便可自动收到通知。合并请求的好处在于，它们在相关的提交旁边会显示注释，因此很容易提出有关特定变更的问题。</p>
+<h3>小王收到合并请求</h3>
+<p><img src="/uploads/post/pr_xw.svg" alt="pr_xw"></p>
 <p><strong>小王</strong>收到合并请求，然后查看一下<code>xl-feature</code>，他决定在将其集成到正式项目之前要进行一些更改，并且他和<strong>小丽</strong>通过合并请求来回进行了一些操作。</p>
-<h3 id="小丽做出更改"><a href="#小丽做出更改" class="headerlink" title="小丽做出更改"></a>小丽做出更改</h3><p><img src="/uploads/post/change_xl.svg" alt="change_xl"></p>
+<h3>小丽做出更改</h3>
+<p><img src="/uploads/post/change_xl.svg" alt="change_xl"></p>
 <p>为了进行更改，<strong>小丽</strong>使用了该功能的第一次迭代完全相同的过程，她编辑、暂存、提交并将更新推送到中央仓库。她的所有操作行为都显示在合并请求中，并且<strong>小王</strong>在此过程中仍然可以发表评论。</p>
 <p>如果他愿意，<strong>小王</strong>可以将<code>xl-feature</code>添加到他的本地仓库中，然后自己进行处理。他添加的所有提交也将显示在合并请求中。</p>
-<h3 id="小丽发布（已完成）功能"><a href="#小丽发布（已完成）功能" class="headerlink" title="小丽发布（已完成）功能"></a>小丽发布（已完成）功能</h3><p><img src="/uploads/post/pf_xl.svg" alt="pf_xl"></p>
+<h3>小丽发布（已完成）功能</h3>
+<p><img src="/uploads/post/pf_xl.svg" alt="pf_xl"></p>
 <p>一旦<strong>小王</strong>准备好接受合并请求，就需要有人将功能合并到稳定的项目中（这可以由<strong>小王</strong>或<strong>小丽</strong>来完成）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git pull origin xl-feature</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-<p>某些 GUI （仓库管理平台，如 gitlab）只需单击“接受”按钮，即可通过运行所有这些命令来自动执行<code>合并请求</code>接受过程。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git pull origin xl-feature</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<p>某些 GUI （仓库管理平台，如 Bitbucket、Gitlab）只需单击“接受”按钮，即可通过运行所有这些命令来自动执行<code>合并请求</code>接受过程。</p>
 <p>同时，<code>小明</code>也在做完全相同的事情（进行新功能开发）。</p>
 <p><strong>小王</strong>和<strong>小丽</strong>正在研究<strong>小丽</strong>开发的功能，并在其合并请求中对其进行讨论时，<strong>小明</strong>则在自己的功能分支中做着完全相同的事情。我们可以看到，通过将功能隔离到单独的分支中，每个人都可以独立工作，在必要时再与其他开发人员共享更改。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在本文中，我们讨论了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。此工作流有助于组织和跟踪专注于业务域功能集的分支。其他 Git 工作流（如<strong>分叉工作流（Forking Workflow）</strong>和<strong>GitFlow 工作流（GitFlow Workflow）</strong>）是针对仓库的，可以利用 Git 功能分支工作流（Feature Branch Workflow）来管理其分支模型。本文档演示了用于实现<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>的高级代码示例和虚构示例。与<strong>功能分支工作流</strong>相关的一些关键：</p>
+<h2>总结</h2>
+<p>在本文中，我们讨论了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。此工作流有助于组织和跟踪专注于业务域功能集的分支。其他 Git 工作流（如<strong>派生工作流（Forking Workflow）<strong>和</strong>GitFlow 工作流（GitFlow Workflow）</strong>）是针对仓库的，可以利用 Git 功能分支工作流（Feature Branch Workflow）来管理其分支模型。本文档演示了用于实现<strong>Git 功能分支工作流（Feature Branch Workflow）<strong>的高级代码示例和虚构示例。与</strong>功能分支工作流</strong>相关的一些关键：</p>
 <ul>
 <li>专注于分支模式</li>
 <li>可以被其他面向仓库的工作流程所利用</li>
@@ -1035,12 +1097,24 @@
                 
               
 
-              <time title="创建时间：2021-05-14 10:12:22 / 修改时间：19:58:49" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
+              <time title="创建时间：2021-05-14 10:12:22" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-18 09:36:50" itemprop="dateModified" datetime="2021-05-18T09:36:50+08:00">2021-05-18</time>
               
             
           </span>
@@ -1088,12 +1162,12 @@
           
             <p>对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与<a href="https://subversion.apache.org/" target="_blank" rel="noopener">Subversion</a>一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 <strong>使用<code>master</code>作为默认的开发分支且所有提交操作都在该分支上。</strong> 这种工作流除了<code>master</code>分支外，不需要任何其他分支。</p>
 <p>集中式工作流在使用远程服务器端托管仓库方面与其他工作流类似，开发人员可以通过这种仓库推送（<code>push</code>）和拉取（<code>pull</code>）资源。</p>
-<p>与其他工作流程相比，集中式工作流程没有定义的合并请求（<code>pull request</code>）或分叉（<code>fork</code>）模式。<strong>集中式工作流通常更适合从 SVN 迁移到 Git 的团队以及规模较小的团队。</strong></p>
+<p>与其他工作流程相比，集中式工作流程没有定义的合并请求（<code>pull request</code>）或派生（<code>fork</code>）模式。<strong>集中式工作流通常更适合从 SVN 迁移到 Git 的团队以及规模较小的团队。</strong></p>
 <h2>运作原理</h2>
 <h3>初始化中央仓库</h3>
 <p><img src="/uploads/post/init_central_repo.svg" alt="初始化中央仓库"></p>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@host git init --bare /path/to/repo.git</span><br></pre></td></tr></table></figure></p>
-<p>一般我们将仓库托管到 git 仓库托管平台（如 gitlab github gitee ...），在托管平台上面初始化中央仓库。</p>
+<p>一般我们将仓库托管到 git 仓库托管平台（如 Bitbucket、Gitlab），在托管平台上面初始化中央仓库。</p>
 <h3>克隆中央仓库</h3>
 <p>接下来，每个开发人员都将创建整个项目的本地副本。通过以下<code>git clone</code>命令完成的：</p>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://user@host/path/to/repo.git</span><br></pre></td></tr></table></figure></p>
@@ -1286,7 +1360,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-05-14 18:19:28" itemprop="dateModified" datetime="2021-05-14T18:19:28+08:00">2021-05-14</time>
+                <time title="修改时间：2021-05-18 09:31:37" itemprop="dateModified" datetime="2021-05-18T09:31:37+08:00">2021-05-18</time>
               
             
           </span>
@@ -1334,17 +1408,19 @@
           
             <p>Git 工作流程是有关如何使用 Git 以一致且富有成效的方式完成工作的秘诀或建议。Git 工作流程鼓励用户有效，一致地利用 Git。</p>
 <p>Git 在用户管理变更方面提供了很大的灵活性，鉴于 Git 对灵活性的关注，没有关于如何与 Git 交互的标准化流程。所以 <code>与团队合作进行 Git 管理的项目时，重要的是要确保团队就如何应用变更流程达成一致。</code> 为确保团队在同一页面上，应开发或选择一个已达成共识的 Git 工作流程。</p>
-<h2 id="什么是成功的-Git-工作流？"><a href="#什么是成功的-Git-工作流？" class="headerlink" title="什么是成功的 Git 工作流？"></a>什么是成功的 Git 工作流？</h2><p>在为团队评估工作流时，最重要的是要考虑团队的文化。您希望工作流能够提高团队的效率，而不是限制生产力的负担。评估 Git 工作流程时应考虑以下几点：</p>
+<h2>什么是成功的 Git 工作流？</h2>
+<p>在为团队评估工作流时，最重要的是要考虑团队的文化。您希望工作流能够提高团队的效率，而不是限制生产力的负担。评估 Git 工作流程时应考虑以下几点：</p>
 <ul>
 <li>此工作流程是否随团队规模扩展？</li>
 <li>使用此工作流程是否容易减少犯错和错误？</li>
 <li>此工作流程是否会给团队带来新的不必要的认知开销？</li>
 </ul>
-<h2 id="软件团队常见-Git-工作流"><a href="#软件团队常见-Git-工作流" class="headerlink" title="软件团队常见 Git 工作流"></a>软件团队常见 Git 工作流</h2><ul>
+<h2>软件团队常见 Git 工作流</h2>
+<ul>
 <li>集中式工作流（Centralized Workflow）</li>
 <li>功能分支工作流（Feature Branch Workflow）</li>
 <li>GitFlow 工作流（GitFlow Workflow）</li>
-<li>分叉工作流（Forking Workflow）</li>
+<li>派生工作流（Forking Workflow）</li>
 </ul>
 <blockquote>
 <p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">英文原文</a></p>

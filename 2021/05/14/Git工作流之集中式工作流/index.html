@@ -159,7 +159,7 @@
 <meta property="og:image" content="https://cleam.github.io/uploads/post/rc_xl.svg">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/conflict_resolution.svg">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/scr_xl.svg">
-<meta property="og:updated_time" content="2021-05-14T11:58:49.374Z">
+<meta property="og:updated_time" content="2021-05-18T01:36:50.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git工作流之集中式工作流">
 <meta name="twitter:description" content="对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与Subversion一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 使用master作为默认的开发分支且所有提交操作都在该分支上。 这种工作流除了master分支外，不需要任何其他分支。 集中式工作流在使用远程服务器端托管仓库方面与其">
@@ -427,12 +427,24 @@
                 
               
 
-              <time title="创建时间：2021-05-14 10:12:22 / 修改时间：19:58:49" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
+              <time title="创建时间：2021-05-14 10:12:22" itemprop="dateCreated datePublished" datetime="2021-05-14T10:12:22+08:00">2021-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-18 09:36:50" itemprop="dateModified" datetime="2021-05-18T09:36:50+08:00">2021-05-18</time>
               
             
           </span>
@@ -478,12 +490,12 @@
       
         <p>对于从 SVN 过渡的团队来说，集中式工作流（Centralized Workflow）是一个很棒的 Git 工作流。与<a href="https://subversion.apache.org/" target="_blank" rel="noopener">Subversion</a>一样，集中式工作流使用中央仓库作为项目所有更改的单个入口点。类比 svn 的 trunk，它 <strong>使用<code>master</code>作为默认的开发分支且所有提交操作都在该分支上。</strong> 这种工作流除了<code>master</code>分支外，不需要任何其他分支。</p>
 <p>集中式工作流在使用远程服务器端托管仓库方面与其他工作流类似，开发人员可以通过这种仓库推送（<code>push</code>）和拉取（<code>pull</code>）资源。</p>
-<p>与其他工作流程相比，集中式工作流程没有定义的合并请求（<code>pull request</code>）或分叉（<code>fork</code>）模式。<strong>集中式工作流通常更适合从 SVN 迁移到 Git 的团队以及规模较小的团队。</strong></p>
+<p>与其他工作流程相比，集中式工作流程没有定义的合并请求（<code>pull request</code>）或派生（<code>fork</code>）模式。<strong>集中式工作流通常更适合从 SVN 迁移到 Git 的团队以及规模较小的团队。</strong></p>
 <h2>运作原理</h2>
 <h3>初始化中央仓库</h3>
 <p><img src="/uploads/post/init_central_repo.svg" alt="初始化中央仓库"></p>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@host git init --bare /path/to/repo.git</span><br></pre></td></tr></table></figure></p>
-<p>一般我们将仓库托管到 git 仓库托管平台（如 gitlab github gitee ...），在托管平台上面初始化中央仓库。</p>
+<p>一般我们将仓库托管到 git 仓库托管平台（如 Bitbucket、Gitlab），在托管平台上面初始化中央仓库。</p>
 <h3>克隆中央仓库</h3>
 <p>接下来，每个开发人员都将创建整个项目的本地副本。通过以下<code>git clone</code>命令完成的：</p>
 <p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://user@host/path/to/repo.git</span><br></pre></td></tr></table></figure></p>
