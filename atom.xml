@@ -51,7 +51,7 @@
       
         
         
-          &lt;p&gt;&lt;strong&gt;GitFlow 工作流（GitFlow Workflow）&lt;strong&gt;是一个 Git 工作流程，可帮助持续进行软件开发和实施 &lt;a href=&quot;https://www.atlassian.com/devops/what-is-devops&quot;
+          &lt;p&gt;&lt;strong&gt;GitFlow 工作流（GitFlow Workflow）&lt;/strong&gt;是一个 Git 工作流程，可帮助持续进行软件开发和实施 &lt;a href=&quot;https://www.atlassian.com/devops/what-is-devops&quot;
         
       
     
@@ -75,7 +75,7 @@
       
         
         
-          &lt;p&gt;**Git 功能分支工作流（Feature Branch
+          &lt;p&gt;&lt;strong&gt;Git 功能分支工作流（Feature Branch
         
       
     
@@ -176,8 +176,7 @@
           &lt;blockquote&gt;
 &lt;p&gt;前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2&gt;一、查看系统版本信息&lt;/h2&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+&lt;h2 id=&quot;一、查看系统版本信息&quot;&gt;&lt;a href=&quot;#一、查看系统版本信息&quot; class=&quot;headerlink&quot;
         
       
     
@@ -201,10 +200,9 @@
       
         
         
-          &lt;h2&gt;概念&lt;/h2&gt;
-&lt;p&gt;拿浏览器兼容举例：&lt;/p&gt;
+          &lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h2&gt;&lt;p&gt;拿浏览器兼容举例：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;**渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功
+&lt;li&gt;&lt;strong&gt;渐进增强(progressive
         
       
     
@@ -228,9 +226,8 @@
       
         
         
-          &lt;h2&gt;1. 提升学习效率&lt;/h2&gt;
-&lt;p&gt;我们来看一张图就明白了：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/uploads/post/for-study.jpg&quot;
+          &lt;h2 id=&quot;1-提升学习效率&quot;&gt;&lt;a href=&quot;#1-提升学习效率&quot; class=&quot;headerlink&quot; title=&quot;1. 提升学习效率&quot;&gt;&lt;/a&gt;1. 提升学习效率&lt;/h2&gt;&lt;p&gt;我们来看一张图就明白了：&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -300,8 +297,7 @@
       
         
         
-          &lt;h2&gt;vue2 中&lt;/h2&gt;
-&lt;p&gt;我们知道在 vue2 中有 3
+          &lt;h2 id=&quot;vue2-中&quot;&gt;&lt;a href=&quot;#vue2-中&quot; class=&quot;headerlink&quot; title=&quot;vue2 中&quot;&gt;&lt;/a&gt;vue2 中&lt;/h2&gt;&lt;p&gt;我们知道在 vue2 中有 3
         
       
     
@@ -327,7 +323,7 @@
         
           &lt;p&gt;根据上一篇《深入理解 v-model 之表单用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。&lt;/p&gt;
 &lt;p&gt;首先，我们知道下面两个用法等价的：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -376,8 +372,7 @@
       
         
         
-          &lt;h2&gt;new：新建一篇文章&lt;/h2&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+          &lt;h2 id=&quot;new：新建一篇文章&quot;&gt;&lt;a href=&quot;#new：新建一篇文章&quot; class=&quot;headerlink&quot; title=&quot;new：新建一篇文章&quot;&gt;&lt;/a&gt;new：新建一篇文章&lt;/h2&gt;&lt;figure class=&quot;highlight
         
       
     
@@ -402,7 +397,7 @@
           &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
 &lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
 &lt;p&gt;数字 Π：&lt;/p&gt;
-&lt;p&gt;&lt;figure class=&quot;highlight
+&lt;figure class=&quot;highlight
         
       
     
@@ -426,8 +421,7 @@
       
         
         
-          &lt;h2&gt;方法解释&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
+          &lt;h2 id=&quot;方法解释&quot;&gt;&lt;a href=&quot;#方法解释&quot; class=&quot;headerlink&quot; title=&quot;方法解释&quot;&gt;&lt;/a&gt;方法解释&lt;/h2&gt;&lt;p&gt;&lt;code&gt;arr.reduce(callback[,
         
       
     
