@@ -861,7 +861,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-05-18 09:36:32" itemprop="dateModified" datetime="2021-05-18T09:36:32+08:00">2021-05-18</time>
+                <time title="修改时间：2021-07-16 11:41:49" itemprop="dateModified" datetime="2021-07-16T11:41:49+08:00">2021-07-16</time>
               
             
           </span>
@@ -909,7 +909,7 @@
           
             <p><strong>Git 功能分支工作流（Feature Branch Workflow）</strong>背后的核心思想是所有功能开发应在专用分支而不是<code>master</code>分支中进行。这种封装使多个开发人员可以轻松地使用特定功能，而又不会干扰主代码库。这也意味着<code>master</code>分支将永远不会包含残破的代码，这对于持续集成环境是一个巨大的优势。</p>
 <p>功能分支开发还可以利用<strong>合并请求（pull request）</strong>，这是围绕分支发起讨论的一种方式。这为其他开发人员提供了在功能集成到正式项目中之前对其进行审查的机会。甚至，如果您在开发功能过程中卡住了，则可以开启一个<strong>合并请求（pull request）</strong>，以征询同事的建议。更关键是，合并请求操作使您的团队可以非常轻松地就彼此的工作发表讨论。</p>
-<p>Git 功能分支工作流是可组合的工作流程，其他高级 Git 工作流程也可以利用。Git 功能分支工作流是针对分支模型的，这意味着它是用于管理和创建分支的指导框架。其他工作流程更注重回购。 Git Feature Branch 工作流程可以合并到其他工作流程中。实际上，<strong>GitFlow 工作流（GitFlow Workflow）</strong>和<strong>Git 派生工作流（Forking Workflow）</strong>在其分支模型方面使用了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。</p>
+<p>Git 功能分支工作流是可组合的工作流程，其他高级 Git 工作流程也可以利用。Git 功能分支工作流是针对分支模型的，这意味着它是用于管理和创建分支的指导框架，其他工作流则更以仓库为中心。 Git 功能分支工作流可以合并到其他工作流程中。实际上，<strong>GitFlow 工作流（GitFlow Workflow）</strong>和<strong>Git 派生工作流（Forking Workflow）</strong>在其分支模型方面使用了<strong>Git 功能分支工作流（Feature Branch Workflow）</strong>。</p>
 <h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>Git 功能分支工作流（Feature Branch Workflow）假设有一个中央仓库，而<strong>master</strong>则代表正式的项目历史记录，开发人员在每次开始使用新功能时都创建一个新分支，而不是直接在其本地<strong>master</strong>分支上提交。功能分支应具有描述性名称，例如<code>animated-menu-items</code>、<code>issue-#1061</code>或<code>feature_xxxx</code>，这样命名的目的是明确每一个分支的功能和作用。 Git 在主分支和功能分支之间没有技术上的区别，因此开发人员可以编辑、暂存和提交对功能分支的更改。</p>
 <p>另外，可以（并且应该）将功能分支推送到中央仓库，这样就可以与其他开发人员共享功能，而无需更改任何正式代码。由于<code>master</code>是唯一的“特殊”分支，因此在中央仓库中存储多个功能分支不会造成任何问题。当然，这也是备份每个人的本地提交的便捷方法。以下是<strong>功能分支的生命周期。</strong></p>
 <h3 id="从主（master）分支开始"><a href="#从主（master）分支开始" class="headerlink" title="从主（master）分支开始"></a>从主（master）分支开始</h3><p>所有功能分支都是根据项目的最新代码状态创建的。这里假设 master 分支即为我们项目的主分支。</p>
