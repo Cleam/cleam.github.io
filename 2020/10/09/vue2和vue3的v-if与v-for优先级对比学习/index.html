@@ -142,7 +142,7 @@
 
 
   <meta name="description" content="Vue.js 中使用最多的两个指令就是 v-if 和 v-for，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：  在 vue 2.x 中，在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用。 在 vue 3.x 中，v-if 总是优先于 v-for 生效。  对比学习接下来我们通过一个简单的示例来感知下，假设我们想要">
-<meta name="keywords" content="html,css,javascript,webpack,vue,react,nodejs">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue2和vue3的v-if与v-for优先级对比学习">
 <meta property="og:url" content="https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/index.html">
@@ -150,7 +150,7 @@
 <meta property="og:description" content="Vue.js 中使用最多的两个指令就是 v-if 和 v-for，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：  在 vue 2.x 中，在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用。 在 vue 3.x 中，v-if 总是优先于 v-for 生效。  对比学习接下来我们通过一个简单的示例来感知下，假设我们想要">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/todolist.png">
-<meta property="og:updated_time" content="2020-10-09T07:24:23.047Z">
+<meta property="og:updated_time" content="2021-09-23T01:46:44.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue2和vue3的v-if与v-for优先级对比学习">
 <meta name="twitter:description" content="Vue.js 中使用最多的两个指令就是 v-if 和 v-for，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：  在 vue 2.x 中，在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用。 在 vue 3.x 中，v-if 总是优先于 v-for 生效。  对比学习接下来我们通过一个简单的示例来感知下，假设我们想要">
@@ -418,12 +418,24 @@
                 
               
 
-              <time title="创建时间：2020-10-09 14:07:12 / 修改时间：15:24:23" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
+              <time title="创建时间：2020-10-09 14:07:12" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:46:44" itemprop="dateModified" datetime="2021-09-23T09:46:44+08:00">2021-09-23</time>
               
             
           </span>
@@ -485,7 +497,7 @@
 <p>模板部分：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>js 部分：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>示例效果：</p>
 <iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
@@ -549,6 +561,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
       
 
       
@@ -648,7 +666,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -679,7 +697,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

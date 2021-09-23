@@ -374,6 +374,557 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/10/渐进增强和优雅降级的区别/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">渐进增强和优雅降级</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-10 10:09:27" itemprop="dateCreated datePublished" datetime="2020-12-10T10:09:27+08:00">2020-12-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:45:42" itemprop="dateModified" datetime="2021-09-23T09:45:42+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/12/10/渐进增强和优雅降级的区别/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/" class="cy_cmt_count" data-xid="2020/12/10/渐进增强和优雅降级的区别/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>拿浏览器兼容举例：</p>
+<ul>
+<li><strong>渐进增强(progressive enhancement)：</strong>针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
+<li><strong>优雅降级(graceful degradation)：</strong>一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
+</ul>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
+<h3 id="“优雅降级”观点"><a href="#“优雅降级”观点" class="headerlink" title="“优雅降级”观点"></a>“优雅降级”观点</h3><p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
+<h3 id="“渐进增强”观点"><a href="#“渐进增强”观点" class="headerlink" title="“渐进增强”观点"></a>“渐进增强”观点</h3><p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
+<p>那么问题来了。现在产品经理看到 IE6,7,8 网页效果相对高版本现代浏览器少了很多圆角， 阴影（CSS3），要求兼容（使用图片背景，放弃 CSS3），你会如何说服他？</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li><a href="https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement" target="_blank" rel="noopener">Graceful degradation versus progressive enhancement</a></li>
+<li><a href="https://www.mavenecommerce.com/2017/10/31/progressive-enhancement-vs-graceful-degradation/" target="_blank" rel="noopener">Progressive Enhancement vs Graceful Degradation</a></li>
+</ul>
+<blockquote>
+<p>内容整理来源于网络。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/04/为什么要做技术分享/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/04/为什么要做技术分享/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">为什么要做技术分享</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-04 10:07:19 / 修改时间：10:47:57" itemprop="dateCreated datePublished" datetime="2020-12-04T10:07:19+08:00">2020-12-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/12/04/为什么要做技术分享/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/12/04/为什么要做技术分享/" class="cy_cmt_count" data-xid="2020/12/04/为什么要做技术分享/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-提升学习效率"><a href="#1-提升学习效率" class="headerlink" title="1. 提升学习效率"></a>1. 提升学习效率</h2><p>我们来看一张图就明白了：</p>
+<p><img src="/uploads/post/for-study.jpg" alt="教学法"></p>
+<p>想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（<code>被动学习+主动学习</code>）那效果不言而喻，比前者（纯<code>被动学习</code>）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中<code>主动学习</code>吸收率最高的学习方法了。</p>
+<h2 id="2-提升影响力，提升自信心"><a href="#2-提升影响力，提升自信心" class="headerlink" title="2. 提升影响力，提升自信心"></a>2. 提升影响力，提升自信心</h2><p>对于分享者，每分享一次，都会加深听众对你的认识，“原来这些我平常不知道的，这个大哥都知道”、“原来我常碰到的这个错误是这个原因啊”。无形中自己的影响力就慢慢加大了。自己优越感提升了，自然也更自信了。慢慢也会发现分享对自己带来的好处，从而对自己形成一个良性循环。</p>
+<h2 id="3-总结经验教训，让自己以及他人少走弯路"><a href="#3-总结经验教训，让自己以及他人少走弯路" class="headerlink" title="3. 总结经验教训，让自己以及他人少走弯路"></a>3. 总结经验教训，让自己以及他人少走弯路</h2><p>通过技术分享可以总结过去，展望未来，比如近期分享的站在前端开发工程师的角度《聊聊前后端之登录鉴权》，就是对自己过去做登录鉴权的一个总结，不单单站在前端角度思考，更多的是站在整个登录鉴权流程去思考，应该使用<code>session-cookie</code>方案还是<code>token</code>方案，或者是使用<code>OAuth</code>方案，对着三种方案做了原理分析、优缺点对比、突出问题讲解（比如<code>session-cookie</code>方案时跨域要怎么处理，会出现哪些问题等等），分享前还各种参考资料的搜集整理等等，最后通过一个 demo（从前端到后端打通）的实战来分享出来。</p>
+<p>通过该总结，自己对鉴权也更加熟悉，大大提升了对鉴权的理解。对于他人（听众）来说，有些人可能不熟悉的，也知道怎么回事了，对于熟悉的，同样也是系统的加深了一遍印象，后面跟后端对接业务的时候也能够很好的指定方案，出现问题也能很好的排错。</p>
+<p>同时，还有另外一方面，通过技术分享，可以查漏补缺、取长补短。分享者不见得面面俱到，平常觉得应该是这样处理的问题，可能在分享会上碰到比你研究更深的人提出质疑甚至是修改之后，也能让分享者发现自己的错误：“原来我之前一直这样思考（一直这样做）是有问题的（考虑不全的），感谢大佬的提醒”。</p>
+<blockquote>
+<p>以上是我到目前为止做技术分享的一点理解和感悟。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-25 16:31:12" itemprop="dateCreated datePublished" datetime="2020-10-25T16:31:12+08:00">2020-10-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:45:52" itemprop="dateModified" datetime="2021-09-23T09:45:52+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="cy_cmt_count" data-xid="2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己买了一台群晖 NAS，一直想用自己购买的域名访问，虽然群晖官方提供了<a href="http://www.quickconnect.to/" target="_blank" rel="noopener">quickconnect</a>，但我经常出现访问不了的情况，所以最终还是决定自己折腾，折腾了很久，终于算是大功告成了。</p>
+<p>我的设备：</p>
+<ol>
+<li>群晖 DS218+</li>
+<li>电信光猫</li>
+<li>华硕 RT-AC86U 路由器</li>
+</ol>
+<p>大致思路：</p>
+<ol>
+<li>将光猫改成桥接模式，申请公网 IP（打 10000 修改、申请）</li>
+<li>路由器拨号联网（打 10000 获取账号密码）</li>
+<li>路由器配置端口转发</li>
+<li>用自己申请的域名绑定到公网 IP</li>
+<li>申请免费 SSL 证书，导入到群晖</li>
+</ol>
+<h2 id="光猫改桥接-申请公网-IP"><a href="#光猫改桥接-申请公网-IP" class="headerlink" title="光猫改桥接+申请公网 IP"></a>光猫改桥接+申请公网 IP</h2><ul>
+<li>方法一（推荐）：打 10000，将电信光猫改成桥接模式，并申请公网 IP。</li>
+<li>方法二：也可以看<a href="https://post.smzdm.com/p/aoo8klv6/" target="_blank" rel="noopener">这篇文章</a>或<a href="https://www.jianshu.com/p/ee61b0b58854" target="_blank" rel="noopener">这篇文章</a>的教程获取到超级管理员账号，然后登陆进去改路由器为桥接模式。教程大概就是：</li>
+</ul>
+<ol>
+<li>使用光猫背面的（普通用户）账号密码登录进光猫，然后访问链接<code>http://192.168.1.1/backupsettings.conf</code>下载光猫的配置文件；</li>
+<li><code>backupsettings.conf</code>配置文件中就包含了超级管理员<code>telecomadmin</code>的密码（可以搜索 password 查看到），宽带账号密码也在里面（搜 username）。</li>
+</ol>
+<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin"><br><img src="/uploads/post/username.png" alt="username"></p>
+<p>有了这些信息，光猫就可以自己修改了，不过我也折腾了很久，才将桥接改成功，并且路由器拨号上网也没问题了，当时遇到一个问题就是路由器 WAN IP 和百度搜索到的外网 IP 不一致，我以为自己没有公网 IP，所以后面又还原回去了，就打 10000 让电信师傅来帮忙弄了，电信师傅来弄的时候，最后也是一样的结果，路由器上 WAN IP 和百度上显示的外网 IP 不一致 😓（因为这是验证是否有公网 IP 的方法）：</p>
+<ul>
+<li>路由器 IP：<img src="/uploads/post/WANIP.png" alt="路由器IP"></li>
+<li>IP138 获取的 IP：<img src="/uploads/post/IP138IP.png" alt="IP138获取的IP"></li>
+</ul>
+<p>最终电信师傅回去之后微信告诉我，重启路由器就行了。重启路由后，果然成功了 😂。</p>
+<h2 id="路由器拨号上网-端口转发"><a href="#路由器拨号上网-端口转发" class="headerlink" title="路由器拨号上网+端口转发"></a>路由器拨号上网+端口转发</h2><p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
+<ul>
+<li>路由器拨号上网：<img src="/uploads/post/router_pppoe.png" alt="路由器拨号上网"></li>
+<li>端口转发配置：<img src="/uploads/post/config_transform_port.png" alt="端口转发配置"></li>
+</ul>
+<h2 id="域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><a href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖" class="headerlink" title="域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖"></a>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2><p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
+<ul>
+<li>域名解析：<img src="/uploads/post/jiexi.png" alt="域名解析"></li>
+<li>免费证书：<img src="/uploads/post/ssl.png" alt="免费证书"></li>
+</ul>
+<p>证书导入到群晖：</p>
+<p><img src="/uploads/post/upload_ssl.png" alt="证书导入"></p>
+<p>使用域名成功访问群晖：</p>
+<p><img src="/uploads/post/login.png" alt="访问群晖"></p>
+<p>至此，配置基本完成，后续慢慢摸索优化。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -419,12 +970,24 @@
                 
               
 
-              <time title="创建时间：2020-10-09 14:07:12 / 修改时间：15:24:23" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
+              <time title="创建时间：2020-10-09 14:07:12" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:46:44" itemprop="dateModified" datetime="2021-09-23T09:46:44+08:00">2021-09-23</time>
               
             
           </span>
@@ -488,7 +1051,7 @@
 <p>模板部分：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>js 部分：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>示例效果：</p>
 <iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
@@ -1189,12 +1752,24 @@
                 
               
 
-              <time title="创建时间：2020-09-23 18:02:05 / 修改时间：18:07:10" itemprop="dateCreated datePublished" datetime="2020-09-23T18:02:05+08:00">2020-09-23</time>
+              <time title="创建时间：2020-09-23 18:02:05" itemprop="dateCreated datePublished" datetime="2020-09-23T18:02:05+08:00">2020-09-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:46:03" itemprop="dateModified" datetime="2021-09-23T09:46:03+08:00">2021-09-23</time>
               
             
           </span>
@@ -1780,180 +2355,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/19/vps-with-vultr/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">如何使用vultr搭建自己的vps实现科学上网</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-19 14:49:24" itemprop="dateCreated datePublished" datetime="2018-11-19T14:49:24+08:00">2018-11-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-09-23 16:08:49" itemprop="dateModified" datetime="2020-09-23T16:08:49+08:00">2020-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/11/19/vps-with-vultr/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/19/vps-with-vultr/" class="cy_cmt_count" data-xid="2018/11/19/vps-with-vultr/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><a href="https://www.vultr.com/?ref=7246043" target="_blank" rel="noopener">https://www.vultr.com/?ref=7246043</a></li>
-<li><a href="https://medium.com/@jackme256/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91-vultr-vps-%E6%90%AD%E5%BB%BA-shadowsocks-ss-%E6%95%99%E7%A8%8B-%E6%96%B0%E6%89%8B%E5%90%91-968613081aae" target="_blank" rel="noopener">科学上网：Vultr VPS 搭建 Shadowsocks（ss）教程（新手向）</a></li>
-<li><a href="https://zoomyale.com/2016/vultr_and_ss" target="_blank" rel="noopener">科学上网的终极姿势：在 Vultr VPS 上搭建 Shadowsocks</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1998,7 +2404,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2029,7 +2435,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
