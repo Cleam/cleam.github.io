@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="该文档列出了比较容易违反、比较重要的几个规则，更多规则请查看：sonar rules for js 代码段不应被注释掉（Sections of code should not be commented out） 程序员不应注释掉代码，因为它会使程序膨胀并降低可读性。未使用的代码应该被删除，如果需要，可以从源代码控制历史（如：Git History）中检索。 有些情况可能会误报、不合理报错或者本来就">
+<meta name="keywords" content="翻译,JavaScript,sonar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sonar质量规则学习之JavaScript">
+<meta property="og:url" content="https://cleam.github.io/2021/10/09/sonar质量规则学习之JavaScript/index.html">
+<meta property="og:site_name" content="老李">
+<meta property="og:description" content="该文档列出了比较容易违反、比较重要的几个规则，更多规则请查看：sonar rules for js 代码段不应被注释掉（Sections of code should not be commented out） 程序员不应注释掉代码，因为它会使程序膨胀并降低可读性。未使用的代码应该被删除，如果需要，可以从源代码控制历史（如：Git History）中检索。 有些情况可能会误报、不合理报错或者本来就">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cleam.github.io/uploads/post/js.png">
+<meta property="og:image" content="https://cleam.github.io/uploads/post/js-nosonar.png">
+<meta property="og:updated_time" content="2021-10-09T10:41:45.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sonar质量规则学习之JavaScript">
+<meta name="twitter:description" content="该文档列出了比较容易违反、比较重要的几个规则，更多规则请查看：sonar rules for js 代码段不应被注释掉（Sections of code should not be commented out） 程序员不应注释掉代码，因为它会使程序膨胀并降低可读性。未使用的代码应该被删除，如果需要，可以从源代码控制历史（如：Git History）中检索。 有些情况可能会误报、不合理报错或者本来就">
+<meta name="twitter:image" content="https://cleam.github.io/uploads/post/js.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="老李" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://cleam.github.io/2021/10/09/sonar质量规则学习之JavaScript/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>sonar质量规则学习之JavaScript | 老李</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老李</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">~路漫漫其修远兮~</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/10/09/sonar质量规则学习之JavaScript/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sonar质量规则学习之JavaScript
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-10-09 18:11:10 / 修改时间：18:41:45" itemprop="dateCreated datePublished" datetime="2021-10-09T18:11:10+08:00">2021-10-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/10/09/sonar质量规则学习之JavaScript/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/10/09/sonar质量规则学习之JavaScript/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>该文档列出了比较容易违反、比较重要的几个规则，更多规则请查看：<a href="https://rules.sonarsource.com/javascript" target="_blank" rel="noopener">sonar rules for js</a></p>
+<h2>代码段不应被注释掉（<a href="https://rules.sonarsource.com/javascript/RSPEC-125" target="_blank" rel="noopener">Sections of code should not be commented out</a>）</h2>
+<p>程序员不应注释掉代码，因为它会使程序膨胀并降低可读性。未使用的代码应该被删除，如果需要，可以从源代码控制历史（如：Git History）中检索。</p>
+<p>有些情况可能会误报、不合理报错或者本来就是有用的注释，可以试试使用<code>//NOSONAR</code>来规避：</p>
+<p><img src="/uploads/post/js.png" alt="js with sonar warn"></p>
+<p>加上<code>//NOSONAR</code>，sonar扫描便会忽略掉，就不会再有警告：</p>
+<p><img src="/uploads/post/js-nosonar.png" alt="js with NOSONAR"></p>
+<h2>功能函数认知复杂度（圈复杂度）不应太高（<a href="https://rules.sonarsource.com/javascript/RSPEC-3776" target="_blank" rel="noopener">Cognitive Complexity of functions should not be too high</a>）</h2>
+<p>认知复杂性是衡量函数控制流理解难度的指标。认知复杂度高的功能将难以维护。详情请看《<a href="/2021/09/23/cognitive-complexity/" title="认知复杂度（cognitive complexity ）">认知复杂度（cognitive complexity ）</a>》</p>
+<h2>变量不应该被隐藏（<a href="https://rules.sonarsource.com/javascript/RSPEC-1117" target="_blank" rel="noopener">Variables should not be shadowed</a>）</h2>
+<p>重写或隐藏在外部作用域中声明的变量会严重影响代码的可读性，从而影响代码的可维护性。此外，这可能会导致维护人员引入 bug，因为他们认为自己在使用某一个变量，但实际上在使用另一个变量。</p>
+<h2>三元运算符不应该嵌套（<a href="https://rules.sonarsource.com/javascript/RSPEC-3358" target="_blank" rel="noopener">Ternary operators should not be nested</a>）</h2>
+<p>三元运算符嵌套虽然可以解决问题，刚开始编写的时候看起来可能很清晰，但是随着时间延长会增加后期的维护难度。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getReadableStatus</span>(<span class="params">job</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> job.isRunning() ? <span class="string">'Running'</span> : job.hasErrors() ? <span class="string">'Failed'</span> : <span class="string">'Succeeded '</span>; <span class="comment">// Noncompliant</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getReadableStatus</span>(<span class="params">job</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (job.isRunning()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Running'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> job.hasErrors() ? <span class="string">'Failed'</span> : <span class="string">'Succeeded'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>应删除未使用的分配（变量）（<a href="https://rules.sonarsource.com/javascript/RSPEC-1854" target="_blank" rel="noopener">Unused assignments should be removed</a>）</h2>
+<p>定义了一个变量并对其进行了赋值操作，但实际上却未使用。可能是错误操作导致（比如代码删错），也可能是失误多写了。但总归是无用的，可以删除掉。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = a + b; <span class="comment">// Noncompliant; calculation result not used before value is overwritten</span></span><br><span class="line">i = compute();</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = a + b;</span><br><span class="line">i += compute();</span><br></pre></td></tr></table></figure></p>
+<p>例外情况:</p>
+<ul>
+<li>初始化值为<code>-1, 0, 1, null, undefined, [], {}, true, false, &quot;&quot;</code>的会被该规则忽略</li>
+<li>此规则还忽略使用 rest 语法（用于从对象中排除某些属性）进行对象分解时声明的变量</li>
+</ul>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; a, b, ...rest &#125; = obj; <span class="comment">// 'a' and 'b' are ok</span></span><br><span class="line">doSomething(rest);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x1, x2, x3] = arr; <span class="comment">// but 'x1' is noncompliant, as omitting syntax can be used: "let [, x2, x3] = arr;"</span></span><br><span class="line">doSomething(x2, x3);</span><br></pre></td></tr></table></figure></p>
+<h2>“for of”应该与可迭代对象一起使用（<a href="https://rules.sonarsource.com/javascript/RSPEC-4138" target="_blank" rel="noopener">&quot;for of&quot; should be used with Iterables</a>）</h2>
+<p>如果您有一个可迭代对象，例如数组、集合或列表，则循环遍历其值的最佳选择是 for of 语法。 这可以使代码看起来更干净、清晰。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">  <span class="comment">// Noncompliant</span></span><br><span class="line">  <span class="built_in">console</span>.log(arr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> arr) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>应删除未使用的局部变量或函数（<a href="https://rules.sonarsource.com/javascript/RSPEC-1481" target="_blank" rel="noopener">Unused local variables and functions should be removed</a>）</h2>
+<p>如果声明了局部变量或局部函数但未使用，则它是死代码，应删除。 这样做将提高可维护性，因为开发人员不会想知道变量或函数的用途。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberOfMinutes</span>(<span class="params">hours</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> seconds = <span class="number">0</span>; <span class="comment">// seconds is never used</span></span><br><span class="line">  <span class="keyword">return</span> hours * <span class="number">60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberOfMinutes</span>(<span class="params">hours</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> hours * <span class="number">60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>函数不应有相同的实现（<a href="https://rules.sonarsource.com/javascript/RSPEC-4144" target="_blank" rel="noopener">Functions should not have identical implementations</a>）</h2>
+<p>当两个函数具有相同的实现时，要么是一个错误（有其他用途），要么重复是故意的，但可能会使维护者感到困惑。 在后一种情况下，应该重构代码。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateCode</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  doTheThing();</span><br><span class="line">  doOtherThing();</span><br><span class="line">  <span class="keyword">return</span> code;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Noncompliant</span></span><br><span class="line">  doTheThing();</span><br><span class="line">  doOtherThing();</span><br><span class="line">  <span class="keyword">return</span> code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calculateCode</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  doTheThing();</span><br><span class="line">  doOtherThing();</span><br><span class="line">  <span class="keyword">return</span> code;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> calculateCode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>不应有空函数（<a href="https://rules.sonarsource.com/javascript/RSPEC-1186" target="_blank" rel="noopener">Functions should not be empty</a>）</h2>
+<p>函数没有函数体有几个原因：</p>
+<ul>
+<li>这是一个无意的遗漏，应该修复以防止生产中出现意外行为。</li>
+<li>它尚未或永远不会得到支持。 在这种情况下，应该在该机制可用的语言中抛出异常。</li>
+<li>该方法是一个有意的空白覆盖。 在这种情况下，嵌套注释应解释空白覆盖的原因。</li>
+</ul>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// This is intentional</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  do_something();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2>分配（的变量）不应是多余的（<a href="https://rules.sonarsource.com/javascript/RSPEC-4165" target="_blank" rel="noopener">Assignments should not be redundant</a>）</h2>
+<p>有些变量分配是没必要的，所以可以优化掉。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = b;</span><br><span class="line">c = a;</span><br><span class="line">b = c; <span class="comment">// Noncompliant: c and b are already the same</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = b;</span><br><span class="line">c = a;</span><br></pre></td></tr></table></figure></p>
+<h2>不应在子表达式中进行赋值（<a href="https://rules.sonarsource.com/javascript/RSPEC-1121" target="_blank" rel="noopener">Assignments should not be made from within sub-expressions</a>）</h2>
+<p>子表达式中的赋值很难被发现，因此降低了代码的可读性。 理想情况下，子表达式不应该有副作用。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((val = value() &amp;&amp; check())) &#123;</span><br><span class="line">  <span class="comment">// Noncompliant</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val = value();</span><br><span class="line"><span class="keyword">if</span> (val &amp;&amp; check()) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>不应声明局部变量然后立即返回或抛出（<a href="https://rules.sonarsource.com/javascript/RSPEC-1488" target="_blank" rel="noopener">Local variables should not be declared and then immediately returned or thrown</a>）</h2>
+<p>声明一个变量只是为了立即返回或抛出它是一种不好的做法。</p>
+<p>一些开发人员认为这种做法提高了代码的可读性，因为它使他们能够明确地命名返回的内容。 然而，这个变量是一个内部实现细节，不会暴露给方法的调用者。 方法名称应该足以让调用者确切地知道将返回什么。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">computeDurationInMilliseconds</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> duration = ((hours * <span class="number">60</span> + minutes) * <span class="number">60</span> + seconds) * <span class="number">1000</span>;</span><br><span class="line">  <span class="keyword">return</span> duration;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">computeDurationInMilliseconds</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ((hours * <span class="number">60</span> + minutes) * <span class="number">60</span> + seconds) * <span class="number">1000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>条件结构中的两个分支不应具有完全相同的实现（<a href="https://rules.sonarsource.com/javascript/RSPEC-1871" target="_blank" rel="noopener">Two branches in a conditional structure should not have exactly the same implementation</a>）</h2>
+<blockquote>
+<p>类似规则：条件结构中的所有分支不应具有完全相同的实现(<a href="https://rules.sonarsource.com/javascript/RSPEC-3923" target="_blank" rel="noopener">All branches in a conditional structure should not have exactly the same implementation</a>)</p>
+</blockquote>
+<p>switch 语句中的两个 case 或 if 链中的两个分支具有相同的实现充其量是重复代码，最坏的情况是编码错误。 如果两个实例确实需要相同的逻辑，那么在 if 链中它们应该被组合，或者对于一个 switch，一个应该落到另一个。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (i) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    doFirstThing();</span><br><span class="line">    doSomething();</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    doSomethingDifferent();</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">// 不合规; 与case 1的实现重复</span></span><br><span class="line">    doFirstThing();</span><br><span class="line">    doSomething();</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    doTheRest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a &gt;= <span class="number">0</span> &amp;&amp; a &lt; <span class="number">10</span>) &#123;</span><br><span class="line">  doFirstThing();</span><br><span class="line">  doTheThing();</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (a &gt;= <span class="number">10</span> &amp;&amp; a &lt; <span class="number">20</span>) &#123;</span><br><span class="line">  doTheOtherThing();</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (a &gt;= <span class="number">20</span> &amp;&amp; a &lt; <span class="number">50</span>) &#123;</span><br><span class="line">  doFirstThing();</span><br><span class="line">  doTheThing(); <span class="comment">// 不合规; 与第一个条件的实现重复</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  doTheRest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例外情况：</p>
+<p>if 链中包含单行代码的块将被忽略，就像 switch 语句中包含单行代码（带有或不带有后续中断）的块一样。</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a == <span class="number">1</span>) &#123;</span><br><span class="line">  doSomething(); <span class="comment">// 没问题，通常这样做是为了提高可读性</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (a == <span class="number">2</span>) &#123;</span><br><span class="line">  doSomethingElse();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  doSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是这个例外不适用于<strong>没有 else 的 if 链</strong>，或者当所有分支都具有相同的单行代码时<strong>没有 default 子句的 switch</strong>。 如果 if 链带有 else 或带有 default 子句的 switch，规则 {rule:javascript:S3923} 会引发错误。</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a == <span class="number">1</span>) &#123;</span><br><span class="line">  doSomething(); <span class="comment">// 不合规，这可能是故意的（也可能不是）</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (a == <span class="number">2</span>) &#123;</span><br><span class="line">  doSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>不应该在比较中使用布尔字面量（<a href="https://rules.sonarsource.com/javascript/RSPEC-1125" target="_blank" rel="noopener">Boolean literals should not be used in comparisons</a>）</h2>
+<p>在比较表达式 == 和 != 中应避免使用布尔字面量，以提高代码可读性。此规则还报告冗余的布尔运算。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> someValue = <span class="string">'0'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (someValue == <span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (someBooleanValue != <span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line">doSomething(!<span class="literal">false</span>);</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (someValue &amp;&amp; someValue != <span class="string">'0'</span>) &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!someBooleanValue) &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line">doSomething(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure></p>
+<h2>跳转语句不应冗余（<a href="https://rules.sonarsource.com/javascript/RSPEC-3626" target="_blank" rel="noopener">Jump statements should not be redundant</a>）</h2>
+<p>跳转语句，例如 return、break 和 continue 可以让你改变程序执行的默认流程，但是将控制流引导到原始方向是多余的。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redundantJump</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x == 1'</span>);</span><br><span class="line">    <span class="keyword">return</span>; <span class="comment">// Noncompliant</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redundantJump</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x == 1'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例外情况：</p>
+<ul>
+<li>switch 语句中的 break 和 return 被忽略，因为它们经常用于保持一致性。</li>
+<li>continue with label 也被忽略，因为标签通常用于清晰起见。</li>
+<li>此外，块中作为单个语句的跳转语句也将被忽略。</li>
+</ul>
+<h2>不应使用已弃用的 API（<a href="https://rules.sonarsource.com/javascript/RSPEC-1874" target="_blank" rel="noopener">Deprecated APIs should not be used</a>）</h2>
+<h2>默认导出名称和文件名应匹配（<a href="https://rules.sonarsource.com/javascript/RSPEC-3317" target="_blank" rel="noopener">Default export names and file names should match</a>）</h2>
+<p>按照惯例，只导出一个类、函数或常量的文件应该以该类、函数或常量命名。 否则可能使维护者感到困惑。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file path: myclass.js  -- Noncompliant</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyClass;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file path: MyClass.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyClass;</span><br></pre></td></tr></table></figure></p>
+<h2>函数应该总是返回同样的类型（<a href="https://rules.sonarsource.com/javascript/RSPEC-3800" target="_blank" rel="noopener">Functions should always return the same type</a>）</h2>
+<p>与强类型语言不同，JavaScript 不强制函数的返回类型。 这意味着通过函数的不同路径可以返回不同类型的值，这可能会让使用者感到非常困惑并且难以维护。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Noncompliant</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (a === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (a === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例外：返回 this 的函数将被忽略。</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回类型为 any 的表达式的函数将被忽略。</p>
+<h2>没用到的引入应该删除掉（<a href="https://rules.sonarsource.com/javascript/RSPEC-1128" target="_blank" rel="noopener">Unnecessary imports should be removed</a>）</h2>
+<p>没有理由导入你不使用的模块，这样做不必要地增加了负载。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Noncompliant, A isn't used</span></span><br><span class="line"><span class="keyword">import</span> A <span class="keyword">from</span> <span class="string">'a'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; B1 &#125; <span class="keyword">from</span> <span class="string">'b'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(B1);</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; B1 &#125; <span class="keyword">from</span> <span class="string">'b'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(B1);</span><br></pre></td></tr></table></figure></p>
+<h2>不应使用“void”（<a href="https://rules.sonarsource.com/javascript/RSPEC-3735" target="_blank" rel="noopener">&quot;void&quot; should not be used</a>）</h2>
+<p>void 运算符评估其参数并无条件地返回 undefined。 它在 ECMAScript 5 之前的环境中很有用， undefined 可以重新分配。但通常，它的使用会使代码更难理解。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> doSomething();</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doSomething();</span><br></pre></td></tr></table></figure></p>
+<p>例外：当使用 <code>void 0</code> 代替 undefined 时不会出现问题。</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (parameter === <span class="keyword">void</span> <span class="number">0</span>) &#123;...&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在立即调用的函数表达式之前使用 void 时，也不会出现问题。</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
+<h2>带有默认值的函数参数应该放到最后（<a href="https://rules.sonarsource.com/javascript/RSPEC-1788" target="_blank" rel="noopener">Function parameters with default values should be last</a>）</h2>
+<p>为函数参数定义默认值可以使函数更易于使用。默认参数值允许调用者根据需要指定尽可能多或尽可能少的参数，同时获得相同的功能并最大限度地减少样板(boilerplate)、包装器(wrapper)类似的代码。</p>
+<p>但是所有带默认值的函数参数都应该在没有默认值的函数参数之后声明。否则，调用者就无法利用默认值；他们必须重新指定默认值或传递 <code>undefined</code> 以“获取”非默认参数。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Noncompliant</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a = <span class="number">1</span>, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = multiply(<span class="number">42</span>); <span class="comment">// returns NaN as b is undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">b, a = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = multiply(<span class="number">42</span>); <span class="comment">// returns 42 as expected</span></span><br></pre></td></tr></table></figure></p>
+<h2>不应访问或迭代空集合（<a href="https://rules.sonarsource.com/javascript/RSPEC-4158" target="_blank" rel="noopener">Empty collections should not be accessed or iterated</a>）</h2>
+<p>当集合为空时，访问或迭代它是没有意义的。 无论如何这样做肯定是错误的。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> strings = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (strings.includes(<span class="string">"foo"</span>)) &#123; ... &#125;  <span class="comment">// Noncompliant</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (str <span class="keyword">of</span> strings) &#123; ... &#125;  <span class="comment">// Noncompliant</span></span><br><span class="line"></span><br><span class="line">strings.forEach(<span class="function"><span class="params">str</span> =&gt;</span> doSomething(str)); <span class="comment">// Noncompliant</span></span><br></pre></td></tr></table></figure></p>
+<h2>内置函数的参数应该类型匹配（<a href="https://rules.sonarsource.com/javascript/RSPEC-3782" target="_blank" rel="noopener">Arguments to built-in functions should match documented types</a>）</h2>
+<p>JavaScript 语言规范中指定了内置函数的参数类型。 对这些函数的调用应符合规定的类型，否则结果很可能不是预期的，例如：</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isTooSmall = <span class="built_in">Math</span>.abs(x &lt; <span class="number">0.0042</span>);</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isTooSmall = <span class="built_in">Math</span>.abs(x) &lt; <span class="number">0.0042</span>;</span><br></pre></td></tr></table></figure></p>
+<h2>内置函数的参数应该类型匹配（<a href="https://rules.sonarsource.com/javascript/RSPEC-1940" target="_blank" rel="noopener">Boolean checks should not be inverted</a>）</h2>
+<p>反转布尔比较增加了不必要的代码复杂度。应该进行相反的比较。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(a === <span class="number">2</span>)) &#123; ... &#125;  <span class="comment">// Noncompliant</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a !== <span class="number">2</span>) &#123; ... &#125;</span><br></pre></td></tr></table></figure></p>
+<h2>不应忽略没有副作用的函数的返回值（<a href="https://rules.sonarsource.com/javascript/RSPEC-2201" target="_blank" rel="noopener">Return values from functions without side effects should not be ignored</a>）</h2>
+<p>当对函数的调用没有任何副作用时，如果结果被忽略，调用的意义何在？ 在这种情况下，要么函数调用没用，应该删除，要么源代码没有按预期运行。</p>
+<p>为防止产生任何误报，此规则仅在已知对象和功能的预定义列表上触发问题。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello'</span>.lastIndexOf(<span class="string">'e'</span>); <span class="comment">// Noncompliant</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> char = <span class="string">'hello'</span>.lastIndexOf(<span class="string">'e'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>违反此规则的代码中，使用<code>map</code>进行循环的情况最多，如果不需要循环返回值，请使用<code>forEach</code>代替。</p>
+<h2>不应重复声明变量和函数（<a href="https://rules.sonarsource.com/javascript/RSPEC-2814" target="_blank" rel="noopener">Variables and functions should not be redeclared</a>）</h2>
+<p>实际上，可以多次使用相同的符号作为变量或函数，但这样做可能会使维护者感到困惑。此外，这种重新分配可能是错误的，开发人员没有意识到变量的值被新的分配覆盖了。</p>
+<p>此规则也适用于函数参数。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'foo'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// Noncompliant</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// prints "foo"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunc</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arg = <span class="string">'event'</span>; <span class="comment">// Noncompliant, argument value is lost</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(); <span class="comment">// prints "bar"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(); <span class="comment">// prints "bar"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Noncompliant</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'bar'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(); <span class="comment">// prints "bar"</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'foo'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">otherName</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunc</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> newName = <span class="string">'event'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(); <span class="comment">// prints "foo"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  print(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(); <span class="comment">// prints "foo"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printBar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  print(<span class="string">'bar'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printBar(); <span class="comment">// prints "bar"</span></span><br></pre></td></tr></table></figure></p>
+<h2>数组方法的回调应该有返回（return 语句）（<a href="https://rules.sonarsource.com/javascript/RSPEC-3796" target="_blank" rel="noopener">Callbacks of array methods should have return statements</a>）</h2>
+<p>JavaScript 中的数组有几种（过滤、映射或折叠）需要回调的方法。在这样的回调函数中没有 return 语句很可能是一个错误，因为数组的处理使用了回调的返回值。 如果没有返回，回调将隐式返回 undefined，这可能会失败。</p>
+<p>此规则适用于数组的以下方法：</p>
+<ul>
+<li><code>Array.from</code></li>
+<li><code>Array.prototype.every</code></li>
+<li><code>Array.prototype.filter</code></li>
+<li><code>Array.prototype.find</code></li>
+<li><code>Array.prototype.findIndex</code></li>
+<li><code>Array.prototype.map</code></li>
+<li><code>Array.prototype.reduce</code></li>
+<li><code>Array.prototype.reduceRight</code></li>
+<li><code>Array.prototype.some</code></li>
+<li><code>Array.prototype.sort</code></li>
+</ul>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">let</span> merged = arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.concat(b);</span><br><span class="line">&#125;); <span class="comment">// Noncompliant: No return statement, will result in TypeError</span></span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">let</span> merged = arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.concat(b);</span><br><span class="line">&#125;); <span class="comment">// merged === "abc"</span></span><br></pre></td></tr></table></figure></p>
+<p>违反此规则的代码中，使用<code>map</code>进行循环的情况最多，如果不需要循环返回值，请使用<code>forEach</code>代替。</p>
+<h2>严格相等运算符不应与不同类型一起使用（<a href="https://rules.sonarsource.com/javascript/RSPEC-3403" target="_blank" rel="noopener">Strict equality operators should not be used with dissimilar types</a>）</h2>
+<p>使用严格相等运算符 <code>===</code> 和 <code>!==</code> 比较不同的类型将始终返回相同的值，分别为 <code>false</code> 和 <code>true</code>，因为在比较之前没有进行类型转换。因此，这种比较是错误的。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'8'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Noncompliant; always false</span></span><br><span class="line"><span class="keyword">if</span> (a === b) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'8'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'8'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a === <span class="built_in">Number</span>(b)) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>“switch”语句应该至少有 3 个“case”子句（<a href="https://rules.sonarsource.com/javascript/RSPEC-1301" target="_blank" rel="noopener">&quot;switch&quot; statements should have at least 3 &quot;case&quot; clauses</a>）</h2>
+<p>当同一个表达式的值有许多不同的情况时，switch 语句很有用。但是，对于一两种情况，使用 if 语句会使代码更具可读性。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (variable) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">    doSomething();</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    doSomethingElse();</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (variable == <span class="number">0</span>) &#123;</span><br><span class="line">  doSomething();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  doSomethingElse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>应使用集合和数组内容（<a href="https://rules.sonarsource.com/javascript/RSPEC-4030" target="_blank" rel="noopener">Collection and array contents should be used</a>）</h2>
+<p>当一个集合被填充但它的内容从未被使用时，那么它肯定是某种错误。要么重构使集合变得毫无意义，要么缺少访问权限。</p>
+<p>当除了添加或删除值的方法之外没有对集合调用任何方法时，此规则会引发问题。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> strings = []; <span class="comment">// Noncompliant</span></span><br><span class="line">  strings.push(a);</span><br><span class="line">  strings.push(b);</span><br><span class="line">  strings.push(c);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> a.length + b.length + c.length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.length + b.length + c.length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>跳转语句不应该是多余的（<a href="https://rules.sonarsource.com/javascript/RSPEC-3626" target="_blank" rel="noopener">Jump statements should not be redundant</a>）</h2>
+<p>跳转语句，例如 <code>return</code>、<code>break</code> 和 <code>continue</code> 可以让你改变程序执行的默认流程，但是将控制流引导到原始方向的跳转语句是多余的。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redundantJump</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x == 1'</span>);</span><br><span class="line">    <span class="keyword">return</span>; <span class="comment">// Noncompliant</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redundantJump</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x == 1'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例外：</p>
+<p><code>switch</code> 语句中的 <code>break</code> 和 <code>return</code> 被忽略，因为它们经常用于保持一致性。 <code>continue</code> with label 也会被忽略，因为标签通常用于清晰起见。 此外，块中作为单个语句的跳转语句也将被忽略。</p>
+<h2>“await”不应该被重复使用（<a href="https://rules.sonarsource.com/javascript/RSPEC-4326" target="_blank" rel="noopener">&quot;await&quot; should not be used redundantly</a>）</h2>
+<p>异步函数总是将返回值包装在 Promise 中。 因此，使用 <code>return await</code> 是多余的。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> foo(); <span class="comment">// Noncompliant</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> foo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>“await”不应该被重复使用（<a href="https://rules.sonarsource.com/javascript/RSPEC-905" target="_blank" rel="noopener">Non-empty statements should change control flow or have at least one side-effect</a>）</h2>
+<p>任何没有副作用且不会导致控制流改变的语句（空语句除外，这意味着语句只包含一个分号;）通常会指示编程错误，因此应该重构。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a == <span class="number">1</span>; <span class="comment">// Noncompliant; was assignment intended?</span></span><br><span class="line"><span class="keyword">var</span> msg = <span class="string">"Hello, "</span></span><br><span class="line">  <span class="string">"World!"</span>; <span class="comment">// Noncompliant; have we forgotten '+' operator on previous line?</span></span><br></pre></td></tr></table></figure></p>
+<h2>相关的“if/else if”语句不应具有相同的条件（<a href="https://rules.sonarsource.com/javascript/RSPEC-905" target="_blank" rel="noopener">Related &quot;if/else if&quot; statements should not have the same condition</a>）</h2>
+<p>从上到下评估 <code>if/else if</code> 语句链。 最多只会执行一个分支：第一个条件为真的分支。</p>
+<p>因此，复制条件会自动导致死代码。通常，这是由于复制/粘贴错误造成的。充其量只是死代码，最糟糕的是，它是一个错误，在维护代码时可能会引发更多错误，显然它可能导致意外行为。</p>
+<p>请注意，此规则要求 Node.js 在分析期间可用。</p>
+<p>反例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (param == <span class="number">1</span>)</span><br><span class="line">  openWindow();</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (param == <span class="number">2</span>)</span><br><span class="line">  closeWindow();</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (param == <span class="number">1</span>)  <span class="comment">// Noncompliant</span></span><br><span class="line">  moveWindowToTheBackground();</span><br></pre></td></tr></table></figure></p>
+<p>正例：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (param == <span class="number">1</span>)</span><br><span class="line">  openWindow();</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (param == <span class="number">2</span>)</span><br><span class="line">  closeWindow();</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (param == <span class="number">3</span>)</span><br><span class="line">  moveWindowToTheBackground();</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_qdgcs_lzg.jpg" alt="Cleam Lee wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎扫一扫订阅！</div>
+</div>
+
+      </div>
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay2.jpg" alt="Cleam Lee 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay2.jpg" alt="Cleam Lee 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/sonar/" rel="tag"># sonar</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/23/cognitive-complexity/" rel="next" title="认知复杂度（cognitive complexity ）">
+                <i class="fa fa-chevron-left"></i> 认知复杂度（cognitive complexity ）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Cleam Lee">
+            
+              <p class="site-author-name" itemprop="name">Cleam Lee</p>
+              <p class="site-description motion-element" itemprop="description">前端生涯记录总结</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/cleam" title="GitHub &rarr; https://github.com/cleam" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/Cleam_Lee" title="Twitter &rarr; https://twitter.com/Cleam_Lee" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/lzg2049" title="微博 &rarr; https://weibo.com/lzg2049" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">代码段不应被注释掉（Sections of code should not be commented out）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">功能函数认知复杂度（圈复杂度）不应太高（Cognitive Complexity of functions should not be too high）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">变量不应该被隐藏（Variables should not be shadowed）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">三元运算符不应该嵌套（Ternary operators should not be nested）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">应删除未使用的分配（变量）（Unused assignments should be removed）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">“for of”应该与可迭代对象一起使用（&quot;for of&quot; should be used with Iterables）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">应删除未使用的局部变量或函数（Unused local variables and functions should be removed）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">函数不应有相同的实现（Functions should not have identical implementations）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">不应有空函数（Functions should not be empty）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">10.</span> <span class="nav-text">分配（的变量）不应是多余的（Assignments should not be redundant）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">11.</span> <span class="nav-text">不应在子表达式中进行赋值（Assignments should not be made from within sub-expressions）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">12.</span> <span class="nav-text">不应声明局部变量然后立即返回或抛出（Local variables should not be declared and then immediately returned or thrown）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">13.</span> <span class="nav-text">条件结构中的两个分支不应具有完全相同的实现（Two branches in a conditional structure should not have exactly the same implementation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">14.</span> <span class="nav-text">不应该在比较中使用布尔字面量（Boolean literals should not be used in comparisons）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">15.</span> <span class="nav-text">跳转语句不应冗余（Jump statements should not be redundant）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">16.</span> <span class="nav-text">不应使用已弃用的 API（Deprecated APIs should not be used）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">17.</span> <span class="nav-text">默认导出名称和文件名应匹配（Default export names and file names should match）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">18.</span> <span class="nav-text">函数应该总是返回同样的类型（Functions should always return the same type）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">19.</span> <span class="nav-text">没用到的引入应该删除掉（Unnecessary imports should be removed）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">20.</span> <span class="nav-text">不应使用“void”（&quot;void&quot; should not be used）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">21.</span> <span class="nav-text">带有默认值的函数参数应该放到最后（Function parameters with default values should be last）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">22.</span> <span class="nav-text">不应访问或迭代空集合（Empty collections should not be accessed or iterated）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">23.</span> <span class="nav-text">内置函数的参数应该类型匹配（Arguments to built-in functions should match documented types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">24.</span> <span class="nav-text">内置函数的参数应该类型匹配（Boolean checks should not be inverted）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">25.</span> <span class="nav-text">不应忽略没有副作用的函数的返回值（Return values from functions without side effects should not be ignored）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">26.</span> <span class="nav-text">不应重复声明变量和函数（Variables and functions should not be redeclared）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">27.</span> <span class="nav-text">数组方法的回调应该有返回（return 语句）（Callbacks of array methods should have return statements）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">28.</span> <span class="nav-text">严格相等运算符不应与不同类型一起使用（Strict equality operators should not be used with dissimilar types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">29.</span> <span class="nav-text">“switch”语句应该至少有 3 个“case”子句（&quot;switch&quot; statements should have at least 3 &quot;case&quot; clauses）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">30.</span> <span class="nav-text">应使用集合和数组内容（Collection and array contents should be used）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">31.</span> <span class="nav-text">跳转语句不应该是多余的（Jump statements should not be redundant）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">32.</span> <span class="nav-text">“await”不应该被重复使用（&quot;await&quot; should not be used redundantly）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">33.</span> <span class="nav-text">“await”不应该被重复使用（Non-empty statements should change control flow or have at least one side-effect）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">34.</span> <span class="nav-text">相关的“if/else if”语句不应具有相同的条件（Related &quot;if/else if&quot; statements should not have the same condition）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cleam Lee</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyv4uru5Q';
+      var conf = 'cbfe86faeb0f6ea874d7bbd322530037';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -374,6 +374,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/10/Linux-CentOS7-安装redis过程记录/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">Linux（CentOS 7）安装redis过程记录</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-10 17:21:49 / 修改时间：22:54:51" itemprop="dateCreated datePublished" datetime="2020-12-10T17:21:49+08:00">2020-12-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/12/10/Linux-CentOS7-安装redis过程记录/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/" class="cy_cmt_count" data-xid="2020/12/10/Linux-CentOS7-安装redis过程记录/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。</p>
+</blockquote>
+<h2 id="一、查看系统版本信息"><a href="#一、查看系统版本信息" class="headerlink" title="一、查看系统版本信息"></a>一、查看系统版本信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、修改-yum-安装源"><a href="#二、修改-yum-安装源" class="headerlink" title="二、修改 yum 安装源"></a>二、修改 yum 安装源</h2><p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
+<h2 id="三、安装-redis"><a href="#三、安装-redis" class="headerlink" title="三、安装 redis"></a>三、安装 redis</h2><p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：<br><img src="/uploads/post/redis.png" alt="redis下载"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录"><a href="#错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录" class="headerlink" title="错误 1：zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录"></a>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3><p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
+<h3 id="错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员"><a href="#错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员" class="headerlink" title="错误 2：server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员"></a>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3><p>解决方法：升级依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h2><p>我的 redis 安装在<code>/opt/</code>目录下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="四、修改为后台启动"><a href="#四、修改为后台启动" class="headerlink" title="四、修改为后台启动"></a>四、修改为后台启动</h2><p>编辑配置文件 <code>redis.conf</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
+<p>将<code>daemonize no</code>修改为<code>daemonize yes</code>，保存之后，重新启动。</p>
+<h2 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h2><ul>
+<li><a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</a></li>
+<li><a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></li>
+<li><a href="https://www.cnblogs.com/aquester/p/13581147.html" target="_blank" rel="noopener">https://www.cnblogs.com/aquester/p/13581147.html</a></li>
+<li><a href="https://www.cnblogs.com/shook/p/12883742.html" target="_blank" rel="noopener">https://www.cnblogs.com/shook/p/12883742.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1380,7 +1554,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-28 17:44:27" itemprop="dateModified" datetime="2020-09-28T17:44:27+08:00">2020-09-28</time>
+                <time title="修改时间：2021-10-09 18:42:35" itemprop="dateModified" datetime="2021-10-09T18:42:35+08:00">2021-10-09</time>
               
             
           </span>
@@ -1428,47 +1602,55 @@
           
             <p>根据上一篇《深入理解 v-model 之表单用法》基本对 v-model 有了比较深的理解，接下来我们看看它如何在自定义组件中使用。</p>
 <p>首先，我们知道下面两个用法等价的：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event.target.value"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="在-vue3-中"><a href="#在-vue3-中" class="headerlink" title="在 vue3 中"></a>在 vue3 中</h2><p>当在自定义组件中使用<code>v-model</code>时，组件接收一个属性<code>modelValue</code>的值，然后通过触发<code>update:modelValue</code>事件来更新该值：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">:model-value</span>=<span class="string">"msg"</span> @<span class="attr">update:model-value</span>=<span class="string">"msg = $event"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 建议命名按照kebab-cased规范，如：model-value，而不是modelValue --&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="v-model-实现"><a href="#v-model-实现" class="headerlink" title="v-model 实现"></a>v-model 实现</h3><p>根据上面的定义规则，我们可以这样实现一个自定义 input 组件：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：自定义input组件</span></span><br><span class="line"><span class="comment">// 实现1：</span></span><br><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'modelValue'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="$emit('update:modelValue', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 实现2：使用input的v-model + computed(计算属性)</span></span><br><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'modelValue'</span>],</span><br><span class="line">  computed: &#123;</span><br><span class="line">    value: &#123;</span><br><span class="line">      get() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.modelValue;</span><br><span class="line">      &#125;,</span><br><span class="line">      set(v) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, v);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input v-model="value"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event.target.value"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2>在 vue3 中</h2>
+<p>当在自定义组件中使用<code>v-model</code>时，组件接收一个属性<code>modelValue</code>的值，然后通过触发<code>update:modelValue</code>事件来更新该值：</p>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">:model-value</span>=<span class="string">"msg"</span> @<span class="attr">update:model-value</span>=<span class="string">"msg = $event"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 建议命名按照kebab-cased规范，如：model-value，而不是modelValue --&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3>v-model 实现</h3>
+<p>根据上面的定义规则，我们可以这样实现一个自定义 input 组件：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：自定义input组件</span></span><br><span class="line"><span class="comment">// 实现1：</span></span><br><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'modelValue'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="$emit('update:modelValue', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 实现2：使用input的v-model + computed(计算属性)</span></span><br><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'modelValue'</span>],</span><br><span class="line">  computed: &#123;</span><br><span class="line">    value: &#123;</span><br><span class="line">      get() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.modelValue;</span><br><span class="line">      &#125;,</span><br><span class="line">      set(v) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, v);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input v-model="value"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>使用：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-input</span>&gt;</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-input</span>&gt;</span>;</span><br></pre></td></tr></table></figure></p>
 <p>上面示例只是对 input 做了一层包装，如果自定义组件里面不包含 input 又该如何实现呢？为了加深理解，我们看下面一个自定义 count 组件示例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例2：自定义count组件</span></span><br><span class="line">app.component(<span class="string">'custom-count'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">Number</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    increment() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, ++<span class="keyword">this</span>.modelValue);</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, --<span class="keyword">this</span>.modelValue);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;button @click="increment"&gt;+1&lt;/button&gt; ~ </span></span><br><span class="line"><span class="string">    &lt;button @click="decrement"&gt;-1&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;&#123;&#123;modelValue&#125;&#125;&lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例2：自定义count组件</span></span><br><span class="line">app.component(<span class="string">'custom-count'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">Number</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    increment() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, ++<span class="keyword">this</span>.modelValue);</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement() &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:modelValue'</span>, --<span class="keyword">this</span>.modelValue);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;button @click="increment"&gt;+1&lt;/button&gt; ~ </span></span><br><span class="line"><span class="string">    &lt;button @click="decrement"&gt;-1&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;&#123;&#123;modelValue&#125;&#125;&lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>使用：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-count</span> <span class="attr">v-model</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-count</span>&gt;</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-count</span> <span class="attr">v-model</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-count</span>&gt;</span>;</span><br></pre></td></tr></table></figure></p>
 <p>我们来看看实现效果：</p>
-<iframe id="cp_embed_ExKMYKE" src="//codepen.io/cleam_lee/embed/ExKMYKE?height=460&theme-id=dark&slug-hash=ExKMYKE&default-tab=js,result" scrolling="no" frameborder="no" height="460" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-<h3 id="v-model-参数"><a href="#v-model-参数" class="headerlink" title="v-model 参数"></a>v-model 参数</h3><p>通过示例我们发现 v-model 是接收属性<code>modelValue</code>的值，然后触发事件<code>update:modelValue</code>来更新该值，那么我们可不可以修改这个属性名<code>modelValue</code>呢？该如何操作？其实我们只需要给<code>v-model</code>添加参数即可，比如：<code>v-model:mv</code>，这样就将<code>modelValue</code>换成了<code>mv</code>。</p>
+<p><iframe id="cp_embed_ExKMYKE" src="//codepen.io/cleam_lee/embed/ExKMYKE?height=460&theme-id=dark&slug-hash=ExKMYKE&default-tab=js,result" scrolling="no" frameborder="no" height="460" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
+<h3>v-model 参数</h3>
+<p>通过示例我们发现 v-model 是接收属性<code>modelValue</code>的值，然后触发事件<code>update:modelValue</code>来更新该值，那么我们可不可以修改这个属性名<code>modelValue</code>呢？该如何操作？其实我们只需要给<code>v-model</code>添加参数即可，比如：<code>v-model:mv</code>，这样就将<code>modelValue</code>换成了<code>mv</code>。</p>
 <p>我们来将上面的自定义组件改造一下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'mv'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      :value="mv"</span></span><br><span class="line"><span class="string">      @input="$emit('update:mv', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'custom-input'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'mv'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      :value="mv"</span></span><br><span class="line"><span class="string">      @input="$emit('update:mv', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>使用方式就变成了：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-count</span> <span class="attr">v-model:mv</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-count</span>&gt;</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="多个-v-model-绑定"><a href="#多个-v-model-绑定" class="headerlink" title="多个 v-model 绑定"></a>多个 v-model 绑定</h3><p>正是由于 vue3 中新增了 v-model 的参数传递，所以自定义组件可以同时支持<code>多个v-model</code>的绑定：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">user-name</span> <span class="attr">v-model:first-name</span>=<span class="string">"firstName"</span> <span class="attr">v-model:last-name</span>=<span class="string">"lastName"</span>&gt;</span><span class="tag">&lt;/<span class="name">user-name</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-count</span> <span class="attr">v-model:mv</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-count</span>&gt;</span>;</span><br></pre></td></tr></table></figure></p>
+<h3>多个 v-model 绑定</h3>
+<p>正是由于 vue3 中新增了 v-model 的参数传递，所以自定义组件可以同时支持<code>多个v-model</code>的绑定：</p>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">user-name</span> <span class="attr">v-model:first-name</span>=<span class="string">"firstName"</span> <span class="attr">v-model:last-name</span>=<span class="string">"lastName"</span>&gt;</span><span class="tag">&lt;/<span class="name">user-name</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>组件实现就变成了：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'user-name'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    firstName: <span class="built_in">String</span>,</span><br><span class="line">    lastName: <span class="built_in">String</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input </span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="firstName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:firstName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="lastName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:lastName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<iframe id="cp_embed_MWyRpvg" src="//codepen.io/cleam_lee/embed/MWyRpvg?height=300&theme-id=dark&slug-hash=MWyRpvg&default-tab=html,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-<h2 id="在-vue2-中"><a href="#在-vue2-中" class="headerlink" title="在 vue2 中"></a>在 vue2 中</h2><p>当在自定义组件中使用<code>v-model</code>时，组件接收一个属性<code>value</code>的值，然后通过触发<code>input</code>事件来更新该值，这样便实现了<code>v-model</code>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="v-model-实现-1"><a href="#v-model-实现-1" class="headerlink" title="v-model 实现"></a>v-model 实现</h3><p>实现方式类似，我们看下 vue2 中实现一个自定义 input 组件：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：自定义input组件</span></span><br><span class="line">Vue.component(<span class="string">'comp-input'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    value: <span class="built_in">String</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="value"</span></span><br><span class="line"><span class="string">      @input="$emit('input', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="自定义-v-model-属性"><a href="#自定义-v-model-属性" class="headerlink" title="自定义 v-model 属性"></a>自定义 v-model 属性</h3><p>同样在 vue2 中也支持修改接收的属性名，只是和 vue3 不同，vue2 是通过在组件中指定属性 <code>model</code> 的 <code>prop</code> 和 <code>event</code> 来修改：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例2：自定义count组件</span></span><br><span class="line">Vue.component(<span class="string">'custom-count'</span>, &#123;</span><br><span class="line">  model: &#123;</span><br><span class="line">    prop: <span class="string">'v'</span>, <span class="comment">// default: value</span></span><br><span class="line">    event: <span class="string">'i'</span>, <span class="comment">// default: input</span></span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    v: <span class="built_in">Number</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count: <span class="keyword">this</span>.v,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;button @click="$emit('i', ++count)"&gt;+1&lt;/button&gt;`</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'user-name'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    firstName: <span class="built_in">String</span>,</span><br><span class="line">    lastName: <span class="built_in">String</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input </span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="firstName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:firstName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="lastName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:lastName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><iframe id="cp_embed_MWyRpvg" src="//codepen.io/cleam_lee/embed/MWyRpvg?height=300&theme-id=dark&slug-hash=MWyRpvg&default-tab=html,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
+<h2>在 vue2 中</h2>
+<p>当在自定义组件中使用<code>v-model</code>时，组件接收一个属性<code>value</code>的值，然后通过触发<code>input</code>事件来更新该值，这样便实现了<code>v-model</code>：</p>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom-comp</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event"</span>&gt;</span><span class="tag">&lt;/<span class="name">custom-comp</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3>v-model 实现</h3>
+<p>实现方式类似，我们看下 vue2 中实现一个自定义 input 组件：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例1：自定义input组件</span></span><br><span class="line">Vue.component(<span class="string">'comp-input'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    value: <span class="built_in">String</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input</span></span><br><span class="line"><span class="string">      type="text"</span></span><br><span class="line"><span class="string">      :value="value"</span></span><br><span class="line"><span class="string">      @input="$emit('input', $event.target.value)"</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3>自定义 v-model 属性</h3>
+<p>同样在 vue2 中也支持修改接收的属性名，只是和 vue3 不同，vue2 是通过在组件中指定属性 <code>model</code> 的 <code>prop</code> 和 <code>event</code> 来修改：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例2：自定义count组件</span></span><br><span class="line">Vue.component(<span class="string">'custom-count'</span>, &#123;</span><br><span class="line">  model: &#123;</span><br><span class="line">    prop: <span class="string">'v'</span>, <span class="comment">// default: value</span></span><br><span class="line">    event: <span class="string">'i'</span>, <span class="comment">// default: input</span></span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    v: <span class="built_in">Number</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count: <span class="keyword">this</span>.v,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;button @click="$emit('i', ++count)"&gt;+1&lt;/button&gt;`</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>我们看到在这个示例里面多了一个<code>model属性</code>，并指定了两个属性：<code>prop</code>和<code>event</code>，没错，这正是 v-model 需要的属性和事件名，只是他们的默认值为<code>value</code>和<code>input</code>，我们通过修改 model 属性的 prop 和 event 就实现了自定义。</p>
 <p>在线效果：</p>
-<iframe id="cp_embed_mdPvWvY" src="//codepen.io/cleam_lee/embed/mdPvWvY?height=300&theme-id=dark&slug-hash=mdPvWvY&default-tab=vue,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<p><iframe id="cp_embed_mdPvWvY" src="//codepen.io/cleam_lee/embed/mdPvWvY?height=300&theme-id=dark&slug-hash=mdPvWvY&default-tab=vue,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <blockquote>
 <p>关于为什么要出来一个 model 属性，<a href="https://cn.vuejs.org/v2/guide/components-custom-events.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model" target="_blank" rel="noopener">官方文档</a>也有说明，就是为了避免和 value 值有其他用途时和 v-model 产生冲突，比如单选框、复选框，具体可以查看官方<a href="https://cn.vuejs.org/v2/guide/components-custom-events.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model" target="_blank" rel="noopener">示例</a>。</p>
 </blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>自定义组件的 v-model 我们通过在 vue3 和 vue2 中的实现都讲解了一遍，而且也能发现了其中的差异：</p>
+<h2>总结</h2>
+<p>自定义组件的 v-model 我们通过在 vue3 和 vue2 中的实现都讲解了一遍，而且也能发现了其中的差异：</p>
 <ol>
 <li>vue3 默认属性名、事件名为：<code>modelValue</code>和<code>update:modelValue</code>；而 vue2 中则是：<code>value</code>和<code>input</code>；</li>
 <li>vue3 中直接通过 v-model 后面参数<code>v-model:foo</code>来指定属性名，而且修改体现在父组件中，并且<code>支持绑定多个 v-model</code>；而 vue2 中通过子组件的<code>model 属性中的prop值和event值</code>来指定属性名和事件名，修改体现在子组件中。</li>
 </ol>
-<p>接下来我们来看下一篇：《深入理解 vue 中 v-model 之修饰符》。</p>
+<p>接下来我们来看下一篇：<a href="/2020/09/27/深入理解v-model之修饰符/" title="深入理解v-model之修饰符（vue3和vue2对比分析）">深入理解v-model之修饰符（vue3和vue2对比分析）</a>》。</p>
 
           
         
@@ -1587,7 +1769,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-28 16:55:32" itemprop="dateModified" datetime="2020-09-28T16:55:32+08:00">2020-09-28</time>
+                <time title="修改时间：2021-10-09 18:42:06" itemprop="dateModified" datetime="2021-10-09T18:42:06+08:00">2021-10-09</time>
               
             
           </span>
@@ -1641,16 +1823,16 @@
 <li><code>select</code> 字段将 <code>value</code> 作为 prop 并将 <code>change</code> 作为事件。</li>
 </ul>
 <p>如何理解，我们看下面代码，对比直接使用<code>官方 v-model</code> 以及<code>自定义实现 v-model</code>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> <span class="attr">value</span>=<span class="string">"msg"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event.target.value"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"ck"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">:checked</span>=<span class="string">"ck"</span> @<span class="attr">change</span>=<span class="string">"ck=$event.target.checked"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">v-model</span>=<span class="string">"selected"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">disable</span>&gt;</span>--请选择--<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"dog"</span>&gt;</span>小狗<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"cat"</span>&gt;</span>小猫<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hamster"</span>&gt;</span>小仓鼠<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">:value</span>=<span class="string">"selected"</span> @<span class="attr">change</span>=<span class="string">"selected=$event.target.value"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">disable</span>&gt;</span>--请选择--<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"dog"</span>&gt;</span>小狗<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"cat"</span>&gt;</span>小猫<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hamster"</span>&gt;</span>小仓鼠<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> <span class="attr">value</span>=<span class="string">"msg"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">:value</span>=<span class="string">"msg"</span> @<span class="attr">input</span>=<span class="string">"msg = $event.target.value"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"ck"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">:checked</span>=<span class="string">"ck"</span> @<span class="attr">change</span>=<span class="string">"ck=$event.target.checked"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">v-model</span>=<span class="string">"selected"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">disable</span>&gt;</span>--请选择--<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"dog"</span>&gt;</span>小狗<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"cat"</span>&gt;</span>小猫<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hamster"</span>&gt;</span>小仓鼠<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">:value</span>=<span class="string">"selected"</span> @<span class="attr">change</span>=<span class="string">"selected=$event.target.value"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">disable</span>&gt;</span>--请选择--<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"dog"</span>&gt;</span>小狗<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"cat"</span>&gt;</span>小猫<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hamster"</span>&gt;</span>小仓鼠<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>然后我们来看一个完整示例：</p>
-<iframe id="cp_embed_PoNVMPd" src="//codepen.io/cleam_lee/embed/PoNVMPd?height=400&theme-id=dark&slug-hash=PoNVMPd&default-tab=vue,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<p><iframe id="cp_embed_PoNVMPd" src="//codepen.io/cleam_lee/embed/PoNVMPd?height=400&theme-id=dark&slug-hash=PoNVMPd&default-tab=vue,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <p>可以看出，实现出来效果是一样的。（可以通过修改注释代码查看效果）</p>
 <p>但是在使用 <code>radio</code> 和 <code>checkbox</code> 的时候，我们一般是以组的形式使用，我们一般不需要 checked 的值，而是需要 value 的值，这个时候我们可以这么使用：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"fruit"</span> <span class="attr">value</span>=<span class="string">"apple"</span> <span class="attr">v-model</span>=<span class="string">"cv"</span> /&gt;</span>苹果 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"fruit"</span> <span class="attr">value</span>=<span class="string">"banana"</span> <span class="attr">v-model</span>=<span class="string">"cv"</span> /&gt;</span>香蕉 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"fruit"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"apple"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"cv.includes('apple')"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">      $event.target.checked ? cv.push($event.target.value) : cv.splice($event.target.value, 1)</span></span></span><br><span class="line"><span class="tag"><span class="string">    "</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>苹果</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"fruit"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"banana"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"cv.includes('banana')"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">      $event.target.checked ? cv.push($event.target.value) : cv.splice($event.target.value, 1)</span></span></span><br><span class="line"><span class="tag"><span class="string">    "</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>香蕉</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>性别: &#123;&#123; rv &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"male"</span> <span class="attr">v-model</span>=<span class="string">"rv"</span> /&gt;</span>男 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"female"</span> <span class="attr">v-model</span>=<span class="string">"rv"</span> /&gt;</span>女 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"radio"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"gender"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"male"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"rv === 'male'"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"$event.target.checked ? (rv = $event.target.value) : ''"</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>男</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"radio"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"gender"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"female"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"rv === 'female'"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"$event.target.checked ? (rv = $event.target.value) : ''"</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>女</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"fruit"</span> <span class="attr">value</span>=<span class="string">"apple"</span> <span class="attr">v-model</span>=<span class="string">"cv"</span> /&gt;</span>苹果 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"fruit"</span> <span class="attr">value</span>=<span class="string">"banana"</span> <span class="attr">v-model</span>=<span class="string">"cv"</span> /&gt;</span>香蕉 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"fruit"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"apple"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"cv.includes('apple')"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">      $event.target.checked ? cv.push($event.target.value) : cv.splice($event.target.value, 1)</span></span></span><br><span class="line"><span class="tag"><span class="string">    "</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>苹果</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"fruit"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"banana"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"cv.includes('banana')"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">      $event.target.checked ? cv.push($event.target.value) : cv.splice($event.target.value, 1)</span></span></span><br><span class="line"><span class="tag"><span class="string">    "</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>香蕉</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>性别: &#123;&#123; rv &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"male"</span> <span class="attr">v-model</span>=<span class="string">"rv"</span> /&gt;</span>男 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"female"</span> <span class="attr">v-model</span>=<span class="string">"rv"</span> /&gt;</span>女 <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等价于 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"radio"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"gender"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"male"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"rv === 'male'"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"$event.target.checked ? (rv = $event.target.value) : ''"</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>男</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"radio"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"gender"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">"female"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:checked</span>=<span class="string">"rv === 'female'"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">change</span>=<span class="string">"$event.target.checked ? (rv = $event.target.value) : ''"</span></span></span><br><span class="line"><span class="tag">  /&gt;</span>女</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>注意：</strong><code>checkbox组</code>得到的值是一个数组，而 <code>radio组</code>得到的是单个值。</p>
-<iframe id="cp_embed_YzqgOzQ" src="//codepen.io/cleam_lee/embed/YzqgOzQ?height=400&theme-id=dark&slug-hash=YzqgOzQ&default-tab=vue,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<p><iframe id="cp_embed_YzqgOzQ" src="//codepen.io/cleam_lee/embed/YzqgOzQ?height=400&theme-id=dark&slug-hash=YzqgOzQ&default-tab=vue,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <p>可以看出，针对<code>radio组</code>和<code>chackbox组</code>，我们一样可以通过自定义实现 v-model 的效果。</p>
-<p>接下来，我们看看<code>v-model</code>在自定义组件中的使用，以及对比其在 vue3 和 vue2 中的区别。请看下一篇文章：《深入理解 vue 中 v-model 之自定义组件用法》。</p>
+<p>接下来，我们看看<code>v-model</code>在自定义组件中的使用，以及对比其在 vue3 和 vue2 中的区别。请看下一篇文章：《<a href="/2020/09/27/深入理解v-model之自定义组件用法/" title="深入理解v-model之自定义组件用法">深入理解v-model之自定义组件用法</a>》</p>
 
           
         
@@ -2174,187 +2356,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/22/learn-reduce/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/22/learn-reduce/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">学会 Array.reduce</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-22 14:00:36" itemprop="dateCreated datePublished" datetime="2018-11-22T14:00:36+08:00">2018-11-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-10-09 14:05:35" itemprop="dateModified" datetime="2020-10-09T14:05:35+08:00">2020-10-09</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/11/22/learn-reduce/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/22/learn-reduce/" class="cy_cmt_count" data-xid="2018/11/22/learn-reduce/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
-<h2 id="示例（累加操作）"><a href="#示例（累加操作）" class="headerlink" title="示例（累加操作）"></a>示例（累加操作）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 定义一个callback函数，它接收4个参数</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 对比查看提供与不提供初始值initialValue时的执行情况</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback); <span class="comment">// 不提供initialValue</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr.reduce(callback, <span class="number">5</span>); <span class="comment">// 提供initialValue为5</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：20</span></span><br></pre></td></tr></table></figure>
-<h2 id="callback-函数接收的-4-个参数说明"><a href="#callback-函数接收的-4-个参数说明" class="headerlink" title="callback 函数接收的 4 个参数说明"></a>callback 函数接收的 4 个参数说明</h2><ul>
-<li>累加值（acc）（理解：上一次<code>callback</code>的返回值，当做下一次<code>callback</code>的第一个参数。）</li>
-<li>当前值（cur）</li>
-<li>当前索引（currentIndex）</li>
-<li>原数组（sourceArr）</li>
-</ul>
-<h2 id="理解reduce"><a href="#理解reduce" class="headerlink" title="理解reduce()"></a>理解<code>reduce()</code></h2><ul>
-<li>如果没有提供初始值（<code>initialValue</code>），<code>reduce()</code>将从数组索引 1（也就是第 2 个元素）开始执行<code>callback</code>（跳过数组的第 1 个元素），此时，<code>acc</code>等于数组的第一个元素值（即<code>arr[0]</code>），<code>cur</code>等于数组的第 2 个元素值（即<code>arr[1]</code>）</li>
-<li>如果提供了初始值（<code>initialValue</code>）,<code>reduce()</code>将从数组索引 0（也就是第 1 个元素）开始执行<code>callback</code>，此时，<code>acc</code>等于<code>initialValue</code>的值，<code>cur</code>等于数组的第 1 个元素值（即<code>arr[0]</code>）</li>
-</ul>
-<h2 id="边缘情况"><a href="#边缘情况" class="headerlink" title="边缘情况"></a>边缘情况</h2><ul>
-<li>如果数组<code>arr</code>为空且没有提供初始值<code>initialValue</code>，代码将报<code>TypeError</code>错误</li>
-<li>如果数组只有一个值（<code>arr.length === 1</code>）且没有提供初始值<code>initialValue</code> 或 提供了初始值<code>initialValue</code>但数组<code>arr</code>为空，则直接返回那个唯一的值且回调方法<code>callback</code>不会被调用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [];</span><br><span class="line"><span class="keyword">const</span> callback2 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr2[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr2.reduce(callback2, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr3 = [];</span><br><span class="line"><span class="keyword">const</span> callback3 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line">arr3.reduce(callback3); <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2404,7 +2405,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

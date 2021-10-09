@@ -374,6 +374,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/22/learn-reduce/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/22/learn-reduce/" class="post-title-link" itemprop="https://cleam.github.io/page/3/index.html">学会 Array.reduce</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 14:00:36" itemprop="dateCreated datePublished" datetime="2018-11-22T14:00:36+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-09 14:05:35" itemprop="dateModified" datetime="2020-10-09T14:05:35+08:00">2020-10-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/11/22/learn-reduce/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2018/11/22/learn-reduce/" class="cy_cmt_count" data-xid="2018/11/22/learn-reduce/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="方法解释"><a href="#方法解释" class="headerlink" title="方法解释"></a>方法解释</h2><p><code>arr.reduce(callback[, initialValue])</code>对数组中的每一个元素执行你提供的一个回调方法（callback）并返回一个结果值。下面我们通过示例来详细了解下。</p>
+<h2 id="示例（累加操作）"><a href="#示例（累加操作）" class="headerlink" title="示例（累加操作）"></a>示例（累加操作）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="comment">// 定义一个callback函数，它接收4个参数</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 对比查看提供与不提供初始值initialValue时的执行情况</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback); <span class="comment">// 不提供initialValue</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行reduce操作，接收返回值</span></span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr.reduce(callback, <span class="number">5</span>); <span class="comment">// 提供initialValue为5</span></span><br><span class="line"><span class="comment">// 打印返回值结果</span></span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：20</span></span><br></pre></td></tr></table></figure>
+<h2 id="callback-函数接收的-4-个参数说明"><a href="#callback-函数接收的-4-个参数说明" class="headerlink" title="callback 函数接收的 4 个参数说明"></a>callback 函数接收的 4 个参数说明</h2><ul>
+<li>累加值（acc）（理解：上一次<code>callback</code>的返回值，当做下一次<code>callback</code>的第一个参数。）</li>
+<li>当前值（cur）</li>
+<li>当前索引（currentIndex）</li>
+<li>原数组（sourceArr）</li>
+</ul>
+<h2 id="理解reduce"><a href="#理解reduce" class="headerlink" title="理解reduce()"></a>理解<code>reduce()</code></h2><ul>
+<li>如果没有提供初始值（<code>initialValue</code>），<code>reduce()</code>将从数组索引 1（也就是第 2 个元素）开始执行<code>callback</code>（跳过数组的第 1 个元素），此时，<code>acc</code>等于数组的第一个元素值（即<code>arr[0]</code>），<code>cur</code>等于数组的第 2 个元素值（即<code>arr[1]</code>）</li>
+<li>如果提供了初始值（<code>initialValue</code>）,<code>reduce()</code>将从数组索引 0（也就是第 1 个元素）开始执行<code>callback</code>，此时，<code>acc</code>等于<code>initialValue</code>的值，<code>cur</code>等于数组的第 1 个元素值（即<code>arr[0]</code>）</li>
+</ul>
+<h2 id="边缘情况"><a href="#边缘情况" class="headerlink" title="边缘情况"></a>边缘情况</h2><ul>
+<li>如果数组<code>arr</code>为空且没有提供初始值<code>initialValue</code>，代码将报<code>TypeError</code>错误</li>
+<li>如果数组只有一个值（<code>arr.length === 1</code>）且没有提供初始值<code>initialValue</code> 或 提供了初始值<code>initialValue</code>但数组<code>arr</code>为空，则直接返回那个唯一的值且回调方法<code>callback</code>不会被调用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue1 = arr.reduce(callback);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue1); <span class="comment">// 打印结果：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr2 = [];</span><br><span class="line"><span class="keyword">const</span> callback2 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`arr2[<span class="subst">$&#123;currentIndex&#125;</span>]: <span class="subst">$&#123;cur&#125;</span>`</span>); <span class="comment">// 未执行</span></span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> returnValue2 = arr2.reduce(callback2, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(returnValue2); <span class="comment">// 打印结果：5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr3 = [];</span><br><span class="line"><span class="keyword">const</span> callback3 = <span class="function">(<span class="params">acc, cur, currentIndex, sourceArr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc + cur;</span><br><span class="line">&#125;;</span><br><span class="line">arr3.reduce(callback3); <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2018/11/19/vps-with-vultr/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -577,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
