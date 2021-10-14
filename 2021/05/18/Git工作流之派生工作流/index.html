@@ -482,7 +482,8 @@
         <p><strong>派生（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>派生工作流最常见于公共开源项目中。</strong></p>
 <p>派生工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
 <p>派生工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>与其他 Git 工作流程一样，派生工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
+<h2>运作原理</h2>
+<p>与其他 Git 工作流程一样，派生工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
 <p>相反，他们<code>派生（fork）</code>了官方仓库以在服务器上创建它的副本。此新副本将用作其个人公共存储库-不允许其他开发人员将其推送到其中，但他们可以从中进行更改（我们稍后将解释为什么这很重要）。在创建服务器端副本之后，开发人员执行，<code>git clone</code>将其副本复制到本地计算机上。就像其他工作流程一样，这是他们的私有开发环境。</p>
 <p>准备发布本地提交时，他们会将提交推送到自己的公共仓库中，而不是正式的仓库中。然后，他们向主仓库提交<code>合并请求（pull request）</code>，这使项目维护者知道已准备好要集成更新。如果所贡献的代码存在问题，则合并请求还可以用作方便的讨论线程。以下是此工作流程的分步示例。</p>
 <ol>
@@ -498,22 +499,30 @@
 </ol>
 <p>为了将完成的功能集成到官方代码库中，维护人员将贡献者的更改拉入他们的本地存储库，检查以确保它不会破坏项目，将其合并到其本地 master 分支中，然后将其推送到服务器上的官方存储库中。贡献现在是项目的一部分，其他开发人员应从官方存储库中提取信息以同步其本地存储库。</p>
 <p>重要的是要了解，Forking 工作流中“正式”存储库的概念仅仅是一个约定。实际上，使正式存储库如此正式的唯一原因是它是项目维护者的公共存储库。</p>
-<h2 id="派生与克隆（Forking-vs-cloning）"><a href="#派生与克隆（Forking-vs-cloning）" class="headerlink" title="派生与克隆（Forking vs cloning）"></a>派生与克隆（Forking vs cloning）</h2><p>需要注意：“派生”不是特殊操作。派生的存储库是使用标准的<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone" target="_blank" rel="noopener">git clone</a>命令创建的。派生的存储库通常是“服务器端克隆”，通常由诸如<a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">Gitlab </a>之类的第三方 Git 服务进行管理和托管。</p>
-<h2 id="在派生工作流中分支"><a href="#在派生工作流中分支" class="headerlink" title="在派生工作流中分支"></a>在派生工作流中分支</h2><p>就像<strong>功能分支工作流（Feature Branch Workflow）</strong>和 <strong>Gitflow 工作流</strong>一样，开发者仍然应该使用分支来隔离各个功能。唯一的区别是这些分支如何共享。在<strong>派生（Forking）工作流</strong>中，中央存储库被拉到另一个开发人员的本地存储库中，而在功能分支工作流和 Gitflow 工作流中，它们被推到官方存储库中。</p>
-<h2 id="派生存储库（Fork-a-repository）"><a href="#派生存储库（Fork-a-repository）" class="headerlink" title="派生存储库（Fork a repository）"></a>派生存储库（Fork a repository）</h2><p>派生（Forking）工作流项目的所有新开发人员都需要派生正式存储库。如前所述，派生只是一种标准<code>git clone</code>操作。可以通过 <code>SSH</code>进入服务器并运行<code>git clone</code>将其复制到服务器上的另一个位置来实现。流行的 Git 托管服务提供了自动执行此步骤的派生功能。</p>
-<h2 id="克隆派生仓库（Clone-your-fork）"><a href="#克隆派生仓库（Clone-your-fork）" class="headerlink" title="克隆派生仓库（Clone your fork）"></a>克隆派生仓库（Clone your fork）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://user@bitbucket.org/user/repo.git</span><br></pre></td></tr></table></figure>
-<h2 id="添加远程跟踪分支（Adding-a-remote）"><a href="#添加远程跟踪分支（Adding-a-remote）" class="headerlink" title="添加远程跟踪分支（Adding a remote）"></a>添加远程跟踪分支（Adding a remote）</h2><p>其他 Git 工作流程使用指向中央存储库的单个原始远程服务器，而 Forking 工作流则需要两个远程服务器-一个用于官方存储库，一个用于开发人员的个人服务器端存储库。虽然您可以随意调用这些远程服务器，但通常的约定是使用<code>origin</code>作为派生存储库的远程服务器（运行<code>git clone</code>时将自动创建该远程服务器），并使用上游作为正式存储库的远程服务器。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://bitbucket.org/maintainer/repo</span><br><span class="line"><span class="comment"># 身份验证</span></span><br><span class="line"><span class="comment"># git remote add upstream https://user@bitbucket.org/maintainer/repo.git</span></span><br></pre></td></tr></table></figure>
-<h2 id="在分支中工作：开发和推送更改（making-amp-pushing-changes）"><a href="#在分支中工作：开发和推送更改（making-amp-pushing-changes）" class="headerlink" title="在分支中工作：开发和推送更改（making &amp; pushing changes）"></a>在分支中工作：开发和推送更改（making &amp; pushing changes）</h2><p>就像其他 Git 工作流程中一样，他们可以在开发人员的本地化分支存储库副本中编辑代码，提交更改并创建分支：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature <span class="comment"># Edit some code</span></span><br><span class="line">git commit -a -m <span class="string">"Add first draft of some feature"</span></span><br></pre></td></tr></table></figure>
+<h2>派生与克隆（Forking vs cloning）</h2>
+<p>需要注意：“派生”不是特殊操作。派生的存储库是使用标准的<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone" target="_blank" rel="noopener">git clone</a>命令创建的。派生的存储库通常是“服务器端克隆”，通常由诸如<a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">Gitlab </a>之类的第三方 Git 服务进行管理和托管。</p>
+<h2>在派生工作流中分支</h2>
+<p>就像<strong>功能分支工作流（Feature Branch Workflow）<strong>和 <strong>Gitflow 工作流</strong>一样，开发者仍然应该使用分支来隔离各个功能。唯一的区别是这些分支如何共享。在</strong>派生（Forking）工作流</strong>中，中央存储库被拉到另一个开发人员的本地存储库中，而在功能分支工作流和 Gitflow 工作流中，它们被推到官方存储库中。</p>
+<h2>派生存储库（Fork a repository）</h2>
+<p>派生（Forking）工作流项目的所有新开发人员都需要派生正式存储库。如前所述，派生只是一种标准<code>git clone</code>操作。可以通过 <code>SSH</code>进入服务器并运行<code>git clone</code>将其复制到服务器上的另一个位置来实现。流行的 Git 托管服务提供了自动执行此步骤的派生功能。</p>
+<h2>克隆派生仓库（Clone your fork）</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://user@bitbucket.org/user/repo.git</span><br></pre></td></tr></table></figure></p>
+<h2>添加远程跟踪分支（Adding a remote）</h2>
+<p>其他 Git 工作流程使用指向中央存储库的单个原始远程服务器，而 Forking 工作流则需要两个远程服务器-一个用于官方存储库，一个用于开发人员的个人服务器端存储库。虽然您可以随意调用这些远程服务器，但通常的约定是使用<code>origin</code>作为派生存储库的远程服务器（运行<code>git clone</code>时将自动创建该远程服务器），并使用上游作为正式存储库的远程服务器。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://bitbucket.org/maintainer/repo</span><br><span class="line"><span class="comment"># 身份验证</span></span><br><span class="line"><span class="comment"># git remote add upstream https://user@bitbucket.org/maintainer/repo.git</span></span><br></pre></td></tr></table></figure></p>
+<h2>在分支中工作：开发和推送更改（making &amp; pushing changes）</h2>
+<p>就像其他 Git 工作流程中一样，他们可以在开发人员的本地化分支存储库副本中编辑代码，提交更改并创建分支：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature <span class="comment"># Edit some code</span></span><br><span class="line">git commit -a -m <span class="string">"Add first draft of some feature"</span></span><br></pre></td></tr></table></figure></p>
 <p>他们所做的所有更改都将完全是私有的，直到将其推送到其公共存储库中为止。而且，如果正式项目向前发展，他们可以使用<code>git pull</code>访问新的提交：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure></p>
 <p>由于开发人员应在专用功能分支中工作，因此通常应导致快速合并。</p>
-<h2 id="发起合并请求（Making-a-Pull-Request）"><a href="#发起合并请求（Making-a-Pull-Request）" class="headerlink" title="发起合并请求（Making a Pull Request）"></a>发起合并请求（Making a Pull Request）</h2><p><img src="/uploads/post/forking_01.svg" alt="pull request"></p>
+<h2>发起合并请求（Making a Pull Request）</h2>
+<p><img src="/uploads/post/forking_01.svg" alt="pull request"></p>
 <p>一旦开发人员准备好共享他们的新功能，他们需要做两件事。首先，他们必须将其贡献推送到其公共存储库中，以使其他开发人员可以访问他们的贡献。他们的源远程跟踪库应该已经设置好了，所以他们要做的就是以下操作：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure></p>
 <p>其次，他们需要通知项目维护者他们想将其功能合并到官方代码库中。Git 托管服务（如 Bitbucket、Gitlab）提供了一个“<code>合并请求（pull request）</code>”按钮，该按钮会提交一个表单，要求您指定要合并到官方存储库中的分支。通常，您需要将<code>功能分支</code>集成到上游远程的<code>主分支</code>中。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>回顾一下，派生（Forking）工作流通常在公共开源项目中使用。派生是在项目存储库的服务器副本上执行的<code>git clone</code>操作。派生工作流通常与 Bitbucket 之类的 Git 托管服务结合使用。</p>
+<h2>总结</h2>
+<p>回顾一下，派生（Forking）工作流通常在公共开源项目中使用。派生是在项目存储库的服务器副本上执行的<code>git clone</code>操作。派生工作流通常与 Bitbucket 之类的 Git 托管服务结合使用。</p>
 <p>派生（forking）工作流的高级示例是：</p>
 <ol>
 <li>您想为托管在<code>bitbucket.org/userA/open-project</code>上的开源库做出贡献；</li>
@@ -691,7 +700,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -732,7 +741,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -811,7 +824,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运作原理"><span class="nav-number">1.</span> <span class="nav-text">运作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#派生与克隆（Forking-vs-cloning）"><span class="nav-number">2.</span> <span class="nav-text">派生与克隆（Forking vs cloning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在派生工作流中分支"><span class="nav-number">3.</span> <span class="nav-text">在派生工作流中分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#派生存储库（Fork-a-repository）"><span class="nav-number">4.</span> <span class="nav-text">派生存储库（Fork a repository）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆派生仓库（Clone-your-fork）"><span class="nav-number">5.</span> <span class="nav-text">克隆派生仓库（Clone your fork）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加远程跟踪分支（Adding-a-remote）"><span class="nav-number">6.</span> <span class="nav-text">添加远程跟踪分支（Adding a remote）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在分支中工作：开发和推送更改（making-amp-pushing-changes）"><span class="nav-number">7.</span> <span class="nav-text">在分支中工作：开发和推送更改（making &amp; pushing changes）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发起合并请求（Making-a-Pull-Request）"><span class="nav-number">8.</span> <span class="nav-text">发起合并请求（Making a Pull Request）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">运作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">派生与克隆（Forking vs cloning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">在派生工作流中分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">派生存储库（Fork a repository）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">克隆派生仓库（Clone your fork）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">添加远程跟踪分支（Adding a remote）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">在分支中工作：开发和推送更改（making &amp; pushing changes）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">发起合并请求（Making a Pull Request）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

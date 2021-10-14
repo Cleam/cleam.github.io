@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cleam.github.io/"/>
-  <updated>2021-10-09T10:41:45.289Z</updated>
+  <updated>2021-10-14T02:55:44.832Z</updated>
   <id>https://cleam.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Web 指标学习（about Sentry）</title>
+    <link href="https://cleam.github.io/2021/10/14/Web%E6%8C%87%E6%A0%87%E5%AD%A6%E4%B9%A0%EF%BC%88about-Sentry%EF%BC%89/"/>
+    <id>https://cleam.github.io/2021/10/14/Web指标学习（about-Sentry）/</id>
+    <published>2021-10-14T02:47:08.000Z</published>
+    <updated>2021-10-14T02:55:44.832Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;a href=&quot;https://web.dev/vitals/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Web 指标&lt;/a&gt;是一组由 Google
+        
+      
+    
+    </summary>
+    
+    
+      <category term="翻译" scheme="https://cleam.github.io/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="性能" scheme="https://cleam.github.io/tags/%E6%80%A7%E8%83%BD/"/>
+    
+      <category term="sentry" scheme="https://cleam.github.io/tags/sentry/"/>
+    
+  </entry>
   
   <entry>
     <title>sonar质量规则学习之JavaScript</title>
@@ -60,7 +88,8 @@
           &lt;blockquote&gt;
 &lt;p&gt;2021 年 4 月 5 日，1.5 版本&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot;
+&lt;h2&gt;摘要&lt;/h2&gt;
+&lt;p&gt;圈复杂度（Cyclomatic Complexity）最初被表述为对模块控制流的“可测试性和可维护性”的度量。
         
       
     
@@ -89,7 +118,9 @@
         
         
           &lt;p&gt;复用类配置：&lt;/p&gt;
-&lt;h2 id=&quot;锚点-Anchors&quot;&gt;&lt;a href=&quot;#锚点-Anchors&quot; class=&quot;headerlink&quot; title=&quot;锚点 Anchors&quot;&gt;&lt;/a&gt;锚点 Anchors&lt;/h2&gt;&lt;p&gt;YAML
+&lt;h2&gt;锚点 Anchors&lt;/h2&gt;
+&lt;p&gt;YAML 有一项名为“锚点”的功能，您可以使用它在整个文档中复制内容。&lt;/p&gt;
+&lt;p&gt;&lt;figure class=&quot;highlight yml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
         
       
     
@@ -165,7 +196,7 @@
       
         
         
-          &lt;p&gt;&lt;strong&gt;GitFlow 工作流（GitFlow Workflow）&lt;/strong&gt;是一个 Git 工作流程，可帮助持续进行软件开发和实施 &lt;a href=&quot;https://www.atlassian.com/devops/what-is-devops&quot;
+          &lt;p&gt;&lt;strong&gt;GitFlow 工作流（GitFlow Workflow）&lt;strong&gt;是一个 Git 工作流程，可帮助持续进行软件开发和实施 &lt;a href=&quot;https://www.atlassian.com/devops/what-is-devops&quot;
         
       
     
@@ -191,7 +222,7 @@
       
         
         
-          &lt;p&gt;&lt;strong&gt;Git 功能分支工作流（Feature Branch
+          &lt;p&gt;**Git 功能分支工作流（Feature Branch
         
       
     
@@ -300,7 +331,8 @@
           &lt;blockquote&gt;
 &lt;p&gt;前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;一、查看系统版本信息&quot;&gt;&lt;a href=&quot;#一、查看系统版本信息&quot; class=&quot;headerlink&quot;
+&lt;h2&gt;一、查看系统版本信息&lt;/h2&gt;
+&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
         
       
     
@@ -324,9 +356,10 @@
       
         
         
-          &lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h2&gt;&lt;p&gt;拿浏览器兼容举例：&lt;/p&gt;
+          &lt;h2&gt;概念&lt;/h2&gt;
+&lt;p&gt;拿浏览器兼容举例：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;渐进增强(progressive
+&lt;li&gt;**渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功
         
       
     
@@ -350,8 +383,9 @@
       
         
         
-          &lt;h2 id=&quot;1-提升学习效率&quot;&gt;&lt;a href=&quot;#1-提升学习效率&quot; class=&quot;headerlink&quot; title=&quot;1. 提升学习效率&quot;&gt;&lt;/a&gt;1. 提升学习效率&lt;/h2&gt;&lt;p&gt;我们来看一张图就明白了：&lt;/p&gt;
-&lt;p&gt;&lt;img
+          &lt;h2&gt;1. 提升学习效率&lt;/h2&gt;
+&lt;p&gt;我们来看一张图就明白了：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/uploads/post/for-study.jpg&quot;
         
       
     
@@ -425,7 +459,8 @@
       
         
         
-          &lt;h2 id=&quot;vue2-中&quot;&gt;&lt;a href=&quot;#vue2-中&quot; class=&quot;headerlink&quot; title=&quot;vue2 中&quot;&gt;&lt;/a&gt;vue2 中&lt;/h2&gt;&lt;p&gt;我们知道在 vue2 中有 3
+          &lt;h2&gt;vue2 中&lt;/h2&gt;
+&lt;p&gt;我们知道在 vue2 中有 3
         
       
     
@@ -500,7 +535,8 @@
       
         
         
-          &lt;h2 id=&quot;new：新建一篇文章&quot;&gt;&lt;a href=&quot;#new：新建一篇文章&quot; class=&quot;headerlink&quot; title=&quot;new：新建一篇文章&quot;&gt;&lt;/a&gt;new：新建一篇文章&lt;/h2&gt;&lt;figure class=&quot;highlight
+          &lt;h2&gt;new：新建一篇文章&lt;/h2&gt;
+&lt;p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
         
       
     
@@ -508,33 +544,6 @@
     
     
       <category term="hexo" scheme="https://cleam.github.io/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Javascript内建对象Math学习</title>
-    <link href="https://cleam.github.io/2020/03/02/Javascript%E5%86%85%E5%BB%BA%E5%AF%B9%E8%B1%A1Math%E5%AD%A6%E4%B9%A0/"/>
-    <id>https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/</id>
-    <published>2020-03-02T03:07:23.000Z</published>
-    <updated>2020-09-23T08:08:57.622Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。&lt;/p&gt;
-&lt;p&gt;Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。&lt;/p&gt;
-&lt;p&gt;数字 Π：&lt;/p&gt;
-&lt;figure class=&quot;highlight
-        
-      
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="https://cleam.github.io/tags/JavaScript/"/>
     
   </entry>
   

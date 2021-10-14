@@ -374,6 +374,269 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/13/npm-peerDependencies/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/05/13/npm-peerDependencies/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">npm peerDependencies</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-05-13 10:06:35" itemprop="dateCreated datePublished" datetime="2021-05-13T10:06:35+08:00">2021-05-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:46:27" itemprop="dateModified" datetime="2021-09-23T09:46:27+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/05/13/npm-peerDependencies/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/13/npm-peerDependencies/" class="cy_cmt_count" data-xid="2021/05/13/npm-peerDependencies/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>希望通过此文阐明当你要使用 npm 的时候知道什么是<code>npm peerDependencies</code>，弄明白什么时候以及为什么使用它。
+<code>peerDependencies</code>（翻译：“同行依赖”或“对等依赖”）是<code>package.json</code>文件中的<code>peerDependencies</code>属性对象（列表）。
+为了更好的理解此文，你至少要先了解<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a></p>
+</blockquote>
+<p>本文内容：</p>
+<ol>
+<li>首先，我们将准确比较<code>dependencies</code>与<code>peerDependencies</code>的工作方式。</li>
+<li>其次，我们将看到一些<code>dependencies</code>与<code>peerDependencies</code>的示例。</li>
+<li>然后，我们将研究 npm 如何处理版本冲突。</li>
+<li>最后，通过上面的基础铺垫，我们将看看如何合理的使用<code>peerDependencies</code>。</li>
+</ol>
+<h2>设想</h2>
+<p>为了保持真实性，假设您正在创建一个 Angular 库，甚至只是一个简单的 JavaScript 文件，其中导出了一些功能（函数）。</p>
+<p>您的项目依赖于<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm Registry</a>中的软件包，这些软件包是您项目的<code>dependencies</code>依赖项。</p>
+<p>你想从你的项目中创建你自己的 npm 包，所以你使用<code>npm pack</code>生成了一个 npm 包，你甚至想将它发布到<a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm Registry</a>中。</p>
+<p>团队中其他人想在他们项目中使用你的 npm 包作为他们项目的依赖。你在<code>package.json</code>使用<code>dependencies</code>和<code>peerDependencies</code>来告诉使用你的 npm 包的其他项目，要使你的 npm 包正常工作，则<code>dependencies</code>和<code>peerDependencies</code>中列出的包也需要安装。</p>
+<p>因此，在最基本的层次上，这是<code>dependencies</code>与<code>peerDependencies</code>的工作方式：</p>
+<h3>Dependencies</h3>
+<p><code>Dependencies</code>是<code>package.json</code>文件中的<a href="https://docs.npmjs.com/files/package.json#dependencies" target="_blank" rel="noopener">dependencies</a>对象，当你添加一个 npm 包到<code>dependencies</code>对象中时，仿佛在说：</p>
+<ul>
+<li>我的代码需要这个包才能运行。</li>
+<li>如果该 npm 包在我的<code>node_modules</code>目录中尚不存在，请自动添加。</li>
+<li>此外，添加<code>dependencies</code>中列出的 npm 包，这些 npm 包称为依赖项（<code>transitive dependencies</code>）。</li>
+</ul>
+<h3>peerDependencies</h3>
+<p><code>peerDependencies</code>是<code>package.json</code>文件中的<a href="https://docs.npmjs.com/files/package.json#peerdependencies" target="_blank" rel="noopener">peerDependencies</a>对象，当你添加一个 npm 包到<code>peerDependencies</code>对象中时，仿佛在说：</p>
+<ul>
+<li>我的代码与此版本的 npm 包兼容。</li>
+<li>如果此 npm 包已存在于<code>node_modules</code>中，则什么也不用做。</li>
+<li>如果该软件包在<code>node_modules</code>目录中尚不存在或版本错误，请不要添加它。但是，需要向用户提示未找到该 npm 包的警告。</li>
+</ul>
+<h2>添加依赖</h2>
+<h3>添加 dependencies</h3>
+<p>依赖包是我们使我们项目能够正常运行的一个 npm 包，通常作为<code>dependencies</code>添加的一些受欢迎的程序包有<a href="https://www.npmjs.com/package/lodash" target="_blank" rel="noopener">lodash</a>、<a href="https://www.npmjs.com/package/request" target="_blank" rel="noopener">request</a>和<a href="https://www.npmjs.com/package/moment" target="_blank" rel="noopener">moment</a>等等。</p>
+<p>我们添加一个常规依赖项，如下所示：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure></p>
+<p>npm 将包名称和版本添加到我们项目的 package.json 文件中的<code>dependencies</code>对象中：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你们中的有些人可能还记得过去，我们不得不使用<code>--save</code>标志来更新 package.json 中的依赖项。值得庆幸的是，我们不再需要这样做了。</p>
+<h3>添加 peerDependencies</h3>
+<p>同行依赖包（<code>peerDependencies</code>）用于指定我们的程序包与 npm 程序包的特定版本兼容，<a href="https://angular.io/" target="_blank" rel="noopener">Angular</a>和<a href="https://reactjs.org/" target="_blank" rel="noopener">React</a>就是很好的例子。</p>
+<p>要添加<code>peerDependencies</code>，您实际上需要手动修改<code>package.json</code>文件。例如，对于 Angular 组件库项目，我建议添加<code>angular/core</code>作为<code>peerDependencies</code>。因此，如果您想指定您的程序包是为 Angular 7 构建的，则可以包含以下内容：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"peerDependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"@angular/core"</span>: <span class="string">"^7.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>关于冲突</h2>
+<p>我对某个 npm 包应该进入<code>dependencies</code>还是进入<code>peerDependencies</code>提出了很多疑问，做出此决定的关键在于了解 npm 如何处理版本冲突。</p>
+<h3>冲突测试</h3>
+<p>首先，我们创建一个简单的测试项目：<code>conflict-test</code></p>
+<p>我是这样创建的：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">md conflict-test</span><br><span class="line"><span class="built_in">cd</span> conflict-test</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+<p>然后，我手动编辑<code>package.json</code>文件并添加了两个依赖项：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"todd-a"</span>: <span class="string">"^1.0.0"</span>,</span><br><span class="line">  <span class="string">"todd-b"</span>: <span class="string">"^1.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这两个<code>todd-a</code>和<code>todd-b</code>软件包也具有它们自己的依赖项：</p>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// todd-a:</span></span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span>,</span><br><span class="line">  <span class="string">"todd-child"</span>: <span class="string">"^1.0.0"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// todd-b:</span></span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"lodash"</span>: <span class="string">"^4.17.11"</span>,</span><br><span class="line">  <span class="string">"todd-child"</span>: <span class="string">"^2.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我想让您注意的是，<code>todd-a</code>和<code>todd-b</code>使用的是<code>lodash</code>的相同版本。但是，它们对于<code>todd-child</code>有版本冲突：</p>
+<ul>
+<li><code>todd-a</code>使用<code>todd-child</code>版本<code>1.0.0</code></li>
+<li><code>todd-b</code>使用<code>todd-child</code>版本<code>2.0.0</code></li>
+</ul>
+<p>现在我知道，像我一样，您非常感兴趣，看看 npm 如何处理此版本冲突。在我的项目<code>conflict-test</code>中运行<code>npm install</code>，就像我们期望的那样，npm 在我们的<code>node_modules</code>文件夹中神奇地安装了<code>todd-a</code>和<code>todd-b</code>软件包。它还添加了它们所依赖的程序包（<code>transitive dependencies</code>）。因此，在运行<code>npm install</code>之后，我们来看一下<code>node_modules</code>文件夹。看起来像这样：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">├── lodash 4.17.11</span><br><span class="line">├── todd<span class="_">-a</span> 1.0.0</span><br><span class="line">├── todd-b 1.0.0</span><br><span class="line">│   └── node_modules</span><br><span class="line">│       └── todd-child 2.0.0</span><br><span class="line">└── todd-child 1.0.0</span><br></pre></td></tr></table></figure></p>
+<p>有趣的是，我们的项目有一个<code>lodash</code>副本。但是，它有两个<code>todd-child</code>副本。请注意，<code>todd-b</code>获得了其自己的<code>todd-child 2.0.0</code>的专用副本。</p>
+<p>因此：</p>
+<blockquote>
+<p>npm 通过添加有冲突的程序包的重复私有版本来处理版本冲突。</p>
+</blockquote>
+<h3>peerDependencies</h3>
+<p>从我们对 npm 版本冲突的实验中可以看出，如果将软件包添加到依赖项中，则有可能最终将其复制到<code>node_modules</code>中。</p>
+<p>有时，具有相同软件包的两个版本也可以。但是，在同一代码库中有两个不同版本的某些程序包会导致冲突。</p>
+<p>例如，假设我们的组件库是使用<code>Angular 5</code>创建的。当有人将其添加为<code>Angular 6</code>应用的依赖项时，我们不希望我们的程序包添加另一个完全不同的<code>angular/core</code>版本。</p>
+<p>关键是：当该程序包可能与现有版本冲突并导致问题时，我们不希望我们的库添加另一个版本的程序包到<code>node-modules</code>。</p>
+<p><strong>选择<code>peerDependencies</code>还是<code>dependencies</code>？</strong></p>
+<p>当我的程序包依赖于另一个程序包时，应该将其放在<code>dependencies</code>还是<code>peerDependencies</code>中？</p>
+<p>好吧，就像大多数技术问题一样：看情况。</p>
+<p><code>peerDependencies</code>表示兼容性。例如，您将希望具体说明您的库与哪个版本的<code>Angular</code>兼容。</p>
+<h3>指导方案</h3>
+<p>当满足以下条件之一时，建议使用<code>peerDependencies</code>：</p>
+<ul>
+<li>多个依赖包可能会导致冲突</li>
+<li>依赖关系清晰明了</li>
+<li>您希望开发人员决定要安装哪个版本</li>
+</ul>
+<p>让我们以<code>angular/core</code>为例。显然，如果您正在创建 Angular Library，则<code>angular/core</code>将成为您的库界面中非常明显的一部分。因此，它属于<code>peerDependencies</code>。</p>
+<p>但是，也许您的库在内部使用<code>Moment.js</code>来处理一些与时间相关的输入，<code>Moment.js</code>很可能不会在 Angular Services 或组件的界面中公开。因此，它属于<code>dependencies</code>。</p>
+<h3>Angular 作为依赖</h3>
+<p>假设您要在文档中指定您的库是一组 Angular 组件和服务，您可能会问以下问题：</p>
+<blockquote>
+<p>我是否甚至需要将<code>angular/core</code>指定为依赖项？如果有人在使用我的库，他们将已经有一个现有的 Angular 项目。</p>
+</blockquote>
+<p>好问题！</p>
+<p>是的，我们通常可以假设对于我们特定于 Angular 的库，Workspace 将已经有可用的 Angular 软件包。因此，从技术上讲，我们无需费心将它们添加到我们的依赖项列表中。</p>
+<p>但是，我们确实想告诉开发人员我们的库与哪些 Angular 版本兼容。因此，我建议采用以下方法：</p>
+<p>至少为<code>peerDependencies</code>添加兼容的 Angular 版本的<code>angular/core</code>。</p>
+<p>这样，如果开发人员尝试在其 Angular 6 项目中使用 Angular 7 库，则会看到警告。不必添加其他 Angular 软件包。您可以假定它们是否具有<code>angular/core</code>，是否具有其他 Angular 库。</p>
+<h2>总结</h2>
+<p>如有疑问，您可能应该倾向于使用<code>peerDependencies</code>。这样，您的软件包的用户就可以选择添加哪些软件包。</p>
+<blockquote>
+<p>英文原文：<a href="https://indepth.dev/posts/1187/npm-peer-dependencies" target="_blank" rel="noopener">https://indepth.dev/posts/1187/npm-peer-dependencies</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/12/10/Linux-CentOS7-安装redis过程记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -473,24 +736,33 @@
             <blockquote>
 <p>前两步非必须，因为我的系统是新的，所以需要做一些配置和更新。</p>
 </blockquote>
-<h2 id="一、查看系统版本信息"><a href="#一、查看系统版本信息" class="headerlink" title="一、查看系统版本信息"></a>一、查看系统版本信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure>
-<h2 id="二、修改-yum-安装源"><a href="#二、修改-yum-安装源" class="headerlink" title="二、修改 yum 安装源"></a>二、修改 yum 安装源</h2><p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
-<h2 id="三、安装-redis"><a href="#三、安装-redis" class="headerlink" title="三、安装 redis"></a>三、安装 redis</h2><p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：<br><img src="/uploads/post/redis.png" alt="redis下载"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<h3 id="错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录"><a href="#错误-1：zmalloc-h-50-10-致命错误：jemalloc-jemalloc-h：没有那个文件或目录" class="headerlink" title="错误 1：zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录"></a>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3><p>解决方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
-<h3 id="错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员"><a href="#错误-2：server-c-1032-31-错误：‘struct-redisServer’没有名为‘logfile’的成员" class="headerlink" title="错误 2：server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员"></a>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3><p>解决方法：升级依赖</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure>
-<h2 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h2><p>我的 redis 安装在<code>/opt/</code>目录下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
-<h2 id="四、修改为后台启动"><a href="#四、修改为后台启动" class="headerlink" title="四、修改为后台启动"></a>四、修改为后台启动</h2><p>编辑配置文件 <code>redis.conf</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure>
+<h2>一、查看系统版本信息</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看系统信息</span></span><br><span class="line">cat /proc/version</span><br><span class="line"><span class="comment"># Linux version 3.10.0-229.20.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">cat /etc/redhat-release <span class="comment"># CentOS Linux release 7.9.2009 (Core)</span></span><br></pre></td></tr></table></figure></p>
+<h2>二、修改 yum 安装源</h2>
+<p>使用国内源，安装更新包更快。我直接按照<a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">阿里云 CentOS 镜像</a>的操作。</p>
+<h2>三、安装 redis</h2>
+<p>可以到<a href="https://redis.io/download" target="_blank" rel="noopener">这里</a>找到最新下载地址：
+<img src="/uploads/post/redis.png" alt="redis下载"></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xzf redis-6.0.9.tar.gz</span><br><span class="line"><span class="comment"># 进入redis项目</span></span><br><span class="line"><span class="built_in">cd</span> redis-6.0.9</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<h3>错误 1：<code>zmalloc.h:50:10: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</code></h3>
+<p>解决方法：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在`make`之前，先编译依赖</span></span><br><span class="line">make persist-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后再运行make</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 默认安装到目录“/usr/local”，如果需要安装到其它目录，可指定 make 的参数“PREFIX”，如：</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure></p>
+<h3>错误 2：<code>server.c:1032:31: 错误：‘struct redisServer’没有名为‘logfile’的成员</code></h3>
+<p>解决方法：升级依赖</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line"></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-9 bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上为临时启用，如果要长期使用gcc 9.1的话：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/rh/devtoolset-9/enable"</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h2>三、运行</h2>
+<p>我的 redis 安装在<code>/opt/</code>目录下：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">/opt/redis-6.0.9/src/redis-server /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
+<h2>四、修改为后台启动</h2>
+<p>编辑配置文件 <code>redis.conf</code></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/redis-6.0.9/redis.conf</span><br></pre></td></tr></table></figure></p>
 <p>将<code>daemonize no</code>修改为<code>daemonize yes</code>，保存之后，重新启动。</p>
-<h2 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h2><ul>
-<li><a href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</a></li>
-<li><a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></li>
-<li><a href="https://www.cnblogs.com/aquester/p/13581147.html" target="_blank" rel="noopener">https://www.cnblogs.com/aquester/p/13581147.html</a></li>
-<li><a href="https://www.cnblogs.com/shook/p/12883742.html" target="_blank" rel="noopener">https://www.cnblogs.com/shook/p/12883742.html</a></li>
+<h2>五、参考</h2>
+<ul>
+<li>https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11ClmKNM</li>
+<li>https://redis.io/download</li>
+<li>https://www.cnblogs.com/aquester/p/13581147.html</li>
+<li>https://www.cnblogs.com/shook/p/12883742.html</li>
 </ul>
 
           
@@ -656,16 +928,21 @@
       
         
           
-            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>拿浏览器兼容举例：</p>
+            <h2>概念</h2>
+<p>拿浏览器兼容举例：</p>
 <ul>
-<li><strong>渐进增强(progressive enhancement)：</strong>针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
-<li><strong>优雅降级(graceful degradation)：</strong>一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
+<li>**渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
+<li>**优雅降级(graceful degradation)：**一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
 </ul>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
-<h3 id="“优雅降级”观点"><a href="#“优雅降级”观点" class="headerlink" title="“优雅降级”观点"></a>“优雅降级”观点</h3><p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
-<h3 id="“渐进增强”观点"><a href="#“渐进增强”观点" class="headerlink" title="“渐进增强”观点"></a>“渐进增强”观点</h3><p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
+<h2>区别</h2>
+<p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
+<h3>“优雅降级”观点</h3>
+<p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
+<h3>“渐进增强”观点</h3>
+<p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
 <p>那么问题来了。现在产品经理看到 IE6,7,8 网页效果相对高版本现代浏览器少了很多圆角， 阴影（CSS3），要求兼容（使用图片背景，放弃 CSS3），你会如何说服他？</p>
-<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<h2>资料</h2>
+<ul>
 <li><a href="https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement" target="_blank" rel="noopener">Graceful degradation versus progressive enhancement</a></li>
 <li><a href="https://www.mavenecommerce.com/2017/10/31/progressive-enhancement-vs-graceful-degradation/" target="_blank" rel="noopener">Progressive Enhancement vs Graceful Degradation</a></li>
 </ul>
@@ -824,11 +1101,14 @@
       
         
           
-            <h2 id="1-提升学习效率"><a href="#1-提升学习效率" class="headerlink" title="1. 提升学习效率"></a>1. 提升学习效率</h2><p>我们来看一张图就明白了：</p>
+            <h2>1. 提升学习效率</h2>
+<p>我们来看一张图就明白了：</p>
 <p><img src="/uploads/post/for-study.jpg" alt="教学法"></p>
 <p>想必大家应该都深有感触，我们看书、看视频等被动学习，当时印象深刻，没过几天基本就忘记了。但是如果我们边看书边做脑图笔记，甚至边实战（比如敲代码做 demo）（<code>被动学习+主动学习</code>）那效果不言而喻，比前者（纯<code>被动学习</code>）要效果好很多。如果我们学完之后，在总结、整理教会别人、或者立即在项目中应用，那又是一个层次了，这个就是上图中<code>主动学习</code>吸收率最高的学习方法了。</p>
-<h2 id="2-提升影响力，提升自信心"><a href="#2-提升影响力，提升自信心" class="headerlink" title="2. 提升影响力，提升自信心"></a>2. 提升影响力，提升自信心</h2><p>对于分享者，每分享一次，都会加深听众对你的认识，“原来这些我平常不知道的，这个大哥都知道”、“原来我常碰到的这个错误是这个原因啊”。无形中自己的影响力就慢慢加大了。自己优越感提升了，自然也更自信了。慢慢也会发现分享对自己带来的好处，从而对自己形成一个良性循环。</p>
-<h2 id="3-总结经验教训，让自己以及他人少走弯路"><a href="#3-总结经验教训，让自己以及他人少走弯路" class="headerlink" title="3. 总结经验教训，让自己以及他人少走弯路"></a>3. 总结经验教训，让自己以及他人少走弯路</h2><p>通过技术分享可以总结过去，展望未来，比如近期分享的站在前端开发工程师的角度《聊聊前后端之登录鉴权》，就是对自己过去做登录鉴权的一个总结，不单单站在前端角度思考，更多的是站在整个登录鉴权流程去思考，应该使用<code>session-cookie</code>方案还是<code>token</code>方案，或者是使用<code>OAuth</code>方案，对着三种方案做了原理分析、优缺点对比、突出问题讲解（比如<code>session-cookie</code>方案时跨域要怎么处理，会出现哪些问题等等），分享前还各种参考资料的搜集整理等等，最后通过一个 demo（从前端到后端打通）的实战来分享出来。</p>
+<h2>2. 提升影响力，提升自信心</h2>
+<p>对于分享者，每分享一次，都会加深听众对你的认识，“原来这些我平常不知道的，这个大哥都知道”、“原来我常碰到的这个错误是这个原因啊”。无形中自己的影响力就慢慢加大了。自己优越感提升了，自然也更自信了。慢慢也会发现分享对自己带来的好处，从而对自己形成一个良性循环。</p>
+<h2>3. 总结经验教训，让自己以及他人少走弯路</h2>
+<p>通过技术分享可以总结过去，展望未来，比如近期分享的站在前端开发工程师的角度《聊聊前后端之登录鉴权》，就是对自己过去做登录鉴权的一个总结，不单单站在前端角度思考，更多的是站在整个登录鉴权流程去思考，应该使用<code>session-cookie</code>方案还是<code>token</code>方案，或者是使用<code>OAuth</code>方案，对着三种方案做了原理分析、优缺点对比、突出问题讲解（比如<code>session-cookie</code>方案时跨域要怎么处理，会出现哪些问题等等），分享前还各种参考资料的搜集整理等等，最后通过一个 demo（从前端到后端打通）的实战来分享出来。</p>
 <p>通过该总结，自己对鉴权也更加熟悉，大大提升了对鉴权的理解。对于他人（听众）来说，有些人可能不熟悉的，也知道怎么回事了，对于熟悉的，同样也是系统的加深了一遍印象，后面跟后端对接业务的时候也能够很好的指定方案，出现问题也能很好的排错。</p>
 <p>同时，还有另外一方面，通过技术分享，可以查漏补缺、取长补短。分享者不见得面面俱到，平常觉得应该是这样处理的问题，可能在分享会上碰到比你研究更深的人提出质疑甚至是修改之后，也能让分享者发现自己的错误：“原来我之前一直这样思考（一直这样做）是有问题的（考虑不全的），感谢大佬的提醒”。</p>
 <blockquote>
@@ -1013,7 +1293,8 @@
 <li>用自己申请的域名绑定到公网 IP</li>
 <li>申请免费 SSL 证书，导入到群晖</li>
 </ol>
-<h2 id="光猫改桥接-申请公网-IP"><a href="#光猫改桥接-申请公网-IP" class="headerlink" title="光猫改桥接+申请公网 IP"></a>光猫改桥接+申请公网 IP</h2><ul>
+<h2>光猫改桥接+申请公网 IP</h2>
+<ul>
 <li>方法一（推荐）：打 10000，将电信光猫改成桥接模式，并申请公网 IP。</li>
 <li>方法二：也可以看<a href="https://post.smzdm.com/p/aoo8klv6/" target="_blank" rel="noopener">这篇文章</a>或<a href="https://www.jianshu.com/p/ee61b0b58854" target="_blank" rel="noopener">这篇文章</a>的教程获取到超级管理员账号，然后登陆进去改路由器为桥接模式。教程大概就是：</li>
 </ul>
@@ -1021,19 +1302,22 @@
 <li>使用光猫背面的（普通用户）账号密码登录进光猫，然后访问链接<code>http://192.168.1.1/backupsettings.conf</code>下载光猫的配置文件；</li>
 <li><code>backupsettings.conf</code>配置文件中就包含了超级管理员<code>telecomadmin</code>的密码（可以搜索 password 查看到），宽带账号密码也在里面（搜 username）。</li>
 </ol>
-<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin"><br><img src="/uploads/post/username.png" alt="username"></p>
+<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin">
+<img src="/uploads/post/username.png" alt="username"></p>
 <p>有了这些信息，光猫就可以自己修改了，不过我也折腾了很久，才将桥接改成功，并且路由器拨号上网也没问题了，当时遇到一个问题就是路由器 WAN IP 和百度搜索到的外网 IP 不一致，我以为自己没有公网 IP，所以后面又还原回去了，就打 10000 让电信师傅来帮忙弄了，电信师傅来弄的时候，最后也是一样的结果，路由器上 WAN IP 和百度上显示的外网 IP 不一致 😓（因为这是验证是否有公网 IP 的方法）：</p>
 <ul>
 <li>路由器 IP：<img src="/uploads/post/WANIP.png" alt="路由器IP"></li>
 <li>IP138 获取的 IP：<img src="/uploads/post/IP138IP.png" alt="IP138获取的IP"></li>
 </ul>
 <p>最终电信师傅回去之后微信告诉我，重启路由器就行了。重启路由后，果然成功了 😂。</p>
-<h2 id="路由器拨号上网-端口转发"><a href="#路由器拨号上网-端口转发" class="headerlink" title="路由器拨号上网+端口转发"></a>路由器拨号上网+端口转发</h2><p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
+<h2>路由器拨号上网+端口转发</h2>
+<p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
 <ul>
 <li>路由器拨号上网：<img src="/uploads/post/router_pppoe.png" alt="路由器拨号上网"></li>
 <li>端口转发配置：<img src="/uploads/post/config_transform_port.png" alt="端口转发配置"></li>
 </ul>
-<h2 id="域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><a href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖" class="headerlink" title="域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖"></a>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2><p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
+<h2>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2>
+<p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
 <ul>
 <li>域名解析：<img src="/uploads/post/jiexi.png" alt="域名解析"></li>
 <li>免费证书：<img src="/uploads/post/ssl.png" alt="免费证书"></li>
@@ -1212,23 +1496,26 @@
 <li>在 vue 2.x 中，在一个元素上同时使用 <code>v-if</code> 和 <code>v-for</code> 时，<code>v-for</code> 会优先作用。</li>
 <li>在 vue 3.x 中，<code>v-if</code> 总是优先于 <code>v-for</code> 生效。</li>
 </ul>
-<h2 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h2><p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
+<h2>对比学习</h2>
+<p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
 <p><img src="/uploads/post/todolist.png" alt="todolist"></p>
 <p>我们有一个 todoList：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
 <p>在 vue2 中，<code>v-for</code> 优先级高于 <code>v-if</code>，我们可以这样实现：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- vue2中，v-for优先级高于v-if --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- vue2中，v-for优先级高于v-if --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>在 vue3 中，由于 <code>v-if</code> 优先级要高于 <code>v-for</code>，所以不能像 vue2 那样将 <code>v-for</code> 和 <code>v-if</code> 放在同一个元素上，我们在 li 外面套一层用来执行 for 循环：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>可以看出，如果在 vue2.x 中 <code>v-if</code> 和 <code>v-for</code> 在同一个元素上使用是无法直接在 vue3.x 中兼容的。</p>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>针对 <code>v-if</code> 和 <code>v-for</code> 的使用，其实官方是建议我们使用计算属性来处理的，这样既提高了性能，又可以兼容到 vue3.x，接下来我们看看计算属性实现方式：</p>
+<h2>最佳实践</h2>
+<p>针对 <code>v-if</code> 和 <code>v-for</code> 的使用，其实官方是建议我们使用计算属性来处理的，这样既提高了性能，又可以兼容到 vue3.x，接下来我们看看计算属性实现方式：</p>
 <p>模板部分：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>js 部分：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>示例效果：</p>
-<iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<p><iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
+<h2>总结</h2>
+<ol>
 <li>vue2.x 中<code>v-for</code>优先级高于<code>v-if</code>，vue3.x 相反；</li>
 <li>尽量避免在同一个元素上面同时使用<code>v-if</code>和<code>v-for</code>，建议使用计算属性替代。</li>
 </ol>
@@ -1396,37 +1683,39 @@
       
         
           
-            <h2 id="vue2-中"><a href="#vue2-中" class="headerlink" title="vue2 中"></a>vue2 中</h2><p>我们知道在 vue2 中有 3 个硬编码的修饰符：<code>lazy</code>、<code>number</code>和<code>trim</code>，他们的作用分别如下：</p>
+            <h2>vue2 中</h2>
+<p>我们知道在 vue2 中有 3 个硬编码的修饰符：<code>lazy</code>、<code>number</code>和<code>trim</code>，他们的作用分别如下：</p>
 <ul>
 <li>lazy：将触发<code>input</code>事件转为触发<code>change</code>事件，在某些场景下来降低数据同步频率提升性能。</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在“change”时而非“input”时更新 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.lazy</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在“change”时而非“input”时更新 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.lazy</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>number：自动将用户的输入值转为数值类型。</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span> <span class="attr">type</span>=<span class="string">"number"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span> <span class="attr">type</span>=<span class="string">"number"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>trim：自动过滤用户输入的首尾空白字符</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.trim</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<iframe id="cp_embed_jOqRyov" src="//codepen.io/cleam_lee/embed/jOqRyov?height=500&theme-id=dark&slug-hash=jOqRyov&default-tab=vue,result" scrolling="no" frameborder="no" height="500" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-<h2 id="vue3-中"><a href="#vue3-中" class="headerlink" title="vue3 中"></a>vue3 中</h2><p>不同于 vue2 的硬编码，在 vue3 中支持自定义修饰符：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-model.capitalize</span>=<span class="string">"bar"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.trim</span>=<span class="string">"msg"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><iframe id="cp_embed_jOqRyov" src="//codepen.io/cleam_lee/embed/jOqRyov?height=500&theme-id=dark&slug-hash=jOqRyov&default-tab=vue,result" scrolling="no" frameborder="no" height="500" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
+<h2>vue3 中</h2>
+<p>不同于 vue2 的硬编码，在 vue3 中支持自定义修饰符：</p>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-model.capitalize</span>=<span class="string">"bar"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>组件接收自定义修饰符：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">String</span>,</span><br><span class="line">    <span class="comment">// 组件接收属性modelModifiers对象，对象里面包含多个修饰符，这里默认给个空对象：&#123;&#125;</span></span><br><span class="line">    modelModifiers: &#123;</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="$emit('update:modelValue', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.modelModifiers); <span class="comment">// &#123; capitalize: true &#125;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">String</span>,</span><br><span class="line">    <span class="comment">// 组件接收属性modelModifiers对象，对象里面包含多个修饰符，这里默认给个空对象：&#123;&#125;</span></span><br><span class="line">    modelModifiers: &#123;</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="$emit('update:modelValue', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.modelModifiers); <span class="comment">// &#123; capitalize: true &#125;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>我们看到组件会接收一个属性为<code>modelModifiers</code>的对象，上面示例给出了默认值<code>{}</code>，然后在生命周期函数<code>created</code>中拿到了<code>修饰符capitalize的值为true</code>（因为在上面组件使用时绑定了<code>v-model.capitalize=&quot;bar&quot;</code>）。</p>
 <p>接下来，我们实现修饰符<code>capitalize</code>，即将 v-model 绑定的值首字母大写：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">String</span>,</span><br><span class="line">    modelModifiers: &#123;</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="emitValue"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitValue(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.modelModifiers.capitalize) &#123;</span><br><span class="line">        v = v.charAt(<span class="number">0</span>).toUpperCase() + v.slice(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.emit(<span class="string">'update:modelValue'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">String</span>,</span><br><span class="line">    modelModifiers: &#123;</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="modelValue"</span></span><br><span class="line"><span class="string">      @input="emitValue"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitValue(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.modelModifiers.capitalize) &#123;</span><br><span class="line">        v = v.charAt(<span class="number">0</span>).toUpperCase() + v.slice(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.emit(<span class="string">'update:modelValue'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>我们来看看效果：</p>
-<iframe id="cp_embed_zYqXwdP" src="//codepen.io/cleam_lee/embed/zYqXwdP?height=200&theme-id=dark&slug-hash=zYqXwdP&default-tab=html,result" scrolling="no" frameborder="no" height="200" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<p><iframe id="cp_embed_zYqXwdP" src="//codepen.io/cleam_lee/embed/zYqXwdP?height=200&theme-id=dark&slug-hash=zYqXwdP&default-tab=html,result" scrolling="no" frameborder="no" height="200" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <p>由于 vue3 支持组件同时绑定多个带参数的 v-model（不带参数的话只有第一个 v-model 是有效的），所以在带参数的情况下，修饰符属性命名就变成了<code>参数名 + &quot;Modifiers&quot;</code>，我们看下面代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model:first-name.capitalize</span>=<span class="string">"firstName"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model:last-name.upper</span>=<span class="string">"lastName"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model:first-name.capitalize</span>=<span class="string">"firstName"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model:last-name.upper</span>=<span class="string">"lastName"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>组件实现：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'firstName'</span>, <span class="string">'firstNameModifiers'</span>, <span class="string">'lastName'</span>, <span class="string">'lastNameModifiers'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="firstName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:firstName', $event.target.value)"&gt; - </span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="lastName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:lastName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstNameModifiers); <span class="comment">// &#123; capitalize: true &#125;</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.lastNameModifiers); <span class="comment">// &#123; upper: true &#125;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'firstName'</span>, <span class="string">'firstNameModifiers'</span>, <span class="string">'lastName'</span>, <span class="string">'lastNameModifiers'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="firstName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:firstName', $event.target.value)"&gt; - </span></span><br><span class="line"><span class="string">    &lt;input type="text" </span></span><br><span class="line"><span class="string">      :value="lastName"</span></span><br><span class="line"><span class="string">      @input="$emit('update:lastName', $event.target.value)"&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstNameModifiers); <span class="comment">// &#123; capitalize: true &#125;</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.lastNameModifiers); <span class="comment">// &#123; upper: true &#125;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>上面代码中，我们的参数名是<code>firstName</code>和<code>lastName</code>，所以自定义组件接收到的修饰符属性由原来的<code>modelModifiers</code>修改为<code>firstNameModifiers</code>和<code>lastNameModifiers</code>。</p>
 <p>下面我们来看<a href="https://codepen.io/cleam_lee/pen/xxVeMBJ" target="_blank" rel="noopener">完整的实现</a>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建APP</span></span><br><span class="line"><span class="keyword">const</span> app = Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      firstName: <span class="string">''</span>,</span><br><span class="line">      lastName: <span class="string">''</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 自定义组件</span></span><br><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'firstName'</span>, <span class="string">'firstNameModifiers'</span>, <span class="string">'lastName'</span>, <span class="string">'lastNameModifiers'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;p&gt;firstName: &lt;input type="text" :value="firstName" @input="emitCapitalize"&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;lastName: &lt;input type="text" :value="lastName" @input="emitReverse"&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitCapitalize(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.firstNameModifiers.capitalize) &#123;</span><br><span class="line">        v = v.charAt(<span class="number">0</span>).toUpperCase() + v.slice(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:firstName'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">    emitReverse(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.lastNameModifiers.upper) &#123;</span><br><span class="line">        v = v.toUpperCase();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:lastName'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 挂载</span></span><br><span class="line">app.mount(<span class="string">'#app'</span>);</span><br></pre></td></tr></table></figure>
-<iframe id="cp_embed_xxVeMBJ" src="//codepen.io/cleam_lee/embed/xxVeMBJ?height=300&theme-id=dark&slug-hash=xxVeMBJ&default-tab=html,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建APP</span></span><br><span class="line"><span class="keyword">const</span> app = Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      firstName: <span class="string">''</span>,</span><br><span class="line">      lastName: <span class="string">''</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 自定义组件</span></span><br><span class="line">app.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'firstName'</span>, <span class="string">'firstNameModifiers'</span>, <span class="string">'lastName'</span>, <span class="string">'lastNameModifiers'</span>],</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;p&gt;firstName: &lt;input type="text" :value="firstName" @input="emitCapitalize"&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;lastName: &lt;input type="text" :value="lastName" @input="emitReverse"&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    emitCapitalize(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.firstNameModifiers.capitalize) &#123;</span><br><span class="line">        v = v.charAt(<span class="number">0</span>).toUpperCase() + v.slice(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:firstName'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">    emitReverse(e) &#123;</span><br><span class="line">      <span class="keyword">let</span> v = e.target.value;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.lastNameModifiers.upper) &#123;</span><br><span class="line">        v = v.toUpperCase();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'update:lastName'</span>, v);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 挂载</span></span><br><span class="line">app.mount(<span class="string">'#app'</span>);</span><br></pre></td></tr></table></figure></p>
+<p><iframe id="cp_embed_xxVeMBJ" src="//codepen.io/cleam_lee/embed/xxVeMBJ?height=300&theme-id=dark&slug-hash=xxVeMBJ&default-tab=html,result" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <p>至此，v-model 在 vue2 和 vue3 中的应用就基本讲完了，欢迎大家留言或加微信（cleam_lee）讨论！</p>
 <blockquote>
 <p>汇总：</p>
@@ -1997,7 +2286,8 @@
       
         
           
-            <h2 id="new：新建一篇文章"><a href="#new：新建一篇文章" class="headerlink" title="new：新建一篇文章"></a>new：新建一篇文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># new</span></span><br><span class="line">hexo new [layout] &lt;title&gt;</span><br><span class="line"><span class="comment"># hexo new "post title with whitespace"</span></span><br><span class="line"><span class="comment"># hexo new page --path about/me</span></span><br></pre></td></tr></table></figure>
+            <h2>new：新建一篇文章</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># new</span></span><br><span class="line">hexo new [layout] &lt;title&gt;</span><br><span class="line"><span class="comment"># hexo new "post title with whitespace"</span></span><br><span class="line"><span class="comment"># hexo new page --path about/me</span></span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
@@ -2020,7 +2310,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="server：启动服务"><a href="#server：启动服务" class="headerlink" title="server：启动服务"></a>server：启动服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h2>server：启动服务</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
@@ -2039,7 +2330,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="generate：生成静态文件"><a href="#generate：生成静态文件" class="headerlink" title="generate：生成静态文件"></a>generate：生成静态文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line"><span class="comment"># 简写：hexo g</span></span><br></pre></td></tr></table></figure>
+<h2>generate：生成静态文件</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line"><span class="comment"># 简写：hexo g</span></span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
@@ -2062,7 +2354,7 @@
 </tr>
 <tr>
 <td><code>-f, --force</code></td>
-<td>强制重新生成文件<br>Hexo 引入了差分机制，如果 public 目录存在，<br>那么 hexo g 只会重新生成改动的文件。<br>使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
+<td>强制重新生成文件&lt;br/&gt;Hexo 引入了差分机制，如果 public 目录存在，&lt;br/&gt;那么 hexo g 只会重新生成改动的文件。&lt;br/&gt;使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
 </tr>
 <tr>
 <td><code>-c, --concurrency</code></td>
@@ -2070,8 +2362,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="publish：发表草稿"><a href="#publish：发表草稿" class="headerlink" title="publish：发表草稿"></a>publish：发表草稿</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="deploy：部署网站"><a href="#deploy：部署网站" class="headerlink" title="deploy：部署网站"></a>deploy：部署网站</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line"><span class="comment"># 简写：hexo d</span></span><br></pre></td></tr></table></figure>
+<h2>publish：发表草稿</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
+<h2>deploy：部署网站</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line"><span class="comment"># 简写：hexo d</span></span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
@@ -2086,7 +2380,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="render：渲染文件"><a href="#render：渲染文件" class="headerlink" title="render：渲染文件"></a>render：渲染文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
+<h2>render：渲染文件</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
@@ -2101,220 +2396,18 @@
 </tr>
 </tbody>
 </table>
-<h2 id="migrate：博客迁移"><a href="#migrate：博客迁移" class="headerlink" title="migrate：博客迁移"></a>migrate：博客迁移</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo migrate &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2>migrate：博客迁移</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo migrate &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>更多：<a href="https://hexo.io/zh-cn/docs/migration" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/migration</a></p>
+<p>更多：https://hexo.io/zh-cn/docs/migration</p>
 </blockquote>
-<h2 id="clean：清除缓存"><a href="#clean：清除缓存" class="headerlink" title="clean：清除缓存"></a>clean：清除缓存</h2><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
-<h2 id="list：列出网站资料"><a href="#list：列出网站资料" class="headerlink" title="list：列出网站资料"></a>list：列出网站资料</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo list &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="version：显示-hexo-版本"><a href="#version：显示-hexo-版本" class="headerlink" title="version：显示 hexo 版本"></a>version：显示 hexo 版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/02/Javascript内建对象Math学习/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">Javascript内建对象Math学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-02 11:07:23" itemprop="dateCreated datePublished" datetime="2020-03-02T11:07:23+08:00">2020-03-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-09-23 16:08:57" itemprop="dateModified" datetime="2020-09-23T16:08:57+08:00">2020-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2020/03/02/Javascript内建对象Math学习/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/03/02/Javascript内建对象Math学习/" class="cy_cmt_count" data-xid="2020/03/02/Javascript内建对象Math学习/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Math 既不能当做一般函数来调用，也不能用于 new 操作符来创建对象。</p>
-<p>Math 的属性都是不可修改的，因此他们都以名字大写的方式来表示自己与一般属性变量的不同。</p>
-<p>数字 Π：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="number">3.141592653589793</span>;</span><br></pre></td></tr></table></figure>
-<p>2 的平方根：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.SQRT2;</span><br><span class="line"><span class="number">1.4142135623730951</span>;</span><br></pre></td></tr></table></figure>
-<p>欧拉常数 e：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.E;</span><br><span class="line"><span class="number">2.718281828459045</span>;</span><br></pre></td></tr></table></figure>
-<p>2 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN2;</span><br><span class="line"><span class="number">0.6931471805599453</span>;</span><br></pre></td></tr></table></figure>
-<p>10 的自然对数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.LN10;</span><br><span class="line"><span class="number">2.302585092994046</span>;</span><br></pre></td></tr></table></figure>
-<p>random()所返回的是 0 到 1 之间的某个数，下面给出一些常用示例：</p>
-<p>1、获取 0 到 100 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span> * <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
-<p>2、获取 max 和 min 之间的值，可以通过一个公式(<code>(max - min) * Math.random() + min</code>)来获取。如获取 2 到 10 之间的某个数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span> * <span class="built_in">Math</span>.random() + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>如果只需要整数的话，使用<code>Math.floor()</code>用于舍弃和<code>Math.ceil()</code>用于取入，也可以直接调用<code>Math.round()</code>进行四舍五入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.floor(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.ceil(<span class="number">1.63</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.23</span>);</span><br><span class="line"><span class="built_in">Math</span>.round(<span class="number">1.63</span>);</span><br></pre></td></tr></table></figure>
-<p>获取随机数 0 或 1：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random());</span><br></pre></td></tr></table></figure>
-<p><code>Math.max()</code>获取最大值、<code>Math.min()</code>获取最小值：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"><span class="built_in">Math</span>.max(<span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br><span class="line"><span class="built_in">Math</span>.min(<span class="number">12</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure>
-<p>示例：对表单中输入的月份进行验证时，可以使用下面方式来确保数据正常工作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">1</span>, input), <span class="number">12</span>);</span><br></pre></td></tr></table></figure>
-<p>Math 的其他数学计算方法：</p>
-<ul>
-<li>指数运算(2 的 3 次方)：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>平方根：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sqrt(<span class="number">9</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>正弦、余弦函数：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sin(number);</span><br><span class="line"><span class="built_in">Math</span>.cos(number);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中 number 的为弧度值，返回参数 number 的正弦值，返回值介于 [-1, 1] 之间。</p>
-</blockquote>
-<p><code>角度 = 360 * 弧度 / (2 * Math.PI)</code><br>化简为：<br><code>角度 = 180 * 弧度 / Math.PI</code></p>
+<h2>clean：清除缓存</h2>
+<p>清除缓存文件 (db.json) 和已生成的静态文件 (public)</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure></p>
+<h2>list：列出网站资料</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo list &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h2>version：显示 hexo 版本</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -2405,7 +2498,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2446,7 +2539,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

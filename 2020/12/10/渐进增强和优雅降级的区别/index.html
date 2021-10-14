@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="概念拿浏览器兼容举例：  渐进增强(progressive enhancement)：针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 优雅降级(graceful degradation)：一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别优雅降级是从复杂的现状开始，并试图减少用户体验的供给，而渐进增强则是从一">
+  <meta name="description" content="概念 拿浏览器兼容举例：  **渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 **优雅降级(graceful degradation)：**一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别 优雅降级是从复杂的现状开始，并试图减少用户体验的供给">
 <meta name="keywords" content="概念">
 <meta property="og:type" content="article">
 <meta property="og:title" content="渐进增强和优雅降级">
 <meta property="og:url" content="https://cleam.github.io/2020/12/10/渐进增强和优雅降级的区别/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="概念拿浏览器兼容举例：  渐进增强(progressive enhancement)：针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 优雅降级(graceful degradation)：一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别优雅降级是从复杂的现状开始，并试图减少用户体验的供给，而渐进增强则是从一">
+<meta property="og:description" content="概念 拿浏览器兼容举例：  **渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 **优雅降级(graceful degradation)：**一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别 优雅降级是从复杂的现状开始，并试图减少用户体验的供给">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2021-09-23T01:45:42.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渐进增强和优雅降级">
-<meta name="twitter:description" content="概念拿浏览器兼容举例：  渐进增强(progressive enhancement)：针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 优雅降级(graceful degradation)：一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别优雅降级是从复杂的现状开始，并试图减少用户体验的供给，而渐进增强则是从一">
+<meta name="twitter:description" content="概念 拿浏览器兼容举例：  **渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 **优雅降级(graceful degradation)：**一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。  区别 优雅降级是从复杂的现状开始，并试图减少用户体验的供给">
 
 
 
@@ -477,16 +477,21 @@
       
 
       
-        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>拿浏览器兼容举例：</p>
+        <h2>概念</h2>
+<p>拿浏览器兼容举例：</p>
 <ul>
-<li><strong>渐进增强(progressive enhancement)：</strong>针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
-<li><strong>优雅降级(graceful degradation)：</strong>一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
+<li>**渐进增强(progressive enhancement)：**针对低版本浏览器进行构建页面，保证最基本的功 能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</li>
+<li>**优雅降级(graceful degradation)：**一开始就构建完整的功能，然后再针对低版本浏览器 进行兼容。</li>
 </ul>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
-<h3 id="“优雅降级”观点"><a href="#“优雅降级”观点" class="headerlink" title="“优雅降级”观点"></a>“优雅降级”观点</h3><p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
-<h3 id="“渐进增强”观点"><a href="#“渐进增强”观点" class="headerlink" title="“渐进增强”观点"></a>“渐进增强”观点</h3><p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
+<h2>区别</h2>
+<p><strong>优雅降级</strong>是从复杂的现状开始，并试图减少用户体验的供给，而<strong>渐进增强</strong>则是从一个非常基础的、能够起作用的版本开始，并不断扩充，以适应未来环境的需要。<strong>优雅降级</strong>（功能衰减）意味着往回看；而<strong>渐进增强</strong>则意味着朝前看，同时保证其根基处于安全地带。</p>
+<h3>“优雅降级”观点</h3>
+<p>“优雅降级”观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。 在这种设计范例下，旧版的浏览器被认为仅能提供“简陋却无妨(poor, but passable)”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较大的错误之外，其它的差异将被直接忽略。</p>
+<h3>“渐进增强”观点</h3>
+<p>“渐进增强”观点则认为应关注于内容本身，内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，但相同点是它们全都涉及到内容。这使得“渐进增强”成为一种更为合理的设计范例。这也是它立即被 Yahoo! 所采纳并用以构建其“分级式浏览器支持(Graded Browser Support)”策略的原因所在。</p>
 <p>那么问题来了。现在产品经理看到 IE6,7,8 网页效果相对高版本现代浏览器少了很多圆角， 阴影（CSS3），要求兼容（使用图片背景，放弃 CSS3），你会如何说服他？</p>
-<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<h2>资料</h2>
+<ul>
 <li><a href="https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement" target="_blank" rel="noopener">Graceful degradation versus progressive enhancement</a></li>
 <li><a href="https://www.mavenecommerce.com/2017/10/31/progressive-enhancement-vs-graceful-degradation/" target="_blank" rel="noopener">Progressive Enhancement vs Graceful Degradation</a></li>
 </ul>
@@ -655,7 +660,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -696,7 +701,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -775,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">2.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#“优雅降级”观点"><span class="nav-number">2.1.</span> <span class="nav-text">“优雅降级”观点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“渐进增强”观点"><span class="nav-number">2.2.</span> <span class="nav-text">“渐进增强”观点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">3.</span> <span class="nav-text">资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">“优雅降级”观点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">“渐进增强”观点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">资料</span></a></li></ol></div>
             
 
           </div>
