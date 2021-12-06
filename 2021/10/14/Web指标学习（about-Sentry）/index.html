@@ -141,13 +141,13 @@
 
 
 
-  <meta name="description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标 这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Googl">
+  <meta name="description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Google">
 <meta name="keywords" content="翻译,性能,sentry">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web 指标学习（about Sentry）">
 <meta property="og:url" content="https://cleam.github.io/2021/10/14/Web指标学习（about-Sentry）/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标 这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Googl">
+<meta property="og:description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Google">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/web-vitals-1.png">
 <meta property="og:image" content="https://cleam.github.io/uploads/post/web-vitals-2.png">
@@ -155,7 +155,7 @@
 <meta property="og:updated_time" content="2021-10-14T02:55:44.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web 指标学习（about Sentry）">
-<meta name="twitter:description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标 这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Googl">
+<meta name="twitter:description" content="Web 指标是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。 Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。  核心 Web 指标这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。Google">
 <meta name="twitter:image" content="https://cleam.github.io/uploads/post/web-vitals-1.png">
 
 
@@ -472,28 +472,19 @@
         <p><a href="https://web.dev/vitals/" target="_blank" rel="noopener">Web 指标</a>是一组由 Google 定义的指标，用于衡量呈现时间、响应时间和布局偏移。每个数据点都提供有关应用程序整体性能的见解。</p>
 <p>Sentry SDK 收集 Web 指标信息（如果浏览器支持的话）并将该信息添加到前端事务中。然后将这些重要信息汇总在几个图表中，以便快速了解每个前端事务对用户的执行情况。</p>
 <p><img src="/uploads/post/web-vitals-1.png" alt="Web Vitals 的可视化"></p>
-<h2>核心 Web 指标</h2>
-<p>这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。<a href="https://developers.google.com/search/blog/2020/11/timing-for-page-experience" target="_blank" rel="noopener">Google 报告称，截至 2021 年 5 月，这些指标也会影响网站的搜索排名</a>。</p>
-<h3>最大的内容绘制 (LCP)</h3>
-<p><a href="https://web.dev/lcp/" target="_blank" rel="noopener">最大内容绘制 (LCP)</a>测量最大内容出现在视口中的渲染时间。这可以是来自文档对象模型 (DOM) 的任何形式，例如图像（images）、SVG 或文本块（text blocks）。视口中最大的像素区域，因此最直观。<strong>LCP 帮助开发人员了解用户看到页面上的主要内容需要多长时间。</strong></p>
-<h3>首次输入延迟 (FID)</h3>
-<p><a href="https://web.dev/fid/" target="_blank" rel="noopener">首次输入延迟 (FID)</a>测量用户尝试与视口交互时的响应时间。操作可能包括单击按钮（button）、链接（link）或其他自定义 Javascript 控制器。<strong>FID 提供有关应用程序页面上成功或不成功交互的关键数据。</strong></p>
-<h3>累积布局偏移 (CLS)</h3>
-<p><a href="https://web.dev/cls/" target="_blank" rel="noopener">累积布局偏移 (CLS)</a>是渲染过程中每个意外元素偏移的单个布局偏移分数的总和。想象一下导航到一篇文章并尝试在页面完成加载之前单击链接。在您的光标到达那里之前，链接可能由于图像渲染而向下移动。<strong>CLS 分数代表了破坏性和视觉不稳定转变的程度，而不是使用持续时间来表示此 Web 指标。</strong></p>
+<h2 id="核心-Web-指标"><a href="#核心-Web-指标" class="headerlink" title="核心 Web 指标"></a>核心 Web 指标</h2><p>这些 Web 指标被谷歌认为是直接衡量用户体验的最重要的指标。<a href="https://developers.google.com/search/blog/2020/11/timing-for-page-experience" target="_blank" rel="noopener">Google 报告称，截至 2021 年 5 月，这些指标也会影响网站的搜索排名</a>。</p>
+<h3 id="最大的内容绘制-LCP"><a href="#最大的内容绘制-LCP" class="headerlink" title="最大的内容绘制 (LCP)"></a>最大的内容绘制 (LCP)</h3><p><a href="https://web.dev/lcp/" target="_blank" rel="noopener">最大内容绘制 (LCP)</a>测量最大内容出现在视口中的渲染时间。这可以是来自文档对象模型 (DOM) 的任何形式，例如图像（images）、SVG 或文本块（text blocks）。视口中最大的像素区域，因此最直观。<strong>LCP 帮助开发人员了解用户看到页面上的主要内容需要多长时间。</strong></p>
+<h3 id="首次输入延迟-FID"><a href="#首次输入延迟-FID" class="headerlink" title="首次输入延迟 (FID)"></a>首次输入延迟 (FID)</h3><p><a href="https://web.dev/fid/" target="_blank" rel="noopener">首次输入延迟 (FID)</a>测量用户尝试与视口交互时的响应时间。操作可能包括单击按钮（button）、链接（link）或其他自定义 Javascript 控制器。<strong>FID 提供有关应用程序页面上成功或不成功交互的关键数据。</strong></p>
+<h3 id="累积布局偏移-CLS"><a href="#累积布局偏移-CLS" class="headerlink" title="累积布局偏移 (CLS)"></a>累积布局偏移 (CLS)</h3><p><a href="https://web.dev/cls/" target="_blank" rel="noopener">累积布局偏移 (CLS)</a>是渲染过程中每个意外元素偏移的单个布局偏移分数的总和。想象一下导航到一篇文章并尝试在页面完成加载之前单击链接。在您的光标到达那里之前，链接可能由于图像渲染而向下移动。<strong>CLS 分数代表了破坏性和视觉不稳定转变的程度，而不是使用持续时间来表示此 Web 指标。</strong></p>
 <p><img src="/uploads/post/web-vitals-2.png" alt="累积布局偏移示例"></p>
 <p>使用影响和距离分数计算每个布局偏移分数。影响分数是元素在两个渲染帧之间影响的总可见区域。距离分数测量它相对于视口移动的距离。</p>
-<p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Layout Shift Score = Impact Fraction * Distance Fraction</span></span><br><span class="line">布局偏移分数 = 影响分数 * 距离分数</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Layout Shift Score = Impact Fraction * Distance Fraction</span></span><br><span class="line">布局偏移分数 = 影响分数 * 距离分数</span><br></pre></td></tr></table></figure>
 <p>让我们看一下上面的例子，它有一个不稳定的元素——正文内容。影响分数大约为页面的 <code>50%</code>，并将正文文本向下移动 <code>20%</code>。布局移位得分为 <code>0.5 * 0.2 = 0.1</code>。因此，CLS 为 0.1。</p>
-<h2>其他 Web 指标</h2>
-<p>这些 Web 指标通常不太容易被用户看到，但对于排除核心 Web 指标的问题很有用。</p>
-<h3>首次渲染（FP）</h3>
-<p>首次渲染 (FP) 测量第一个像素出现在视口中所需的时间，呈现与先前显示内容相比的任何视觉变化。这可以是来自文档对象模型 (DOM) 的任何形式，例如背景颜色（background-color）、画布（canvas）或图像（image）。<strong>FP 可帮助开发人员了解渲染页面是否发生了任何意外。</strong></p>
-<h3>首次内容绘制 (FCP)</h3>
-<p><a href="https://web.dev/fcp/" target="_blank" rel="noopener">首次内容绘制 (FCP)</a>测量第一个内容在视口中呈现的时间。这可以是来自文档对象模型 (DOM) 的任何形式，例如图像、SVG 或文本块。<strong>FCP 经常与首次渲染（FP）重叠。FCP 帮助开发人员了解用户在页面上看到内容更新需要多长时间。</strong></p>
-<h3>首字节时间 (TTFB)</h3>
-<p>首字节时间（TTFB）测量用户浏览器接收页面内容的第一个字节所需的时间。<strong>TTFB 帮助开发人员了解他们的缓慢是由初始响应引起的还是由于渲染阻塞内容引起的。</strong></p>
-<h2>阈值</h2>
-<p>谷歌定义的三个阈值：“<code>好（GOOD）</code>”、“<code>需要改进（NEEDS IMPROVEMENT）</code>”和“<code>差（POOR）</code>”用于将数据点分类为绿色、黄色和红色，用于对应的 Web 指标。“需要改进（NEEDS IMPROVEMENT）”在 Sentry 中被称为“<code>Meh</code>”。</p>
+<h2 id="其他-Web-指标"><a href="#其他-Web-指标" class="headerlink" title="其他 Web 指标"></a>其他 Web 指标</h2><p>这些 Web 指标通常不太容易被用户看到，但对于排除核心 Web 指标的问题很有用。</p>
+<h3 id="首次渲染（FP）"><a href="#首次渲染（FP）" class="headerlink" title="首次渲染（FP）"></a>首次渲染（FP）</h3><p>首次渲染 (FP) 测量第一个像素出现在视口中所需的时间，呈现与先前显示内容相比的任何视觉变化。这可以是来自文档对象模型 (DOM) 的任何形式，例如背景颜色（background-color）、画布（canvas）或图像（image）。<strong>FP 可帮助开发人员了解渲染页面是否发生了任何意外。</strong></p>
+<h3 id="首次内容绘制-FCP"><a href="#首次内容绘制-FCP" class="headerlink" title="首次内容绘制 (FCP)"></a>首次内容绘制 (FCP)</h3><p><a href="https://web.dev/fcp/" target="_blank" rel="noopener">首次内容绘制 (FCP)</a>测量第一个内容在视口中呈现的时间。这可以是来自文档对象模型 (DOM) 的任何形式，例如图像、SVG 或文本块。<strong>FCP 经常与首次渲染（FP）重叠。FCP 帮助开发人员了解用户在页面上看到内容更新需要多长时间。</strong></p>
+<h3 id="首字节时间-TTFB"><a href="#首字节时间-TTFB" class="headerlink" title="首字节时间 (TTFB)"></a>首字节时间 (TTFB)</h3><p>首字节时间（TTFB）测量用户浏览器接收页面内容的第一个字节所需的时间。<strong>TTFB 帮助开发人员了解他们的缓慢是由初始响应引起的还是由于渲染阻塞内容引起的。</strong></p>
+<h2 id="阈值"><a href="#阈值" class="headerlink" title="阈值"></a>阈值</h2><p>谷歌定义的三个阈值：“<code>好（GOOD）</code>”、“<code>需要改进（NEEDS IMPROVEMENT）</code>”和“<code>差（POOR）</code>”用于将数据点分类为绿色、黄色和红色，用于对应的 Web 指标。“需要改进（NEEDS IMPROVEMENT）”在 Sentry 中被称为“<code>Meh</code>”。</p>
 <table>
 <thead>
 <tr>
@@ -545,15 +536,13 @@
 <blockquote>
 <p>一些 Web 指标（例如 FP、FCP、LCP 和 TTFB）是相对于事务的开始进行测量的。与使用其他工具（例如 Lighthouse ）生成的值相比，值可能会有所不同。</p>
 </blockquote>
-<h2>分布直方图</h2>
-<p><img src="/uploads/post/web-vitals-3.png" alt="分布直方图"></p>
+<h2 id="分布直方图"><a href="#分布直方图" class="headerlink" title="分布直方图"></a>分布直方图</h2><p><img src="/uploads/post/web-vitals-3.png" alt="分布直方图"></p>
 <p>Web 指标直方图显示数据分布，它可以通过揭示异常来帮助您识别和诊断前端性能问题。</p>
-<p>默认情况下，异常值将从直方图中排除，以提供有关这些生命体征的更多信息视图。异常值是使用<a href="https://en.wikipedia.org/wiki/Outlier#Tukey's_fences" target="_blank" rel="noopener">上外栅栏（upper outer fence）</a>作为上限来确定的，任何高于上限的数据点都被视为异常值。</p>
+<p>默认情况下，异常值将从直方图中排除，以提供有关这些生命体征的更多信息视图。异常值是使用<a href="https://en.wikipedia.org/wiki/Outlier#Tukey&#39;s_fences" target="_blank" rel="noopener">上外栅栏（upper outer fence）</a>作为上限来确定的，任何高于上限的数据点都被视为异常值。</p>
 <p>每个 Web 指标的垂直标记是观察到的数据点的第 75 个百分位。换句话说，25% 的记录值超过了该数量。</p>
 <p>如果您注意到任何直方图上的感兴趣区域，请单击并拖动放大该区域以获得更详细的视图。您可能还想在直方图中查看与事务相关的更多信息。单击所选 Web 指标下方的“在发现中打开（Open in Discover）”以构建自定义查询以进行进一步调查。有关更多详细信息，请参阅 <a href="https://docs.sentry.io/product/discover-queries/query-builder/" target="_blank" rel="noopener">Discover Query Builder</a> 的完整文档。</p>
 <p>如果您希望查看所有可用数据，请打开下拉菜单并单击“查看全部（View All）”。单击“查看全部”时，您可能会看到极端异常值。您可以单击并拖动放大某个区域以获得更详细的视图。</p>
-<h2>浏览器支持</h2>
-<table>
+<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><table>
 <thead>
 <tr>
 <th>Web 指标</th>
@@ -791,7 +780,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -838,7 +827,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -917,7 +908,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">核心 Web 指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">最大的内容绘制 (LCP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">首次输入延迟 (FID)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">累积布局偏移 (CLS)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">其他 Web 指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">首次渲染（FP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">首次内容绘制 (FCP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">首字节时间 (TTFB)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">阈值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">分布直方图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">浏览器支持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心-Web-指标"><span class="nav-number">1.</span> <span class="nav-text">核心 Web 指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大的内容绘制-LCP"><span class="nav-number">1.1.</span> <span class="nav-text">最大的内容绘制 (LCP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次输入延迟-FID"><span class="nav-number">1.2.</span> <span class="nav-text">首次输入延迟 (FID)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#累积布局偏移-CLS"><span class="nav-number">1.3.</span> <span class="nav-text">累积布局偏移 (CLS)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-Web-指标"><span class="nav-number">2.</span> <span class="nav-text">其他 Web 指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首次渲染（FP）"><span class="nav-number">2.1.</span> <span class="nav-text">首次渲染（FP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首次内容绘制-FCP"><span class="nav-number">2.2.</span> <span class="nav-text">首次内容绘制 (FCP)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首字节时间-TTFB"><span class="nav-number">2.3.</span> <span class="nav-text">首字节时间 (TTFB)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阈值"><span class="nav-number">3.</span> <span class="nav-text">阈值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布直方图"><span class="nav-number">4.</span> <span class="nav-text">分布直方图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器支持"><span class="nav-number">5.</span> <span class="nav-text">浏览器支持</span></a></li></ol></div>
             
 
           </div>
