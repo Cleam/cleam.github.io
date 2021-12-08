@@ -374,6 +374,404 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="post-title-link" itemprop="https://cleam.github.io/page/3/index.html">记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-25 16:31:12" itemprop="dateCreated datePublished" datetime="2020-10-25T16:31:12+08:00">2020-10-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:45:52" itemprop="dateModified" datetime="2021-09-23T09:45:52+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="cy_cmt_count" data-xid="2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己买了一台群晖 NAS，一直想用自己购买的域名访问，虽然群晖官方提供了<a href="http://www.quickconnect.to/" target="_blank" rel="noopener">quickconnect</a>，但我经常出现访问不了的情况，所以最终还是决定自己折腾，折腾了很久，终于算是大功告成了。</p>
+<p>我的设备：</p>
+<ol>
+<li>群晖 DS218+</li>
+<li>电信光猫</li>
+<li>华硕 RT-AC86U 路由器</li>
+</ol>
+<p>大致思路：</p>
+<ol>
+<li>将光猫改成桥接模式，申请公网 IP（打 10000 修改、申请）</li>
+<li>路由器拨号联网（打 10000 获取账号密码）</li>
+<li>路由器配置端口转发</li>
+<li>用自己申请的域名绑定到公网 IP</li>
+<li>申请免费 SSL 证书，导入到群晖</li>
+</ol>
+<h2 id="光猫改桥接-申请公网-IP"><a href="#光猫改桥接-申请公网-IP" class="headerlink" title="光猫改桥接+申请公网 IP"></a>光猫改桥接+申请公网 IP</h2><ul>
+<li>方法一（推荐）：打 10000，将电信光猫改成桥接模式，并申请公网 IP。</li>
+<li>方法二：也可以看<a href="https://post.smzdm.com/p/aoo8klv6/" target="_blank" rel="noopener">这篇文章</a>或<a href="https://www.jianshu.com/p/ee61b0b58854" target="_blank" rel="noopener">这篇文章</a>的教程获取到超级管理员账号，然后登陆进去改路由器为桥接模式。教程大概就是：</li>
+</ul>
+<ol>
+<li>使用光猫背面的（普通用户）账号密码登录进光猫，然后访问链接<code>http://192.168.1.1/backupsettings.conf</code>下载光猫的配置文件；</li>
+<li><code>backupsettings.conf</code>配置文件中就包含了超级管理员<code>telecomadmin</code>的密码（可以搜索 password 查看到），宽带账号密码也在里面（搜 username）。</li>
+</ol>
+<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin"><br><img src="/uploads/post/username.png" alt="username"></p>
+<p>有了这些信息，光猫就可以自己修改了，不过我也折腾了很久，才将桥接改成功，并且路由器拨号上网也没问题了，当时遇到一个问题就是路由器 WAN IP 和百度搜索到的外网 IP 不一致，我以为自己没有公网 IP，所以后面又还原回去了，就打 10000 让电信师傅来帮忙弄了，电信师傅来弄的时候，最后也是一样的结果，路由器上 WAN IP 和百度上显示的外网 IP 不一致 😓（因为这是验证是否有公网 IP 的方法）：</p>
+<ul>
+<li>路由器 IP：<img src="/uploads/post/WANIP.png" alt="路由器IP"></li>
+<li>IP138 获取的 IP：<img src="/uploads/post/IP138IP.png" alt="IP138获取的IP"></li>
+</ul>
+<p>最终电信师傅回去之后微信告诉我，重启路由器就行了。重启路由后，果然成功了 😂。</p>
+<h2 id="路由器拨号上网-端口转发"><a href="#路由器拨号上网-端口转发" class="headerlink" title="路由器拨号上网+端口转发"></a>路由器拨号上网+端口转发</h2><p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
+<ul>
+<li>路由器拨号上网：<img src="/uploads/post/router_pppoe.png" alt="路由器拨号上网"></li>
+<li>端口转发配置：<img src="/uploads/post/config_transform_port.png" alt="端口转发配置"></li>
+</ul>
+<h2 id="域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><a href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖" class="headerlink" title="域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖"></a>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2><p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
+<ul>
+<li>域名解析：<img src="/uploads/post/jiexi.png" alt="域名解析"></li>
+<li>免费证书：<img src="/uploads/post/ssl.png" alt="免费证书"></li>
+</ul>
+<p>证书导入到群晖：</p>
+<p><img src="/uploads/post/upload_ssl.png" alt="证书导入"></p>
+<p>使用域名成功访问群晖：</p>
+<p><img src="/uploads/post/login.png" alt="访问群晖"></p>
+<p>至此，配置基本完成，后续慢慢摸索优化。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="post-title-link" itemprop="https://cleam.github.io/page/3/index.html">vue2和vue3的v-if与v-for优先级对比学习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-09 14:07:12" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:46:44" itemprop="dateModified" datetime="2021-09-23T09:46:44+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="cy_cmt_count" data-xid="2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vue.js 中使用最多的两个指令就是 <code>v-if</code> 和 <code>v-for</code>，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：</p>
+<ul>
+<li>在 vue 2.x 中，在一个元素上同时使用 <code>v-if</code> 和 <code>v-for</code> 时，<code>v-for</code> 会优先作用。</li>
+<li>在 vue 3.x 中，<code>v-if</code> 总是优先于 <code>v-for</code> 生效。</li>
+</ul>
+<h2 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h2><p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
+<p><img src="/uploads/post/todolist.png" alt="todolist"></p>
+<p>我们有一个 todoList：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>在 vue2 中，<code>v-for</code> 优先级高于 <code>v-if</code>，我们可以这样实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- vue2中，v-for优先级高于v-if --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 vue3 中，由于 <code>v-if</code> 优先级要高于 <code>v-for</code>，所以不能像 vue2 那样将 <code>v-for</code> 和 <code>v-if</code> 放在同一个元素上，我们在 li 外面套一层用来执行 for 循环：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看出，如果在 vue2.x 中 <code>v-if</code> 和 <code>v-for</code> 在同一个元素上使用是无法直接在 vue3.x 中兼容的。</p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>针对 <code>v-if</code> 和 <code>v-for</code> 的使用，其实官方是建议我们使用计算属性来处理的，这样既提高了性能，又可以兼容到 vue3.x，接下来我们看看计算属性实现方式：</p>
+<p>模板部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>js 部分：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>示例效果：</p>
+<iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>vue2.x 中<code>v-for</code>优先级高于<code>v-if</code>，vue3.x 相反；</li>
+<li>尽量避免在同一个元素上面同时使用<code>v-if</code>和<code>v-for</code>，建议使用计算属性替代。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/09/27/深入理解v-model之修饰符/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1833,7 +2231,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1882,7 +2280,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

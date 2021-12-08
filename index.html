@@ -374,6 +374,362 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/12/08/yum-update-Error-initscripts-conflicts-with/" class="post-title-link" itemprop="https://cleam.github.io/index.html">一次docker容器和宿主机网络不通问题记录</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-08 18:21:11 / 修改时间：20:52:30" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/12/08/yum-update-Error-initscripts-conflicts-with/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/" class="cy_cmt_count" data-xid="2021/12/08/yum-update-Error-initscripts-conflicts-with/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。</p>
+<h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>简单看了下系统参数：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line"><span class="comment"># 3.10.0-327.22.2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line">$ uname -a </span><br><span class="line"><span class="comment"># Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line">$ cat /etc/redhat-release</span><br><span class="line"><span class="comment"># CentOS Linux release 7.2.1511 (Core)</span></span><br></pre></td></tr></table></figure>
+<p>貌似可以支持升级docker。</p>
+<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，期初我也不知道update和upgrade的区别）。</p>
+<p><a href="https://cloud.tencent.com/developer/article/1604418" target="_blank" rel="noopener">yum update和yum upgrade的真正区别</a>：“yum update和yum upgrade的功能都是一样的，都是将需要更新的package更新到源中的最新版。唯一不同的是，yum upgrade会删除旧版本的package，而yum update则会保留(obsoletes=0)。生产环境中建议使用yum update，防止因为替换，导致旧的软件包依赖出现问题。”</p>
+<p>然后按照<a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">docker官网教程</a>升级了docker到版本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker --version</span><br><span class="line"><span class="comment"># Docker version 20.10.11, build dea9396</span></span><br></pre></td></tr></table></figure>
+<p>按照<a href="https://docs.docker.com/compose/install/#upgrading" target="_blank" rel="noopener">教程</a>升级了docker-compose到版本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose --version</span><br><span class="line"><span class="comment"># docker-compose version 1.29.2, build 5becea4c</span></span><br></pre></td></tr></table></figure>
+<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><p>一切顺利，兴高采烈的去将所有之前的docker服务运行起来，运行也一切正常，无任何报错。</p>
+<p>但是，发现所有服务连不上了（我用的nginx做反向代理，转发请求道docker服务的），当时就很纳闷。</p>
+<p>于是找运维帮忙排查，经过一阵子折腾，发现docker IP和宿主机IP有冲突了，于是就修改docker网段，改完之后现象和之前一样，服务能正常启动，就是连不上。于是一个一个排查：</p>
+<ul>
+<li>关闭防火墙<code>systemctl stop firewalld</code></li>
+<li>IP没有冲突</li>
+<li>docker服务正常</li>
+<li>nginx服务正常</li>
+<li>路由正常</li>
+<li>…</li>
+</ul>
+<p>最终发现几个问题：</p>
+<ul>
+<li>宿主机无法ping通容器IP</li>
+<li>容器也无法ping通宿主机IP</li>
+<li>容器无法ping通docker0（Docker 服务默认会创建一个 docker0 网桥（其上有一个 docker0 内部接口），它在内核层连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到同一个物理网络）</li>
+<li>容器可以ping通另一个容器</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>经过2天问题的排查，直到找到<a href="https://blog.csdn.net/qq_36059826/article/details/106550332" target="_blank" rel="noopener">这篇文章</a>，接着找到<a href="https://blog.csdn.net/weixin_42288415/article/details/105366176" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>应该能够确定问题：docker 加载内核的bridge.ko 驱动异常，导致docker0 网卡无法转发数据包，也就是系统内核的网桥模块bridge.ko 加载失败导致的，一般情况下这种场景的确很少见。</p>
+<p>根据网上的说法是升级内核解决，于是我打算<a href="https://www.cnblogs.com/xzkzzz/p/9627658.html" target="_blank" rel="noopener">升级内核</a>，运行：<code>yum update</code>，发现error：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: initscripts conflicts with centos-release-7-2.1511.el7.centos.2.10.x86_64</span><br><span class="line"> You could try using --skip-broken to work around the problem</span><br><span class="line"> You could try running: rpm -Va --nofiles --nodigest</span><br></pre></td></tr></table></figure>
+<p>于是又网上查找<a href="https://blog.csdn.net/qq_40928073/article/details/84964782" target="_blank" rel="noopener">答案</a>，发现是yum的配置文件里面禁止更新内核：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/yum.conf</span><br><span class="line"><span class="comment"># 里面有这么一行：</span></span><br><span class="line">exclude=centos-release*</span><br></pre></td></tr></table></figure>
+<p>于是我注释掉排除升级内核的那一行，继续更新yum源仓库<code>yum update</code>就没有报错了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Installed:</span><br><span class="line">  kernel.x86_64 0:3.10.0-1160.49.1.el7</span><br><span class="line"></span><br><span class="line">Dependency Installed:</span><br><span class="line">  bc.x86_64 0:1.06.95-13.el7</span><br><span class="line"></span><br><span class="line">Updated:</span><br><span class="line">  centos-release.x86_64 0:7-9.2009.1.el7.centos              initscripts.x86_64 0:9.49.53-1.el7_9.1</span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
+<p>接下来就是按照<a href="https://www.cnblogs.com/xzkzzz/p/9627658.html" target="_blank" rel="noopener">这篇文章</a>一步步操作升级内核。</p>
+<p>升级完成，重启之后，发现yum报错：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cannot open logfile /var/<span class="built_in">log</span>/yum.log</span><br><span class="line">...</span><br><span class="line">[Errno 30] Read-only file system: <span class="string">'/var/cache/yum/x86_64/7/runner_gitlab-runner/repomd.xml.old.tmp'</span></span><br></pre></td></tr></table></figure>
+<p>解决方法<a href="https://qastack.cn/ubuntu/175739/how-do-i-remount-a-filesystem-as-read-write" target="_blank" rel="noopener">将文件系统重新挂载为读/写</a>：<code>mount -o remount, rw /</code>，注意“,”和“rw”之间有一个空格。</p>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 alpine 镜像创建一个容器，并进入容器</span></span><br><span class="line">docker run -it --name altest alpine sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从容器内 ping 宿主机ip</span></span><br><span class="line">ping 10.xx.xx.77 -c 3</span><br><span class="line"></span><br><span class="line">PING 10.xx.xx.77 (10.xx.xx.77): 56 data bytes</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=0 ttl=64 time=0.102 ms</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=1 ttl=64 time=0.097 ms</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=2 ttl=64 time=0.119 ms</span><br><span class="line"></span><br><span class="line">--- 10.xx.xx.77 ping statistics ---</span><br><span class="line">3 packets transmitted, 3 packets received, 0% packet loss</span><br><span class="line">round-trip min/avg/max = 0.097/0.106/0.119 ms</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker0 ip</span></span><br><span class="line">ifconfig docker0 | grep inet</span><br><span class="line">        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255</span><br><span class="line"></span><br><span class="line"><span class="comment"># ping docker0 也是ok的</span></span><br><span class="line">ping 172.117.0.1 -c 1</span><br><span class="line"></span><br><span class="line">PING 172.117.0.1 (172.117.0.1): 56 data bytes</span><br><span class="line">64 bytes from 172.117.0.1: seq=0 ttl=236 time=173.943 ms</span><br><span class="line"></span><br><span class="line">--- 172.117.0.1 ping statistics ---</span><br><span class="line">1 packets transmitted, 1 packets received, 0% packet loss</span><br><span class="line">round-trip min/avg/max = 173.943/173.943/173.943 ms</span><br></pre></td></tr></table></figure>
+<p>终于网络问题解决了😄。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>为了避免IP冲突，最后又重新<a href="https://cloud.tencent.com/developer/article/1470937" target="_blank" rel="noopener">参考这里</a>修改了docker网段。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // "default-address-pools": [&#123;</span><br><span class="line">  //    "base": "192.169.0.1/16",</span><br><span class="line">  //    "size": 24</span><br><span class="line">  //  &#125;],</span><br><span class="line">  "bip":"192.168.0.1/24",</span><br><span class="line">  "data-root": "/data/docker",</span><br><span class="line">  "registry-mirrors": ["https://xxxxx.mirror.aliyuncs.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题是解决了，但是作为一个前端的我来说，还是有太多知识盲区，期间遇到了太多阻碍，不过解决之后很踏实，对网络、子网掩码有了更深的认识；对docker的认识也更加深刻。</p>
+<p>在排查问题期间发现了一些好问题好文章：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/50514275/docker-bridge-conflicts-with-host-network/52374482" target="_blank" rel="noopener">Docker Bridge Conflicts with Host Network</a></li>
+<li><a href="https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/942176" target="_blank" rel="noopener">Configuring Docker to not use the 172.17.0.0 range</a></li>
+<li><a href="https://www.cnblogs.com/xiao987334176/p/10049844.html" target="_blank" rel="noopener">Docker容器跨主机通信之：直接路由方式</a></li>
+<li><a href="https://yeasy.gitbook.io/docker_practice/advanced_network/docker0" target="_blank" rel="noopener">配置 docker0 网桥</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/08/Linux命令使用记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/12/08/Linux命令使用记录/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Linux命令使用记录</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-08 11:33:46 / 修改时间：11:34:04" itemprop="dateCreated datePublished" datetime="2021-12-08T11:33:46+08:00">2021-12-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/12/08/Linux命令使用记录/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/12/08/Linux命令使用记录/" class="cy_cmt_count" data-xid="2021/12/08/Linux命令使用记录/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="journalctl"><a href="#journalctl" class="headerlink" title="journalctl"></a>journalctl</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/06/docker-install-update/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2178,410 +2534,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Gitlab CI/CD之.gitlab-ci.yml常用配置说明</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2021-07-23 14:29:45" itemprop="dateCreated datePublished" datetime="2021-07-23T14:29:45+08:00">2021-07-23</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-10-09 18:38:35" itemprop="dateModified" datetime="2021-10-09T18:38:35+08:00">2021-10-09</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" class="cy_cmt_count" data-xid="2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这里记录着我在配置<code>.gitlab-ci.yml</code>过程中碰到的常用的几个配置，对其进行分类解释说明，方便后续理解与查阅。</p>
-<p>我的一个完整的<code>.gitlab-ci.yml</code>示例：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># default stages: .pre build test deploy .post</span></span><br><span class="line"><span class="comment"># my stages: pre test build deploy post</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">pre</span> <span class="comment"># install</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span> <span class="comment"># lint, sonar_check, unit_test</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span> <span class="comment"># build, build_with_sentry</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">deploy</span> <span class="comment"># deploy_testing, deploy_production (upload to cdn or server)</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">post</span> <span class="comment"># clean if needed</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line"><span class="attr">  BUILD_DIR_FOR_TESTING:</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  BUILD_DIR_FOR_PRODUCTION:</span> <span class="string">dist</span></span><br><span class="line"><span class="attr">  URL_FOR_TESTING:</span> <span class="attr">https://test-demo.example.com/</span></span><br><span class="line"><span class="attr">  URL_FOR_PRODUCTION:</span> <span class="attr">https://demo.example.com/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span> <span class="meta">&amp;global_cache</span></span><br><span class="line"><span class="attr">  untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">  policy:</span> <span class="string">pull-push</span></span><br><span class="line"></span><br><span class="line"><span class="string">.common:</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">gr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: pre ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">push</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">      changes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package-lock.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">yarn.lock</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"merge_request_event"</span> <span class="string">&amp;&amp;</span> <span class="string">$CI_MERGE_REQUEST_TARGET_BRANCH_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">      changes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package-lock.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">yarn.lock</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: test ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lint:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 代码校验 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">lint</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"merge_request_event"</span> <span class="string">&amp;&amp;</span> <span class="string">$CI_MERGE_REQUEST_TARGET_BRANCH_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sonar_check:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== SONAR ANALYSIS ===="</span></span><br><span class="line"><span class="attr">  allow_failure:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: build ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_testing:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">pull</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 测试构建 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  artifacts:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-testing'</span></span><br><span class="line"><span class="attr">    expire_in:</span> <span class="number">1</span> <span class="string">week</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$BUILD_DIR_FOR_TESTING/</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_production:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">pull</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 生产构建 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  artifacts:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-production'</span></span><br><span class="line"><span class="attr">    expire_in:</span> <span class="number">1</span> <span class="string">week</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$BUILD_DIR_FOR_PRODUCTION/</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: deploy ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy_testing:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"测试环境代码发布"</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"发布成功："</span><span class="string">$URL_FOR_TESTING</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">testing</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$URL_FOR_TESTING</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy_production:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"生产环境代码发布"</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"发布成功："</span><span class="string">$URL_FOR_PRODUCTION</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">production</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$URL_FOR_PRODUCTION</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p><a href="/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/" title="Gitlab CI/CD之.gitlab-ci.yml复用类配置">Gitlab CI/CD之.gitlab-ci.yml复用类配置</a>：</p>
-<ul>
-<li>Anchors</li>
-<li>!reference</li>
-<li>extend</li>
-<li>include</li>
-</ul>
-<p>条件类配置：</p>
-<ul>
-<li>only</li>
-<li>except</li>
-<li>rules</li>
-<li>when</li>
-</ul>
-<p>脚本类配置：</p>
-<ul>
-<li>before_script</li>
-<li>script</li>
-<li>after_script</li>
-</ul>
-<p>缓存类配置：</p>
-<ul>
-<li>cache</li>
-<li>artifacts</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/18/Git工作流之派生工作流/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/05/18/Git工作流之派生工作流/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Git工作流之派生工作流</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2021-05-18 19:39:14" itemprop="dateCreated datePublished" datetime="2021-05-18T19:39:14+08:00">2021-05-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-09-23 09:52:25" itemprop="dateModified" datetime="2021-09-23T09:52:25+08:00">2021-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2021/05/18/Git工作流之派生工作流/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/18/Git工作流之派生工作流/" class="cy_cmt_count" data-xid="2021/05/18/Git工作流之派生工作流/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>派生（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>派生工作流最常见于公共开源项目中。</strong></p>
-<p>派生工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
-<p>派生工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
-<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>与其他 Git 工作流程一样，派生工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
-<p>相反，他们<code>派生（fork）</code>了官方仓库以在服务器上创建它的副本。此新副本将用作其个人公共存储库-不允许其他开发人员将其推送到其中，但他们可以从中进行更改（我们稍后将解释为什么这很重要）。在创建服务器端副本之后，开发人员执行，<code>git clone</code>将其副本复制到本地计算机上。就像其他工作流程一样，这是他们的私有开发环境。</p>
-<p>准备发布本地提交时，他们会将提交推送到自己的公共仓库中，而不是正式的仓库中。然后，他们向主仓库提交<code>合并请求（pull request）</code>，这使项目维护者知道已准备好要集成更新。如果所贡献的代码存在问题，则合并请求还可以用作方便的讨论线程。以下是此工作流程的分步示例。</p>
-<ol>
-<li>开发人员<code>派生（fork）</code>一个“官方”服务器端存储库（这将创建自己的服务器端副本）；</li>
-<li>新的服务器端副本将克隆（<code>git clone</code>）到其本地；</li>
-<li>“官方”存储库的 Git 远程路径添加到本地（<code>git remote add origin xxx</code>）；</li>
-<li>创建一个新的本地<code>功能分支（feature branch）</code>；</li>
-<li>开发人员在新功能分支上进行更改；</li>
-<li>将为更改创建新的提交（<code>git add &amp;&amp; git commit</code>）；</li>
-<li>分支被推送到开发人员自己的服务器端（副本）；</li>
-<li>开发人员打开从新分支到“官方”存储库的<code>合并请求（pull request）</code>；</li>
-<li>合并请求被批准用于合并，并被合并到原始服务器端存储库中。</li>
-</ol>
-<p>为了将完成的功能集成到官方代码库中，维护人员将贡献者的更改拉入他们的本地存储库，检查以确保它不会破坏项目，将其合并到其本地 master 分支中，然后将其推送到服务器上的官方存储库中。贡献现在是项目的一部分，其他开发人员应从官方存储库中提取信息以同步其本地存储库。</p>
-<p>重要的是要了解，Forking 工作流中“正式”存储库的概念仅仅是一个约定。实际上，使正式存储库如此正式的唯一原因是它是项目维护者的公共存储库。</p>
-<h2 id="派生与克隆（Forking-vs-cloning）"><a href="#派生与克隆（Forking-vs-cloning）" class="headerlink" title="派生与克隆（Forking vs cloning）"></a>派生与克隆（Forking vs cloning）</h2><p>需要注意：“派生”不是特殊操作。派生的存储库是使用标准的<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone" target="_blank" rel="noopener">git clone</a>命令创建的。派生的存储库通常是“服务器端克隆”，通常由诸如<a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">Gitlab </a>之类的第三方 Git 服务进行管理和托管。</p>
-<h2 id="在派生工作流中分支"><a href="#在派生工作流中分支" class="headerlink" title="在派生工作流中分支"></a>在派生工作流中分支</h2><p>就像<strong>功能分支工作流（Feature Branch Workflow）</strong>和 <strong>Gitflow 工作流</strong>一样，开发者仍然应该使用分支来隔离各个功能。唯一的区别是这些分支如何共享。在<strong>派生（Forking）工作流</strong>中，中央存储库被拉到另一个开发人员的本地存储库中，而在功能分支工作流和 Gitflow 工作流中，它们被推到官方存储库中。</p>
-<h2 id="派生存储库（Fork-a-repository）"><a href="#派生存储库（Fork-a-repository）" class="headerlink" title="派生存储库（Fork a repository）"></a>派生存储库（Fork a repository）</h2><p>派生（Forking）工作流项目的所有新开发人员都需要派生正式存储库。如前所述，派生只是一种标准<code>git clone</code>操作。可以通过 <code>SSH</code>进入服务器并运行<code>git clone</code>将其复制到服务器上的另一个位置来实现。流行的 Git 托管服务提供了自动执行此步骤的派生功能。</p>
-<h2 id="克隆派生仓库（Clone-your-fork）"><a href="#克隆派生仓库（Clone-your-fork）" class="headerlink" title="克隆派生仓库（Clone your fork）"></a>克隆派生仓库（Clone your fork）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://user@bitbucket.org/user/repo.git</span><br></pre></td></tr></table></figure>
-<h2 id="添加远程跟踪分支（Adding-a-remote）"><a href="#添加远程跟踪分支（Adding-a-remote）" class="headerlink" title="添加远程跟踪分支（Adding a remote）"></a>添加远程跟踪分支（Adding a remote）</h2><p>其他 Git 工作流程使用指向中央存储库的单个原始远程服务器，而 Forking 工作流则需要两个远程服务器-一个用于官方存储库，一个用于开发人员的个人服务器端存储库。虽然您可以随意调用这些远程服务器，但通常的约定是使用<code>origin</code>作为派生存储库的远程服务器（运行<code>git clone</code>时将自动创建该远程服务器），并使用上游作为正式存储库的远程服务器。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://bitbucket.org/maintainer/repo</span><br><span class="line"><span class="comment"># 身份验证</span></span><br><span class="line"><span class="comment"># git remote add upstream https://user@bitbucket.org/maintainer/repo.git</span></span><br></pre></td></tr></table></figure>
-<h2 id="在分支中工作：开发和推送更改（making-amp-pushing-changes）"><a href="#在分支中工作：开发和推送更改（making-amp-pushing-changes）" class="headerlink" title="在分支中工作：开发和推送更改（making &amp; pushing changes）"></a>在分支中工作：开发和推送更改（making &amp; pushing changes）</h2><p>就像其他 Git 工作流程中一样，他们可以在开发人员的本地化分支存储库副本中编辑代码，提交更改并创建分支：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature <span class="comment"># Edit some code</span></span><br><span class="line">git commit -a -m <span class="string">"Add first draft of some feature"</span></span><br></pre></td></tr></table></figure>
-<p>他们所做的所有更改都将完全是私有的，直到将其推送到其公共存储库中为止。而且，如果正式项目向前发展，他们可以使用<code>git pull</code>访问新的提交：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure>
-<p>由于开发人员应在专用功能分支中工作，因此通常应导致快速合并。</p>
-<h2 id="发起合并请求（Making-a-Pull-Request）"><a href="#发起合并请求（Making-a-Pull-Request）" class="headerlink" title="发起合并请求（Making a Pull Request）"></a>发起合并请求（Making a Pull Request）</h2><p><img src="/uploads/post/forking_01.svg" alt="pull request"></p>
-<p>一旦开发人员准备好共享他们的新功能，他们需要做两件事。首先，他们必须将其贡献推送到其公共存储库中，以使其他开发人员可以访问他们的贡献。他们的源远程跟踪库应该已经设置好了，所以他们要做的就是以下操作：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure>
-<p>其次，他们需要通知项目维护者他们想将其功能合并到官方代码库中。Git 托管服务（如 Bitbucket、Gitlab）提供了一个“<code>合并请求（pull request）</code>”按钮，该按钮会提交一个表单，要求您指定要合并到官方存储库中的分支。通常，您需要将<code>功能分支</code>集成到上游远程的<code>主分支</code>中。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>回顾一下，派生（Forking）工作流通常在公共开源项目中使用。派生是在项目存储库的服务器副本上执行的<code>git clone</code>操作。派生工作流通常与 Bitbucket 之类的 Git 托管服务结合使用。</p>
-<p>派生（forking）工作流的高级示例是：</p>
-<ol>
-<li>您想为托管在<code>bitbucket.org/userA/open-project</code>上的开源库做出贡献；</li>
-<li>使用 Bitbucket，您可以创建一个仓库的分支到<code>bitbucket.org/YourName/open-project</code>；</li>
-<li>在您的本地，您可以运行<code>git clone</code>以获取仓库的本地副本；</li>
-<li>您在本地仓库中创建一个新的<code>功能分支</code>；</li>
-<li>完成新功能的工作已完成，并运行<code>git commit</code>执行了保存更改的工作；</li>
-<li>然后，您将新<code>功能分支</code>推送到您的远程<code>派生仓库</code>中；</li>
-<li>使用 Bitbucket 您可以在<code>bitbucket.org/userA/open-project</code>上针对原始仓库对新分支发起一个<code>合并请求（pull request）</code>。</li>
-</ol>
-<p><strong>派生（forking）工作流</strong>可帮助项目的维护者打开存储库以接受任何开发人员的贡献，而不必手动管理每个贡献者的授权设置。这为维护人员提供了更多的“拉”式工作流程。<strong>派生（forking）工作流最常用于开放源代码项目</strong>，也可以应用于私有业务工作流，以从对合并到发行进行更权威的控制，这对于具有发布部署管理或严格发布周期的团队很有用。</p>
-<p>不确定哪种工作流程适合您？查看我们全面的<a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Git 工作流比较页面</a>。</p>
-<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow" target="_blank" rel="noopener">英文原文</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2631,7 +2583,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2680,7 +2632,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

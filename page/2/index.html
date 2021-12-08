@@ -374,6 +374,410 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">Gitlab CI/CD之.gitlab-ci.yml常用配置说明</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-07-23 14:29:45" itemprop="dateCreated datePublished" datetime="2021-07-23T14:29:45+08:00">2021-07-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-10-09 18:38:35" itemprop="dateModified" datetime="2021-10-09T18:38:35+08:00">2021-10-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" class="cy_cmt_count" data-xid="2021/07/23/Gitlab-CI-CD之-gitlab-ci-yml常用配置说明/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这里记录着我在配置<code>.gitlab-ci.yml</code>过程中碰到的常用的几个配置，对其进行分类解释说明，方便后续理解与查阅。</p>
+<p>我的一个完整的<code>.gitlab-ci.yml</code>示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># default stages: .pre build test deploy .post</span></span><br><span class="line"><span class="comment"># my stages: pre test build deploy post</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">pre</span> <span class="comment"># install</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span> <span class="comment"># lint, sonar_check, unit_test</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span> <span class="comment"># build, build_with_sentry</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">deploy</span> <span class="comment"># deploy_testing, deploy_production (upload to cdn or server)</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">post</span> <span class="comment"># clean if needed</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line"><span class="attr">  BUILD_DIR_FOR_TESTING:</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  BUILD_DIR_FOR_PRODUCTION:</span> <span class="string">dist</span></span><br><span class="line"><span class="attr">  URL_FOR_TESTING:</span> <span class="attr">https://test-demo.example.com/</span></span><br><span class="line"><span class="attr">  URL_FOR_PRODUCTION:</span> <span class="attr">https://demo.example.com/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span> <span class="meta">&amp;global_cache</span></span><br><span class="line"><span class="attr">  untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">  policy:</span> <span class="string">pull-push</span></span><br><span class="line"></span><br><span class="line"><span class="string">.common:</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">gr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: pre ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">push</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">      changes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package-lock.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">yarn.lock</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"merge_request_event"</span> <span class="string">&amp;&amp;</span> <span class="string">$CI_MERGE_REQUEST_TARGET_BRANCH_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">      changes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">package-lock.json</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">yarn.lock</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: test ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lint:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 代码校验 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">lint</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"merge_request_event"</span> <span class="string">&amp;&amp;</span> <span class="string">$CI_MERGE_REQUEST_TARGET_BRANCH_NAME</span> <span class="string">=~</span> <span class="string">/^dev$|^master$/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sonar_check:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== SONAR ANALYSIS ===="</span></span><br><span class="line"><span class="attr">  allow_failure:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: build ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_testing:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">pull</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 测试构建 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">pre</span></span><br><span class="line"><span class="attr">  artifacts:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-testing'</span></span><br><span class="line"><span class="attr">    expire_in:</span> <span class="number">1</span> <span class="string">week</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$BUILD_DIR_FOR_TESTING/</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_production:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">pull</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"==== 生产构建 ===="</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  artifacts:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'$CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-production'</span></span><br><span class="line"><span class="attr">    expire_in:</span> <span class="number">1</span> <span class="string">week</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$BUILD_DIR_FOR_PRODUCTION/</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############ stage: deploy ############</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy_testing:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"测试环境代码发布"</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"发布成功："</span><span class="string">$URL_FOR_TESTING</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">testing</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$URL_FOR_TESTING</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy_production:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.common</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"生产环境代码发布"</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"发布成功："</span><span class="string">$URL_FOR_PRODUCTION</span></span><br><span class="line"><span class="attr">  environment:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">production</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$URL_FOR_PRODUCTION</span></span><br><span class="line"><span class="attr">  when:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p><a href="/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/" title="Gitlab CI/CD之.gitlab-ci.yml复用类配置">Gitlab CI/CD之.gitlab-ci.yml复用类配置</a>：</p>
+<ul>
+<li>Anchors</li>
+<li>!reference</li>
+<li>extend</li>
+<li>include</li>
+</ul>
+<p>条件类配置：</p>
+<ul>
+<li>only</li>
+<li>except</li>
+<li>rules</li>
+<li>when</li>
+</ul>
+<p>脚本类配置：</p>
+<ul>
+<li>before_script</li>
+<li>script</li>
+<li>after_script</li>
+</ul>
+<p>缓存类配置：</p>
+<ul>
+<li>cache</li>
+<li>artifacts</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/18/Git工作流之派生工作流/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/05/18/Git工作流之派生工作流/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">Git工作流之派生工作流</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-05-18 19:39:14" itemprop="dateCreated datePublished" datetime="2021-05-18T19:39:14+08:00">2021-05-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-23 09:52:25" itemprop="dateModified" datetime="2021-09-23T09:52:25+08:00">2021-09-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/05/18/Git工作流之派生工作流/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/05/18/Git工作流之派生工作流/" class="cy_cmt_count" data-xid="2021/05/18/Git工作流之派生工作流/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>派生（forking）工作流</strong>与其他流行的 Git 工作流根本不同。它没有使用单个服务器端仓库作为“中央”代码库，而是为每个开发人员提供了自己的服务器端仓库。这意味着每个贡献者都是两个 Git 仓库：一个私有本地仓库和一个公共服务器端仓库。<strong>派生工作流最常见于公共开源项目中。</strong></p>
+<p>派生工作流的主要优点是可以集成贡献，而无需每个人都将其推送到单个中央仓库。开发人员将推送到他们自己的服务器端仓库，只有项目维护者才能推送到官方仓库。这使维护者可以接受任何开发人员的提交，而无需授予他们对官方代码库的写访问权限。</p>
+<p>派生工作流通常遵循基于《<a href="/2021/05/17/Git工作流之GitFlow工作流/" title="Git工作流之GitFlow工作流">Git工作流之GitFlow工作流</a>》的分支模型。这意味着将使用完整的功能分支来合并到原始项目维护者的仓库中。结果是一个分布式工作流，为大型组织团队（包括不受信任的第三方）提供灵活的方式来安全地进行协作。这也使其成为开源项目的理想工作流程。</p>
+<h2 id="运作原理"><a href="#运作原理" class="headerlink" title="运作原理"></a>运作原理</h2><p>与其他 Git 工作流程一样，派生工作流从存储在服务器上的官方公共仓库开始。但是，当新的开发人员希望开始从事该项目时，他们不会直接克隆官方仓库。</p>
+<p>相反，他们<code>派生（fork）</code>了官方仓库以在服务器上创建它的副本。此新副本将用作其个人公共存储库-不允许其他开发人员将其推送到其中，但他们可以从中进行更改（我们稍后将解释为什么这很重要）。在创建服务器端副本之后，开发人员执行，<code>git clone</code>将其副本复制到本地计算机上。就像其他工作流程一样，这是他们的私有开发环境。</p>
+<p>准备发布本地提交时，他们会将提交推送到自己的公共仓库中，而不是正式的仓库中。然后，他们向主仓库提交<code>合并请求（pull request）</code>，这使项目维护者知道已准备好要集成更新。如果所贡献的代码存在问题，则合并请求还可以用作方便的讨论线程。以下是此工作流程的分步示例。</p>
+<ol>
+<li>开发人员<code>派生（fork）</code>一个“官方”服务器端存储库（这将创建自己的服务器端副本）；</li>
+<li>新的服务器端副本将克隆（<code>git clone</code>）到其本地；</li>
+<li>“官方”存储库的 Git 远程路径添加到本地（<code>git remote add origin xxx</code>）；</li>
+<li>创建一个新的本地<code>功能分支（feature branch）</code>；</li>
+<li>开发人员在新功能分支上进行更改；</li>
+<li>将为更改创建新的提交（<code>git add &amp;&amp; git commit</code>）；</li>
+<li>分支被推送到开发人员自己的服务器端（副本）；</li>
+<li>开发人员打开从新分支到“官方”存储库的<code>合并请求（pull request）</code>；</li>
+<li>合并请求被批准用于合并，并被合并到原始服务器端存储库中。</li>
+</ol>
+<p>为了将完成的功能集成到官方代码库中，维护人员将贡献者的更改拉入他们的本地存储库，检查以确保它不会破坏项目，将其合并到其本地 master 分支中，然后将其推送到服务器上的官方存储库中。贡献现在是项目的一部分，其他开发人员应从官方存储库中提取信息以同步其本地存储库。</p>
+<p>重要的是要了解，Forking 工作流中“正式”存储库的概念仅仅是一个约定。实际上，使正式存储库如此正式的唯一原因是它是项目维护者的公共存储库。</p>
+<h2 id="派生与克隆（Forking-vs-cloning）"><a href="#派生与克隆（Forking-vs-cloning）" class="headerlink" title="派生与克隆（Forking vs cloning）"></a>派生与克隆（Forking vs cloning）</h2><p>需要注意：“派生”不是特殊操作。派生的存储库是使用标准的<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone" target="_blank" rel="noopener">git clone</a>命令创建的。派生的存储库通常是“服务器端克隆”，通常由诸如<a href="https://bitbucket.org/product" target="_blank" rel="noopener">Bitbucket</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">Gitlab </a>之类的第三方 Git 服务进行管理和托管。</p>
+<h2 id="在派生工作流中分支"><a href="#在派生工作流中分支" class="headerlink" title="在派生工作流中分支"></a>在派生工作流中分支</h2><p>就像<strong>功能分支工作流（Feature Branch Workflow）</strong>和 <strong>Gitflow 工作流</strong>一样，开发者仍然应该使用分支来隔离各个功能。唯一的区别是这些分支如何共享。在<strong>派生（Forking）工作流</strong>中，中央存储库被拉到另一个开发人员的本地存储库中，而在功能分支工作流和 Gitflow 工作流中，它们被推到官方存储库中。</p>
+<h2 id="派生存储库（Fork-a-repository）"><a href="#派生存储库（Fork-a-repository）" class="headerlink" title="派生存储库（Fork a repository）"></a>派生存储库（Fork a repository）</h2><p>派生（Forking）工作流项目的所有新开发人员都需要派生正式存储库。如前所述，派生只是一种标准<code>git clone</code>操作。可以通过 <code>SSH</code>进入服务器并运行<code>git clone</code>将其复制到服务器上的另一个位置来实现。流行的 Git 托管服务提供了自动执行此步骤的派生功能。</p>
+<h2 id="克隆派生仓库（Clone-your-fork）"><a href="#克隆派生仓库（Clone-your-fork）" class="headerlink" title="克隆派生仓库（Clone your fork）"></a>克隆派生仓库（Clone your fork）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://user@bitbucket.org/user/repo.git</span><br></pre></td></tr></table></figure>
+<h2 id="添加远程跟踪分支（Adding-a-remote）"><a href="#添加远程跟踪分支（Adding-a-remote）" class="headerlink" title="添加远程跟踪分支（Adding a remote）"></a>添加远程跟踪分支（Adding a remote）</h2><p>其他 Git 工作流程使用指向中央存储库的单个原始远程服务器，而 Forking 工作流则需要两个远程服务器-一个用于官方存储库，一个用于开发人员的个人服务器端存储库。虽然您可以随意调用这些远程服务器，但通常的约定是使用<code>origin</code>作为派生存储库的远程服务器（运行<code>git clone</code>时将自动创建该远程服务器），并使用上游作为正式存储库的远程服务器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://bitbucket.org/maintainer/repo</span><br><span class="line"><span class="comment"># 身份验证</span></span><br><span class="line"><span class="comment"># git remote add upstream https://user@bitbucket.org/maintainer/repo.git</span></span><br></pre></td></tr></table></figure>
+<h2 id="在分支中工作：开发和推送更改（making-amp-pushing-changes）"><a href="#在分支中工作：开发和推送更改（making-amp-pushing-changes）" class="headerlink" title="在分支中工作：开发和推送更改（making &amp; pushing changes）"></a>在分支中工作：开发和推送更改（making &amp; pushing changes）</h2><p>就像其他 Git 工作流程中一样，他们可以在开发人员的本地化分支存储库副本中编辑代码，提交更改并创建分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b some-feature <span class="comment"># Edit some code</span></span><br><span class="line">git commit -a -m <span class="string">"Add first draft of some feature"</span></span><br></pre></td></tr></table></figure>
+<p>他们所做的所有更改都将完全是私有的，直到将其推送到其公共存储库中为止。而且，如果正式项目向前发展，他们可以使用<code>git pull</code>访问新的提交：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure>
+<p>由于开发人员应在专用功能分支中工作，因此通常应导致快速合并。</p>
+<h2 id="发起合并请求（Making-a-Pull-Request）"><a href="#发起合并请求（Making-a-Pull-Request）" class="headerlink" title="发起合并请求（Making a Pull Request）"></a>发起合并请求（Making a Pull Request）</h2><p><img src="/uploads/post/forking_01.svg" alt="pull request"></p>
+<p>一旦开发人员准备好共享他们的新功能，他们需要做两件事。首先，他们必须将其贡献推送到其公共存储库中，以使其他开发人员可以访问他们的贡献。他们的源远程跟踪库应该已经设置好了，所以他们要做的就是以下操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure>
+<p>其次，他们需要通知项目维护者他们想将其功能合并到官方代码库中。Git 托管服务（如 Bitbucket、Gitlab）提供了一个“<code>合并请求（pull request）</code>”按钮，该按钮会提交一个表单，要求您指定要合并到官方存储库中的分支。通常，您需要将<code>功能分支</code>集成到上游远程的<code>主分支</code>中。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>回顾一下，派生（Forking）工作流通常在公共开源项目中使用。派生是在项目存储库的服务器副本上执行的<code>git clone</code>操作。派生工作流通常与 Bitbucket 之类的 Git 托管服务结合使用。</p>
+<p>派生（forking）工作流的高级示例是：</p>
+<ol>
+<li>您想为托管在<code>bitbucket.org/userA/open-project</code>上的开源库做出贡献；</li>
+<li>使用 Bitbucket，您可以创建一个仓库的分支到<code>bitbucket.org/YourName/open-project</code>；</li>
+<li>在您的本地，您可以运行<code>git clone</code>以获取仓库的本地副本；</li>
+<li>您在本地仓库中创建一个新的<code>功能分支</code>；</li>
+<li>完成新功能的工作已完成，并运行<code>git commit</code>执行了保存更改的工作；</li>
+<li>然后，您将新<code>功能分支</code>推送到您的远程<code>派生仓库</code>中；</li>
+<li>使用 Bitbucket 您可以在<code>bitbucket.org/userA/open-project</code>上针对原始仓库对新分支发起一个<code>合并请求（pull request）</code>。</li>
+</ol>
+<p><strong>派生（forking）工作流</strong>可帮助项目的维护者打开存储库以接受任何开发人员的贡献，而不必手动管理每个贡献者的授权设置。这为维护人员提供了更多的“拉”式工作流程。<strong>派生（forking）工作流最常用于开放源代码项目</strong>，也可以应用于私有业务工作流，以从对合并到发行进行更权威的控制，这对于具有发布部署管理或严格发布周期的团队很有用。</p>
+<p>不确定哪种工作流程适合您？查看我们全面的<a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Git 工作流比较页面</a>。</p>
+<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow" target="_blank" rel="noopener">英文原文</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/05/17/Git工作流之GitFlow工作流/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1983,404 +2387,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">记一次群晖NAS+电信光猫+华硕RT-AC86U路由+自定义域名+SSL证书的群晖NAS外网访问配置过程</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-10-25 16:31:12" itemprop="dateCreated datePublished" datetime="2020-10-25T16:31:12+08:00">2020-10-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-09-23 09:45:52" itemprop="dateModified" datetime="2021-09-23T09:45:52+08:00">2021-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" class="cy_cmt_count" data-xid="2020/10/25/记一次群晖NAS-电信光猫-华硕RT-AC86U路由-自定义域名-SSL证书的群晖NAS外网访问配置过程/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>自己买了一台群晖 NAS，一直想用自己购买的域名访问，虽然群晖官方提供了<a href="http://www.quickconnect.to/" target="_blank" rel="noopener">quickconnect</a>，但我经常出现访问不了的情况，所以最终还是决定自己折腾，折腾了很久，终于算是大功告成了。</p>
-<p>我的设备：</p>
-<ol>
-<li>群晖 DS218+</li>
-<li>电信光猫</li>
-<li>华硕 RT-AC86U 路由器</li>
-</ol>
-<p>大致思路：</p>
-<ol>
-<li>将光猫改成桥接模式，申请公网 IP（打 10000 修改、申请）</li>
-<li>路由器拨号联网（打 10000 获取账号密码）</li>
-<li>路由器配置端口转发</li>
-<li>用自己申请的域名绑定到公网 IP</li>
-<li>申请免费 SSL 证书，导入到群晖</li>
-</ol>
-<h2 id="光猫改桥接-申请公网-IP"><a href="#光猫改桥接-申请公网-IP" class="headerlink" title="光猫改桥接+申请公网 IP"></a>光猫改桥接+申请公网 IP</h2><ul>
-<li>方法一（推荐）：打 10000，将电信光猫改成桥接模式，并申请公网 IP。</li>
-<li>方法二：也可以看<a href="https://post.smzdm.com/p/aoo8klv6/" target="_blank" rel="noopener">这篇文章</a>或<a href="https://www.jianshu.com/p/ee61b0b58854" target="_blank" rel="noopener">这篇文章</a>的教程获取到超级管理员账号，然后登陆进去改路由器为桥接模式。教程大概就是：</li>
-</ul>
-<ol>
-<li>使用光猫背面的（普通用户）账号密码登录进光猫，然后访问链接<code>http://192.168.1.1/backupsettings.conf</code>下载光猫的配置文件；</li>
-<li><code>backupsettings.conf</code>配置文件中就包含了超级管理员<code>telecomadmin</code>的密码（可以搜索 password 查看到），宽带账号密码也在里面（搜 username）。</li>
-</ol>
-<p><img src="/uploads/post/telecomadmin.png" alt="telecomadmin"><br><img src="/uploads/post/username.png" alt="username"></p>
-<p>有了这些信息，光猫就可以自己修改了，不过我也折腾了很久，才将桥接改成功，并且路由器拨号上网也没问题了，当时遇到一个问题就是路由器 WAN IP 和百度搜索到的外网 IP 不一致，我以为自己没有公网 IP，所以后面又还原回去了，就打 10000 让电信师傅来帮忙弄了，电信师傅来弄的时候，最后也是一样的结果，路由器上 WAN IP 和百度上显示的外网 IP 不一致 😓（因为这是验证是否有公网 IP 的方法）：</p>
-<ul>
-<li>路由器 IP：<img src="/uploads/post/WANIP.png" alt="路由器IP"></li>
-<li>IP138 获取的 IP：<img src="/uploads/post/IP138IP.png" alt="IP138获取的IP"></li>
-</ul>
-<p>最终电信师傅回去之后微信告诉我，重启路由器就行了。重启路由后，果然成功了 😂。</p>
-<h2 id="路由器拨号上网-端口转发"><a href="#路由器拨号上网-端口转发" class="headerlink" title="路由器拨号上网+端口转发"></a>路由器拨号上网+端口转发</h2><p>桥接改好了，公网 IP 也有了，接下来就是路由器拨号上网、配置端口转发，登录路由器管理页面，然后找到外部网络 WAN：</p>
-<ul>
-<li>路由器拨号上网：<img src="/uploads/post/router_pppoe.png" alt="路由器拨号上网"></li>
-<li>端口转发配置：<img src="/uploads/post/config_transform_port.png" alt="端口转发配置"></li>
-</ul>
-<h2 id="域名解析-免费-SSL-证书申请-SSL-证书导入到群晖"><a href="#域名解析-免费-SSL-证书申请-SSL-证书导入到群晖" class="headerlink" title="域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖"></a>域名解析 + 免费 SSL 证书申请 + SSL 证书导入到群晖</h2><p>我的域名是在阿里云上购买的，最初用的是阿里云万网的 DNS，后面改成了腾讯云上 dnspod 的 DNS，所以我在 dnspod 进行了域名解析之后，又在腾讯云后台申请了免费 SSL 证书。</p>
-<ul>
-<li>域名解析：<img src="/uploads/post/jiexi.png" alt="域名解析"></li>
-<li>免费证书：<img src="/uploads/post/ssl.png" alt="免费证书"></li>
-</ul>
-<p>证书导入到群晖：</p>
-<p><img src="/uploads/post/upload_ssl.png" alt="证书导入"></p>
-<p>使用域名成功访问群晖：</p>
-<p><img src="/uploads/post/login.png" alt="访问群晖"></p>
-<p>至此，配置基本完成，后续慢慢摸索优化。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="post-title-link" itemprop="https://cleam.github.io/page/2/index.html">vue2和vue3的v-if与v-for优先级对比学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-10-09 14:07:12" itemprop="dateCreated datePublished" datetime="2020-10-09T14:07:12+08:00">2020-10-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-09-23 09:46:44" itemprop="dateModified" datetime="2021-09-23T09:46:44+08:00">2021-09-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" class="cy_cmt_count" data-xid="2020/10/09/vue2和vue3的v-if与v-for优先级对比学习/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Vue.js 中使用最多的两个指令就是 <code>v-if</code> 和 <code>v-for</code>，因此我们可能会想要同时使用它们。虽然官方不建议这样做，但有时确实是必须的，我们来了解下他们的工作方式：</p>
-<ul>
-<li>在 vue 2.x 中，在一个元素上同时使用 <code>v-if</code> 和 <code>v-for</code> 时，<code>v-for</code> 会优先作用。</li>
-<li>在 vue 3.x 中，<code>v-if</code> 总是优先于 <code>v-for</code> 生效。</li>
-</ul>
-<h2 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h2><p>接下来我们通过一个简单的示例来感知下，假设我们想要实现一个极简的 todoList 效果：</p>
-<p><img src="/uploads/post/todolist.png" alt="todolist"></p>
-<p>我们有一个 todoList：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> todoList = [</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">0</span>,</span><br><span class="line">    task: <span class="string">'吃饭'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">1</span>,</span><br><span class="line">    task: <span class="string">'睡觉'</span>,</span><br><span class="line">    done: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    id: <span class="number">2</span>,</span><br><span class="line">    task: <span class="string">'洗澡'</span>,</span><br><span class="line">    done: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...,</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>在 vue2 中，<code>v-for</code> 优先级高于 <code>v-if</code>，我们可以这样实现：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- vue2中，v-for优先级高于v-if --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todoList"</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在 vue3 中，由于 <code>v-if</code> 优先级要高于 <code>v-for</code>，所以不能像 vue2 那样将 <code>v-for</code> 和 <code>v-if</code> 放在同一个元素上，我们在 li 外面套一层用来执行 for 循环：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"!item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;todo: !item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-if</span>=<span class="string">"item.done"</span> <span class="attr">:class</span>=<span class="string">"&#123;finished: item.done&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>可以看出，如果在 vue2.x 中 <code>v-if</code> 和 <code>v-for</code> 在同一个元素上使用是无法直接在 vue3.x 中兼容的。</p>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>针对 <code>v-if</code> 和 <code>v-for</code> 的使用，其实官方是建议我们使用计算属性来处理的，这样既提高了性能，又可以兼容到 vue3.x，接下来我们看看计算属性实现方式：</p>
-<p>模板部分：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--  最佳实践  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in todos"</span> <span class="attr">class</span>=<span class="string">"todo"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"showFinished"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in finished"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span> <span class="attr">class</span>=<span class="string">"finished"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;item.task&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    show finished？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"showFinished"</span> /&gt;</span></span><br><span class="line">    &#123;&#123;showFinished ? 'yes' : 'no'&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>js 部分：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue3.x</span></span><br><span class="line">Vue.createApp(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;).mount(<span class="string">'#app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue2.x</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'Todo List'</span>,</span><br><span class="line">      showFinished: <span class="literal">true</span>,</span><br><span class="line">      list: todoList,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    finished() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">    todos() &#123;</span><br><span class="line">      <span class="keyword">return</span> todoList.filter(<span class="function">(<span class="params">t</span>) =&gt;</span> !t.done);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>示例效果：</p>
-<iframe id="cp_embed_rNLamWq" src="//codepen.io/cleam_lee/embed/rNLamWq?height=400&theme-id=dark&slug-hash=rNLamWq&default-tab=js,result" scrolling="no" frameborder="no" height="400" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>vue2.x 中<code>v-for</code>优先级高于<code>v-if</code>，vue3.x 相反；</li>
-<li>尽量避免在同一个元素上面同时使用<code>v-if</code>和<code>v-for</code>，建议使用计算属性替代。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2430,7 +2436,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2479,7 +2485,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

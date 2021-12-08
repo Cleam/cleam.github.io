@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。 升级简单看了下系统参数： 12345678$ uname -r# 3.10.0-327.22.2.el7.x86_64$ uname -a # Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 2">
+<meta name="keywords" content="运维,linux,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次docker容器和宿主机网络不通问题记录">
+<meta property="og:url" content="https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/index.html">
+<meta property="og:site_name" content="老李">
+<meta property="og:description" content="背景准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。 升级简单看了下系统参数： 12345678$ uname -r# 3.10.0-327.22.2.el7.x86_64$ uname -a # Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-12-08T12:52:30.444Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一次docker容器和宿主机网络不通问题记录">
+<meta name="twitter:description" content="背景准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。 升级简单看了下系统参数： 12345678$ uname -r# 3.10.0-327.22.2.el7.x86_64$ uname -a # Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 2">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="老李" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一次docker容器和宿主机网络不通问题记录 | 老李</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老李</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">~路漫漫其修远兮~</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一次docker容器和宿主机网络不通问题记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-08 18:21:11 / 修改时间：20:52:30" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/12/08/yum-update-Error-initscripts-conflicts-with/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/12/08/yum-update-Error-initscripts-conflicts-with/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。</p>
+<h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>简单看了下系统参数：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line"><span class="comment"># 3.10.0-327.22.2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line">$ uname -a </span><br><span class="line"><span class="comment"># Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line">$ cat /etc/redhat-release</span><br><span class="line"><span class="comment"># CentOS Linux release 7.2.1511 (Core)</span></span><br></pre></td></tr></table></figure>
+<p>貌似可以支持升级docker。</p>
+<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，期初我也不知道update和upgrade的区别）。</p>
+<p><a href="https://cloud.tencent.com/developer/article/1604418" target="_blank" rel="noopener">yum update和yum upgrade的真正区别</a>：“yum update和yum upgrade的功能都是一样的，都是将需要更新的package更新到源中的最新版。唯一不同的是，yum upgrade会删除旧版本的package，而yum update则会保留(obsoletes=0)。生产环境中建议使用yum update，防止因为替换，导致旧的软件包依赖出现问题。”</p>
+<p>然后按照<a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">docker官网教程</a>升级了docker到版本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker --version</span><br><span class="line"><span class="comment"># Docker version 20.10.11, build dea9396</span></span><br></pre></td></tr></table></figure>
+<p>按照<a href="https://docs.docker.com/compose/install/#upgrading" target="_blank" rel="noopener">教程</a>升级了docker-compose到版本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose --version</span><br><span class="line"><span class="comment"># docker-compose version 1.29.2, build 5becea4c</span></span><br></pre></td></tr></table></figure>
+<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><p>一切顺利，兴高采烈的去将所有之前的docker服务运行起来，运行也一切正常，无任何报错。</p>
+<p>但是，发现所有服务连不上了（我用的nginx做反向代理，转发请求道docker服务的），当时就很纳闷。</p>
+<p>于是找运维帮忙排查，经过一阵子折腾，发现docker IP和宿主机IP有冲突了，于是就修改docker网段，改完之后现象和之前一样，服务能正常启动，就是连不上。于是一个一个排查：</p>
+<ul>
+<li>关闭防火墙<code>systemctl stop firewalld</code></li>
+<li>IP没有冲突</li>
+<li>docker服务正常</li>
+<li>nginx服务正常</li>
+<li>路由正常</li>
+<li>…</li>
+</ul>
+<p>最终发现几个问题：</p>
+<ul>
+<li>宿主机无法ping通容器IP</li>
+<li>容器也无法ping通宿主机IP</li>
+<li>容器无法ping通docker0（Docker 服务默认会创建一个 docker0 网桥（其上有一个 docker0 内部接口），它在内核层连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到同一个物理网络）</li>
+<li>容器可以ping通另一个容器</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>经过2天问题的排查，直到找到<a href="https://blog.csdn.net/qq_36059826/article/details/106550332" target="_blank" rel="noopener">这篇文章</a>，接着找到<a href="https://blog.csdn.net/weixin_42288415/article/details/105366176" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>应该能够确定问题：docker 加载内核的bridge.ko 驱动异常，导致docker0 网卡无法转发数据包，也就是系统内核的网桥模块bridge.ko 加载失败导致的，一般情况下这种场景的确很少见。</p>
+<p>根据网上的说法是升级内核解决，于是我打算<a href="https://www.cnblogs.com/xzkzzz/p/9627658.html" target="_blank" rel="noopener">升级内核</a>，运行：<code>yum update</code>，发现error：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: initscripts conflicts with centos-release-7-2.1511.el7.centos.2.10.x86_64</span><br><span class="line"> You could try using --skip-broken to work around the problem</span><br><span class="line"> You could try running: rpm -Va --nofiles --nodigest</span><br></pre></td></tr></table></figure>
+<p>于是又网上查找<a href="https://blog.csdn.net/qq_40928073/article/details/84964782" target="_blank" rel="noopener">答案</a>，发现是yum的配置文件里面禁止更新内核：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/yum.conf</span><br><span class="line"><span class="comment"># 里面有这么一行：</span></span><br><span class="line">exclude=centos-release*</span><br></pre></td></tr></table></figure>
+<p>于是我注释掉排除升级内核的那一行，继续更新yum源仓库<code>yum update</code>就没有报错了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Installed:</span><br><span class="line">  kernel.x86_64 0:3.10.0-1160.49.1.el7</span><br><span class="line"></span><br><span class="line">Dependency Installed:</span><br><span class="line">  bc.x86_64 0:1.06.95-13.el7</span><br><span class="line"></span><br><span class="line">Updated:</span><br><span class="line">  centos-release.x86_64 0:7-9.2009.1.el7.centos              initscripts.x86_64 0:9.49.53-1.el7_9.1</span><br><span class="line"></span><br><span class="line">Complete!</span><br></pre></td></tr></table></figure>
+<p>接下来就是按照<a href="https://www.cnblogs.com/xzkzzz/p/9627658.html" target="_blank" rel="noopener">这篇文章</a>一步步操作升级内核。</p>
+<p>升级完成，重启之后，发现yum报错：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cannot open logfile /var/<span class="built_in">log</span>/yum.log</span><br><span class="line">...</span><br><span class="line">[Errno 30] Read-only file system: <span class="string">'/var/cache/yum/x86_64/7/runner_gitlab-runner/repomd.xml.old.tmp'</span></span><br></pre></td></tr></table></figure>
+<p>解决方法<a href="https://qastack.cn/ubuntu/175739/how-do-i-remount-a-filesystem-as-read-write" target="_blank" rel="noopener">将文件系统重新挂载为读/写</a>：<code>mount -o remount, rw /</code>，注意“,”和“rw”之间有一个空格。</p>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 alpine 镜像创建一个容器，并进入容器</span></span><br><span class="line">docker run -it --name altest alpine sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从容器内 ping 宿主机ip</span></span><br><span class="line">ping 10.xx.xx.77 -c 3</span><br><span class="line"></span><br><span class="line">PING 10.xx.xx.77 (10.xx.xx.77): 56 data bytes</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=0 ttl=64 time=0.102 ms</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=1 ttl=64 time=0.097 ms</span><br><span class="line">64 bytes from 10.xx.xx.77: seq=2 ttl=64 time=0.119 ms</span><br><span class="line"></span><br><span class="line">--- 10.xx.xx.77 ping statistics ---</span><br><span class="line">3 packets transmitted, 3 packets received, 0% packet loss</span><br><span class="line">round-trip min/avg/max = 0.097/0.106/0.119 ms</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker0 ip</span></span><br><span class="line">ifconfig docker0 | grep inet</span><br><span class="line">        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255</span><br><span class="line"></span><br><span class="line"><span class="comment"># ping docker0 也是ok的</span></span><br><span class="line">ping 172.117.0.1 -c 1</span><br><span class="line"></span><br><span class="line">PING 172.117.0.1 (172.117.0.1): 56 data bytes</span><br><span class="line">64 bytes from 172.117.0.1: seq=0 ttl=236 time=173.943 ms</span><br><span class="line"></span><br><span class="line">--- 172.117.0.1 ping statistics ---</span><br><span class="line">1 packets transmitted, 1 packets received, 0% packet loss</span><br><span class="line">round-trip min/avg/max = 173.943/173.943/173.943 ms</span><br></pre></td></tr></table></figure>
+<p>终于网络问题解决了😄。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>为了避免IP冲突，最后又重新<a href="https://cloud.tencent.com/developer/article/1470937" target="_blank" rel="noopener">参考这里</a>修改了docker网段。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // "default-address-pools": [&#123;</span><br><span class="line">  //    "base": "192.169.0.1/16",</span><br><span class="line">  //    "size": 24</span><br><span class="line">  //  &#125;],</span><br><span class="line">  "bip":"192.168.0.1/24",</span><br><span class="line">  "data-root": "/data/docker",</span><br><span class="line">  "registry-mirrors": ["https://xxxxx.mirror.aliyuncs.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题是解决了，但是作为一个前端的我来说，还是有太多知识盲区，期间遇到了太多阻碍，不过解决之后很踏实，对网络、子网掩码有了更深的认识；对docker的认识也更加深刻。</p>
+<p>在排查问题期间发现了一些好问题好文章：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/50514275/docker-bridge-conflicts-with-host-network/52374482" target="_blank" rel="noopener">Docker Bridge Conflicts with Host Network</a></li>
+<li><a href="https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/942176" target="_blank" rel="noopener">Configuring Docker to not use the 172.17.0.0 range</a></li>
+<li><a href="https://www.cnblogs.com/xiao987334176/p/10049844.html" target="_blank" rel="noopener">Docker容器跨主机通信之：直接路由方式</a></li>
+<li><a href="https://yeasy.gitbook.io/docker_practice/advanced_network/docker0" target="_blank" rel="noopener">配置 docker0 网桥</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_qdgcs_lzg.jpg" alt="Cleam Lee wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎扫一扫订阅！</div>
+</div>
+
+      </div>
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay2.jpg" alt="Cleam Lee 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay2.jpg" alt="Cleam Lee 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/08/Linux命令使用记录/" rel="next" title="Linux命令使用记录">
+                <i class="fa fa-chevron-left"></i> Linux命令使用记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Cleam Lee">
+            
+              <p class="site-author-name" itemprop="name">Cleam Lee</p>
+              <p class="site-description motion-element" itemprop="description">前端生涯记录总结</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/cleam" title="GitHub &rarr; https://github.com/cleam" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/Cleam_Lee" title="Twitter &rarr; https://twitter.com/Cleam_Lee" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/lzg2049" title="微博 &rarr; https://weibo.com/lzg2049" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级"><span class="nav-number">2.</span> <span class="nav-text">升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">3.</span> <span class="nav-text">出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终结果"><span class="nav-number">5.</span> <span class="nav-text">最终结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cleam Lee</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyv4uru5Q';
+      var conf = 'cbfe86faeb0f6ea874d7bbd322530037';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
