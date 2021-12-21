@@ -374,6 +374,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/21/docker镜像的导入和导出/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/12/21/docker镜像的导入和导出/" class="post-title-link" itemprop="https://cleam.github.io/index.html">docker镜像的导入和导出</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-21 17:21:54 / 修改时间：18:34:18" itemprop="dateCreated datePublished" datetime="2021-12-21T17:21:54+08:00">2021-12-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/12/21/docker镜像的导入和导出/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/12/21/docker镜像的导入和导出/" class="cy_cmt_count" data-xid="2021/12/21/docker镜像的导入和导出/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>在有些镜像包比较大，下载比较耗时的情况下，我们可以采用该方法，从一个网速（或代理）快的地方下载下来，再复制到其他地方去使用。</p>
+<h2 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save alpine:latest &gt; ./alpine_latest.tar</span><br></pre></td></tr></table></figure>
+<h2 id="远程复制"><a href="#远程复制" class="headerlink" title="远程复制"></a>远程复制</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定端口号复制</span></span><br><span class="line">scp -P &lt;端口号&gt; ./alpine_latest.tar root@xx.xx.xx.xx:/data/xxx </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定ssh秘钥复制</span></span><br><span class="line">scp -i <span class="string">"/Users/admin/.ssh/xxx"</span> * ubuntu@xx.xxx.xxx.xxx:/home/ubuntu/xxx</span><br></pre></td></tr></table></figure>
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker load &lt; ./alpine_latest.tar</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">docker load --input ./alpine_latest.tar</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/08/yum-update-Error-initscripts-conflicts-with/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -419,12 +575,24 @@
                 
               
 
-              <time title="创建时间：2021-12-08 18:21:11 / 修改时间：20:52:30" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
+              <time title="创建时间：2021-12-08 18:21:11" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-12-21 17:27:12" itemprop="dateModified" datetime="2021-12-21T17:27:12+08:00">2021-12-21</time>
               
             
           </span>
@@ -474,7 +642,7 @@
 <h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>简单看了下系统参数：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line"><span class="comment"># 3.10.0-327.22.2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line">$ uname -a </span><br><span class="line"><span class="comment"># Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line">$ cat /etc/redhat-release</span><br><span class="line"><span class="comment"># CentOS Linux release 7.2.1511 (Core)</span></span><br></pre></td></tr></table></figure>
 <p>貌似可以支持升级docker。</p>
-<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，期初我也不知道update和upgrade的区别）。</p>
+<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，起初我也不知道update和upgrade的区别）。</p>
 <p><a href="https://cloud.tencent.com/developer/article/1604418" target="_blank" rel="noopener">yum update和yum upgrade的真正区别</a>：“yum update和yum upgrade的功能都是一样的，都是将需要更新的package更新到源中的最新版。唯一不同的是，yum upgrade会删除旧版本的package，而yum update则会保留(obsoletes=0)。生产环境中建议使用yum update，防止因为替换，导致旧的软件包依赖出现问题。”</p>
 <p>然后按照<a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">docker官网教程</a>升级了docker到版本：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker --version</span><br><span class="line"><span class="comment"># Docker version 20.10.11, build dea9396</span></span><br></pre></td></tr></table></figure>
@@ -514,6 +682,9 @@
 <p>终于网络问题解决了😄。</p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>为了避免IP冲突，最后又重新<a href="https://cloud.tencent.com/developer/article/1470937" target="_blank" rel="noopener">参考这里</a>修改了docker网段。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // "default-address-pools": [&#123;</span><br><span class="line">  //    "base": "192.169.0.1/16",</span><br><span class="line">  //    "size": 24</span><br><span class="line">  //  &#125;],</span><br><span class="line">  "bip":"192.168.0.1/24",</span><br><span class="line">  "data-root": "/data/docker",</span><br><span class="line">  "registry-mirrors": ["https://xxxxx.mirror.aliyuncs.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于Docker的阿里云镜像加速，可以到<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">这里查看</a>（需登录账号），也可以看看<a href="https://developer.aliyun.com/article/29941" target="_blank" rel="noopener">这篇文章</a>。</p>
+</blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题是解决了，但是作为一个前端的我来说，还是有太多知识盲区，期间遇到了太多阻碍，不过解决之后很踏实，对网络、子网掩码有了更深的认识；对docker的认识也更加深刻。</p>
 <p>在排查问题期间发现了一些好问题好文章：</p>
 <ul>
@@ -2294,246 +2465,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cleam Lee">
-      <meta itemprop="description" content="前端生涯记录总结">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老李">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/" class="post-title-link" itemprop="https://cleam.github.io/index.html">Gitlab CI/CD之.gitlab-ci.yml复用类配置</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2021-09-10 16:56:44" itemprop="dateCreated datePublished" datetime="2021-09-10T16:56:44+08:00">2021-09-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-09-28 20:13:21" itemprop="dateModified" datetime="2021-09-28T20:13:21+08:00">2021-09-28</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/#SOHUCS" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span id="url::https://cleam.github.io/2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/" class="cy_cmt_count" data-xid="2021/09/10/Gitlab-CI-CD之-gitlab-ci-yml复用类配置/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </span></div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>复用类配置：</p>
-<h2 id="锚点-Anchors"><a href="#锚点-Anchors" class="headerlink" title="锚点 Anchors"></a>锚点 Anchors</h2><p>YAML 有一项名为“锚点”的功能，您可以使用它在整个文档中复制内容。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cache:</span> <span class="meta">&amp;global_cache</span> <span class="comment"># 定义一个全局缓存的锚点：global_cache</span></span><br><span class="line"><span class="attr">  untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">  policy:</span> <span class="string">pull-push</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span> <span class="comment"># 将global_cache合并到当前配置中</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">push</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lint:</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*global_cache</span> <span class="comment"># 将global_cache合并到当前配置中</span></span><br></pre></td></tr></table></figure>
-<p><code>&amp;</code>设置锚点的名称 (global_cache)，<code>&lt;&lt;</code>意思是“将给定的哈希对象合并到当前哈希对象中”，<code>*</code>包含命名锚点（如：<code>global_cache</code>）。</p>
-<p>这个例子的结果是：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cache:</span> <span class="meta">&amp;global_cache</span> <span class="comment"># 定义一个全局缓存的锚点：global_cache</span></span><br><span class="line"><span class="attr">  untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">  policy:</span> <span class="string">pull-push</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line"><span class="attr">    untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">  policy:</span> <span class="string">push</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lint:</span></span><br><span class="line"><span class="attr">  cache:</span></span><br><span class="line"><span class="attr">    untracked:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    key:</span> <span class="string">$CI_COMMIT_REF_SLUG</span></span><br><span class="line"><span class="attr">    paths:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="attr">    policy:</span> <span class="string">pull-push</span></span><br></pre></td></tr></table></figure>
-<p>你还可以使用锚点来定义两个服务集合。例如以下示例（<code>test:postgres</code>和<code>test:mysql</code>共享了<code>.job_template</code>的<code>script</code>，但是却有这不同的<code>services</code>，分别定义在了<code>.postgres_services</code>和<code>.mysql_services</code>中）：。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.job_template:</span> <span class="meta">&amp;job_configuration</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">test</span> <span class="string">project</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="string">.postgres_services:</span></span><br><span class="line"><span class="attr">  services:</span> <span class="meta">&amp;postgres_configuration</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"></span><br><span class="line"><span class="string">.mysql_services:</span></span><br><span class="line"><span class="attr">  services:</span> <span class="meta">&amp;mysql_configuration</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">mysql</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span><span class="attr">postgres:</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*job_configuration</span></span><br><span class="line"><span class="attr">  services:</span> <span class="meta">*postgres_configuration</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span><span class="attr">mysql:</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="meta">*job_configuration</span></span><br><span class="line"><span class="attr">  services:</span> <span class="meta">*mysql_configuration</span></span><br></pre></td></tr></table></figure>
-<p>得到的结果将是这样的：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.job_template:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">test</span> <span class="string">project</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="string">.postgres_services:</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"></span><br><span class="line"><span class="string">.mysql_services:</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">mysql</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span><span class="attr">postgres:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">test</span> <span class="string">project</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">postgres</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span><span class="attr">mysql:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">test</span> <span class="string">project</span></span><br><span class="line"><span class="attr">  services:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">mysql</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ruby</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dev</span></span><br></pre></td></tr></table></figure>
-<p>我们可以看到隐藏的作业被方便地用作模板，并且<code>tags: [postgres]</code> 覆盖了<code>tags: [dev]</code>。</p>
-<p><strong>更多锚点的使用示例</strong>：</p>
-<ol>
-<li>YAML 锚点用于脚本（script）中：</li>
-</ol>
-<p>您可以将 YAML 锚点与 <code>script</code>、<code>before_script</code> 和 <code>after_script</code> 结合使用，以便在多个作业中使用预定义的命令：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.some-script-before:</span> <span class="string">&amp;some-script-before</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">echo</span> <span class="string">"Execute this script first"</span></span><br><span class="line"></span><br><span class="line"><span class="string">.some-script:</span> <span class="string">&amp;some-script</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">echo</span> <span class="string">"Execute this script second"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">echo</span> <span class="string">"Execute this script too"</span></span><br><span class="line"></span><br><span class="line"><span class="string">.some-script-after:</span> <span class="string">&amp;some-script-after</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">echo</span> <span class="string">"Execute this script last"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">job1:</span></span><br><span class="line"><span class="attr">  before_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script-before</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"Execute something, for this job only"</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script-after</span></span><br><span class="line"></span><br><span class="line"><span class="attr">job2:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script-before</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"Execute something else, for this job only"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">*some-script-after</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>YAML 锚点用于用于变量（variables）中：</li>
-</ol>
-<p>使用带有变量的 YAML 锚点在多个作业中重复分配变量。当作业需要特定的变量块时，您还可以使用 YAML 锚点，否则会<strong>覆盖全局变量</strong>。以下示例显示如何覆盖 <code>GIT_STRATEGY</code> 变量而不影响 <code>SAMPLE_VARIABLE</code> 变量的使用：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># global variables</span></span><br><span class="line"><span class="attr">variables:</span> <span class="string">&amp;global-variables</span></span><br><span class="line"><span class="attr">  SAMPLE_VARIABLE:</span> <span class="string">sample_variable_value</span></span><br><span class="line"><span class="attr">  ANOTHER_SAMPLE_VARIABLE:</span> <span class="string">another_sample_variable_value</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># a job that must set the GIT_STRATEGY variable, yet depend on global variables</span></span><br><span class="line"><span class="attr">job_no_git_strategy:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">cleanup</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="string">*global-variables</span></span><br><span class="line"><span class="attr">    GIT_STRATEGY:</span> <span class="string">none</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">echo</span> <span class="string">$SAMPLE_VARIABLE</span></span><br></pre></td></tr></table></figure>
-<h2 id="引用-reference"><a href="#引用-reference" class="headerlink" title="引用 !reference"></a>引用 !reference</h2><p>使用 <code>!reference</code> 自定义 YAML 标签从其他作业部分选择关键字配置，并在当前部分中复用它。与锚点不同，您可以使用 <code>!reference</code> 标签来复用通过<code>include</code>引用的配置文件中的配置。</p>
-<p>在以下示例中，<code>test</code>作业中重复使用了来自两个不同位置的<code>script</code>和<code>after_script</code>：</p>
-<ul>
-<li><code>setup.yml</code>:</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.setup:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">creating</span> <span class="string">environment</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>.gitlab-ci.yml</code>:</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">include:</span></span><br><span class="line"><span class="attr">  - local:</span> <span class="string">setup.yml</span></span><br><span class="line"></span><br><span class="line"><span class="string">.teardown:</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">deleting</span> <span class="string">environment</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="type">!reference</span> <span class="string">[.setup,</span> <span class="string">script]</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">running</span> <span class="string">my</span> <span class="string">own</span> <span class="string">command</span></span><br><span class="line"><span class="attr">  after_script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="type">!reference</span> <span class="string">[.teardown,</span> <span class="string">after_script]</span></span><br></pre></td></tr></table></figure>
-<p>在以下示例中，<code>test-vars-1</code> 复用 <code>.vars</code> 中的所有变量，而 <code>test-vars-2</code> 选择特定变量并将其复用为新的 <code>MY_VAR</code> 变量。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.vars:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    URL:</span> <span class="string">'http://my-url.internal'</span></span><br><span class="line"><span class="attr">    IMPORTANT_VAR:</span> <span class="string">'the details'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test-vars-1:</span></span><br><span class="line"><span class="attr">  variables:</span> <span class="type">!reference</span> <span class="string">[.vars,</span> <span class="string">variables]</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">printenv</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test-vars-2:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    MY_VAR:</span> <span class="type">!reference</span> <span class="string">[.vars,</span> <span class="string">variables,</span> <span class="string">IMPORTANT_VAR]</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">printenv</span></span><br></pre></td></tr></table></figure>
-<p>您不能重复使用已经包含 <code>!reference</code> 标签的部分。仅支持一层嵌套。</p>
-<h2 id="继承-extend"><a href="#继承-extend" class="headerlink" title="继承 extend"></a>继承 extend</h2><p>使用<code>extends</code>来复用配置块。它是锚点（Anchor）的替代品，并且更加灵活和可读。您可以使用<code>extends</code>来复用通过<code>include</code>引用的配置文件中的配置。</p>
-<p>在以下示例中，<code>rspec</code> 作业使用 <code>.tests</code> 模板作业中的配置。GitLab：</p>
-<ul>
-<li>根据键执行反向深度合并。</li>
-<li>将 <code>.tests</code> 内容与 <code>rspec</code> 作业合并。</li>
-<li>不合并键的值。</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.tests:</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">rake</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    refs:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">branches</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rspec:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.tests</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">rake</span> <span class="string">rspec</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$RSPEC</span></span><br></pre></td></tr></table></figure>
-<p><code>rspec</code>作业的结果是：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rspec:</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">rake</span> <span class="string">rspec</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    refs:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">branches</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$RSPEC</span></span><br></pre></td></tr></table></figure>
-<p>本例中的 <code>.tests</code> 是一个<a href="https://docs.gitlab.com/ee/ci/yaml/#hide-jobs" target="_blank" rel="noopener">隐藏作业</a>，但也可以从常规作业中<code>extends</code>配置。</p>
-<p><code>extends</code> 支持多级继承。 虽然您可以使用多达 11 个级别，但是您应该避免使用 3 个以上的级别。以下示例具有两个继承级别：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.tests:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_PIPELINE_SOURCE</span> <span class="string">==</span> <span class="string">"push"</span></span><br><span class="line"></span><br><span class="line"><span class="string">.rspec:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.tests</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">rake</span> <span class="string">rspec</span></span><br><span class="line"></span><br><span class="line"><span class="string">rspec</span> <span class="number">1</span><span class="string">:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    RSPEC_SUITE:</span> <span class="string">'1'</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.rspec</span></span><br><span class="line"></span><br><span class="line"><span class="string">rspec</span> <span class="number">2</span><span class="string">:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    RSPEC_SUITE:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.rspec</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spinach:</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.tests</span></span><br><span class="line"><span class="attr">  script:</span> <span class="string">rake</span> <span class="string">spinach</span></span><br></pre></td></tr></table></figure>
-<p>在 GitLab 12.0 及更高版本中，也可以使用多个父项进行扩展（extends）。</p>
-<p>您可以用<code>extends</code>来合并哈希对象但是不能用来合并数组。用于合并的算法是“就近优先原则（closest scope wins）”，因此来自最后一个成员的键总是覆盖其他级别上定义的任何内容。例如：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.only-important:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    URL:</span> <span class="string">'http://my-url.internal'</span></span><br><span class="line"><span class="attr">    IMPORTANT_VAR:</span> <span class="string">'the details'</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_BRANCH</span> <span class="string">==</span> <span class="string">$CI_DEFAULT_BRANCH</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_BRANCH</span> <span class="string">==</span> <span class="string">"stable"</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">production</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"Hello world!"</span></span><br><span class="line"></span><br><span class="line"><span class="string">.in-docker:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    URL:</span> <span class="string">'http://docker-url.internal'</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">alpine</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rspec:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    GITLAB:</span> <span class="string">'is-awesome'</span></span><br><span class="line"><span class="attr">  extends:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">.only-important</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">.in-docker</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">rake</span> <span class="string">rspec</span></span><br></pre></td></tr></table></figure>
-<p>结果是：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rspec:</span></span><br><span class="line"><span class="attr">  variables:</span></span><br><span class="line"><span class="attr">    URL:</span> <span class="string">'http://docker-url.internal'</span></span><br><span class="line"><span class="attr">    IMPORTANT_VAR:</span> <span class="string">'the details'</span></span><br><span class="line"><span class="attr">    GITLAB:</span> <span class="string">'is-awesome'</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_BRANCH</span> <span class="string">==</span> <span class="string">$CI_DEFAULT_BRANCH</span></span><br><span class="line"><span class="attr">    - if:</span> <span class="string">$CI_COMMIT_BRANCH</span> <span class="string">==</span> <span class="string">"stable"</span></span><br><span class="line"><span class="attr">  tags:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">alpine</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">rake</span> <span class="string">rspec</span></span><br></pre></td></tr></table></figure>
-<p>在上面示例中：</p>
-<ul>
-<li><code>variables</code>合并，但 <code>URL：&quot;http://docker-url.internal&quot;</code> 覆盖 <code>URL：&quot;http://my-url.internal&quot;</code>。</li>
-<li><code>tags：[&#39;docker&#39;]</code> 覆盖<code>tags：[&#39;production&#39;]</code>。</li>
-<li><code>script</code>不会合并，但 <code>script: [&#39;rake rspec&#39;]</code> 会覆盖 <code>script: [&#39;echo &quot;Hello world!&quot;&#39;]</code>。 您可以使用锚点来合并数组。</li>
-</ul>
-<p><strong><code>extends</code> 和 <code>include</code>一起使用</strong>：要复用来自不同配置文件的配置，请结合<code>extends</code> 和 <code>include</code>。</p>
-<p>在下面的示例中，在 <code>included.yml</code> 文件中定义了一个脚本<code>script</code>。然后，在 <code>.gitlab-ci.yml</code> 文件中，使用<code>extends</code>继承了那部分脚本内容：</p>
-<ul>
-<li><code>included.yml</code>:</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">.template:</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">Hello!</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>.gitlab-ci.yml</code>:</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">include:</span> <span class="string">included.yml</span></span><br><span class="line"></span><br><span class="line"><span class="attr">useTemplate:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">alpine</span></span><br><span class="line"><span class="attr">  extends:</span> <span class="string">.template</span></span><br></pre></td></tr></table></figure>
-<h2 id="包含-include"><a href="#包含-include" class="headerlink" title="包含 include"></a>包含 include</h2><blockquote>
-<p>TODO…</p>
-</blockquote>
-<h2 id="总结-amp-注意"><a href="#总结-amp-注意" class="headerlink" title="总结&amp;注意"></a>总结&amp;注意</h2><p>使用<code>include</code>关键字时，您不能跨多个文件使用 YAML 锚点。锚点只在定义它们的文件中有效。要复用来自不同 YAML 文件的配置，请使用<code>引用（!reference）</code>或<code>继承（extends）</code>。</p>
-<blockquote>
-<p>英文原文：<br>锚点 Anchors：<a href="https://docs.gitlab.com/ee/ci/yaml/#anchors" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/#anchors</a><br>引用 !reference：<a href="https://docs.gitlab.com/ee/ci/yaml/#reference-tags" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/#reference-tags</a><br>继承 extend：<a href="https://docs.gitlab.com/ee/ci/yaml/#extends" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/#extends</a><br>包含 include：<a href="https://docs.gitlab.com/ee/ci/yaml/#include" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/#include</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2583,7 +2514,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

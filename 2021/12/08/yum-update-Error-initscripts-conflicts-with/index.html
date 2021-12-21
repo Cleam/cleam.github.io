@@ -149,7 +149,7 @@
 <meta property="og:site_name" content="老李">
 <meta property="og:description" content="背景准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。 升级简单看了下系统参数： 12345678$ uname -r# 3.10.0-327.22.2.el7.x86_64$ uname -a # Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-12-08T12:52:30.444Z">
+<meta property="og:updated_time" content="2021-12-21T09:27:12.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次docker容器和宿主机网络不通问题记录">
 <meta name="twitter:description" content="背景准备往docker容器中新增一个服务Z，但是服务Z对docker以及docker-compose版本要求较高，所以决定做一次升级。 升级简单看了下系统参数： 12345678$ uname -r# 3.10.0-327.22.2.el7.x86_64$ uname -a # Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 2">
@@ -416,12 +416,24 @@
                 
               
 
-              <time title="创建时间：2021-12-08 18:21:11 / 修改时间：20:52:30" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
+              <time title="创建时间：2021-12-08 18:21:11" itemprop="dateCreated datePublished" datetime="2021-12-08T18:21:11+08:00">2021-12-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-12-21 17:27:12" itemprop="dateModified" datetime="2021-12-21T17:27:12+08:00">2021-12-21</time>
               
             
           </span>
@@ -469,7 +481,7 @@
 <h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>简单看了下系统参数：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br><span class="line"><span class="comment"># 3.10.0-327.22.2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line">$ uname -a </span><br><span class="line"><span class="comment"># Linux 10-42-1-77 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line">$ cat /etc/redhat-release</span><br><span class="line"><span class="comment"># CentOS Linux release 7.2.1511 (Core)</span></span><br></pre></td></tr></table></figure>
 <p>貌似可以支持升级docker。</p>
-<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，期初我也不知道update和upgrade的区别）。</p>
+<p>于是我首先运行了<code>yum update</code> 或者 <code>yum upgrade</code>（具体是哪个，我不记得了。这中间可能有error，当时没在意，起初我也不知道update和upgrade的区别）。</p>
 <p><a href="https://cloud.tencent.com/developer/article/1604418" target="_blank" rel="noopener">yum update和yum upgrade的真正区别</a>：“yum update和yum upgrade的功能都是一样的，都是将需要更新的package更新到源中的最新版。唯一不同的是，yum upgrade会删除旧版本的package，而yum update则会保留(obsoletes=0)。生产环境中建议使用yum update，防止因为替换，导致旧的软件包依赖出现问题。”</p>
 <p>然后按照<a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">docker官网教程</a>升级了docker到版本：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker --version</span><br><span class="line"><span class="comment"># Docker version 20.10.11, build dea9396</span></span><br></pre></td></tr></table></figure>
@@ -509,6 +521,9 @@
 <p>终于网络问题解决了😄。</p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>为了避免IP冲突，最后又重新<a href="https://cloud.tencent.com/developer/article/1470937" target="_blank" rel="noopener">参考这里</a>修改了docker网段。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // "default-address-pools": [&#123;</span><br><span class="line">  //    "base": "192.169.0.1/16",</span><br><span class="line">  //    "size": 24</span><br><span class="line">  //  &#125;],</span><br><span class="line">  "bip":"192.168.0.1/24",</span><br><span class="line">  "data-root": "/data/docker",</span><br><span class="line">  "registry-mirrors": ["https://xxxxx.mirror.aliyuncs.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于Docker的阿里云镜像加速，可以到<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">这里查看</a>（需登录账号），也可以看看<a href="https://developer.aliyun.com/article/29941" target="_blank" rel="noopener">这篇文章</a>。</p>
+</blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题是解决了，但是作为一个前端的我来说，还是有太多知识盲区，期间遇到了太多阻碍，不过解决之后很踏实，对网络、子网掩码有了更深的认识；对docker的认识也更加深刻。</p>
 <p>在排查问题期间发现了一些好问题好文章：</p>
 <ul>
@@ -604,6 +619,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/12/21/docker镜像的导入和导出/" rel="prev" title="docker镜像的导入和导出">
+                docker镜像的导入和导出 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -679,7 +698,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

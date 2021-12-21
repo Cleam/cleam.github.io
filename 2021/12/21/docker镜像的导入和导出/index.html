@@ -141,17 +141,18 @@
 
 
 
-  <meta name="description" content="前端生涯记录总结">
-<meta name="keywords" content="html,css,javascript,webpack,vue,react,nodejs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="老李">
-<meta property="og:url" content="https://cleam.github.io/tags/sentry/index.html">
+  <meta name="description" content="背景介绍在有些镜像包比较大，下载比较耗时的情况下，我们可以采用该方法，从一个网速（或代理）快的地方下载下来，再复制到其他地方去使用。 导出1docker save alpine:latest &amp;gt; ./alpine_latest.tar 远程复制12345# 指定端口号复制scp -P &amp;lt;端口号&amp;gt; ./alpine_latest.tar root@xx.xx.xx.xx:/data">
+<meta name="keywords" content="运维,linux,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker镜像的导入和导出">
+<meta property="og:url" content="https://cleam.github.io/2021/12/21/docker镜像的导入和导出/index.html">
 <meta property="og:site_name" content="老李">
-<meta property="og:description" content="前端生涯记录总结">
+<meta property="og:description" content="背景介绍在有些镜像包比较大，下载比较耗时的情况下，我们可以采用该方法，从一个网速（或代理）快的地方下载下来，再复制到其他地方去使用。 导出1docker save alpine:latest &amp;gt; ./alpine_latest.tar 远程复制12345# 指定端口号复制scp -P &amp;lt;端口号&amp;gt; ./alpine_latest.tar root@xx.xx.xx.xx:/data">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-12-21T10:34:18.736Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="老李">
-<meta name="twitter:description" content="前端生涯记录总结">
+<meta name="twitter:title" content="docker镜像的导入和导出">
+<meta name="twitter:description" content="背景介绍在有些镜像包比较大，下载比较耗时的情况下，我们可以采用该方法，从一个网速（或代理）快的地方下载下来，再复制到其他地方去使用。 导出1docker save alpine:latest &amp;gt; ./alpine_latest.tar 远程复制12345# 指定端口号复制scp -P &amp;lt;端口号&amp;gt; ./alpine_latest.tar root@xx.xx.xx.xx:/data">
 
 
 
@@ -160,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="https://cleam.github.io/tags/sentry/">
+  <link rel="canonical" href="https://cleam.github.io/2021/12/21/docker镜像的导入和导出/">
 
 
 
@@ -170,7 +171,7 @@
   };
 </script>
 
-  <title>标签: sentry | 老李</title>
+  <title>docker镜像的导入和导出 | 老李</title>
   
 
 
@@ -219,7 +220,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -294,7 +295,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -333,25 +334,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -376,56 +358,232 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>sentry<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cleam.github.io/2021/12/21/docker镜像的导入和导出/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cleam Lee">
+      <meta itemprop="description" content="前端生涯记录总结">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老李">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2021/10/14/Web指标学习（about-Sentry）/" itemprop="url">
-              
-                <span itemprop="name">Web 指标学习（about Sentry）</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">docker镜像的导入和导出
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2021-10-14T10:47:08+08:00" content="2021-10-14">
-          10-14
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-21 17:21:54 / 修改时间：18:34:18" itemprop="dateCreated datePublished" datetime="2021-12-21T17:21:54+08:00">2021-12-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2021/12/21/docker镜像的导入和导出/#SOHUCS" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/12/21/docker镜像的导入和导出/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>在有些镜像包比较大，下载比较耗时的情况下，我们可以采用该方法，从一个网速（或代理）快的地方下载下来，再复制到其他地方去使用。</p>
+<h2 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save alpine:latest &gt; ./alpine_latest.tar</span><br></pre></td></tr></table></figure>
+<h2 id="远程复制"><a href="#远程复制" class="headerlink" title="远程复制"></a>远程复制</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定端口号复制</span></span><br><span class="line">scp -P &lt;端口号&gt; ./alpine_latest.tar root@xx.xx.xx.xx:/data/xxx </span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定ssh秘钥复制</span></span><br><span class="line">scp -i <span class="string">"/Users/admin/.ssh/xxx"</span> * ubuntu@xx.xxx.xxx.xxx:/home/ubuntu/xxx</span><br></pre></td></tr></table></figure>
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker load &lt; ./alpine_latest.tar</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">docker load --input ./alpine_latest.tar</span><br></pre></td></tr></table></figure>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_qdgcs_lzg.jpg" alt="Cleam Lee wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎扫一扫订阅！</div>
+</div>
+
+      </div>
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay2.jpg" alt="Cleam Lee 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay2.jpg" alt="Cleam Lee 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/08/yum-update-Error-initscripts-conflicts-with/" rel="next" title="一次docker容器和宿主机网络不通问题记录">
+                <i class="fa fa-chevron-left"></i> 一次docker容器和宿主机网络不通问题记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -446,8 +604,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -585,6 +752,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导出"><span class="nav-number">2.</span> <span class="nav-text">导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程复制"><span class="nav-number">3.</span> <span class="nav-text">远程复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入"><span class="nav-number">4.</span> <span class="nav-text">导入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -706,6 +889,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
 
   
 
